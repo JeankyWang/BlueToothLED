@@ -7,7 +7,6 @@
 //
 
 #import "JKBLEListViewController.h"
-#import "SVProgressHUD.h"
 
 
 @interface JKBLEListViewController ()
@@ -21,14 +20,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        if (IOS7) {
-            self.edgesForExtendedLayout = UIRectEdgeNone;
-        }
-    }
-
-
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     return self;
 }
 
@@ -40,14 +32,14 @@
     self.title = NSLocalizedString(@"Device List", @"");
     
     
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style:UITableViewStylePlain];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, FullScreen_width, FullScreen_height-64) style:UITableViewStylePlain];
 
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     
     
     [self.view addSubview:self.tableview];
-    CGRect frame = CGRectMake(30, 0, SCREEN_WIDTH-60, 44);
+    CGRect frame = CGRectMake(30, 0, FullScreen_width-60, 44);
     UIButton *unlock = [[UIButton alloc]initWithFrame:frame];
     [unlock setTitle:NSLocalizedString(@"Unbind", @"") forState:UIControlStateNormal];
     unlock.backgroundColor = [UIColor redColor];
@@ -56,7 +48,7 @@
     unlock.layer.cornerRadius = 5;
 
 
-    self.tableview.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+    self.tableview.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, FullScreen_width, 44)];
     [self.tableview.tableFooterView addSubview:unlock];
 
     
@@ -69,7 +61,6 @@
 - (void)unbindDevice
 {
     [self.delegate unbindByRow:_rowNum];
-    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Done", @"")];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -176,7 +167,6 @@
     NSString *perUUID = selectedPer.identifier.UUIDString;
     
     if (name == nil || [name isEqualToString:@""]) {
-        [SVProgressHUD showErrorWithStatus:@"noName"];
         return;
     }
     
