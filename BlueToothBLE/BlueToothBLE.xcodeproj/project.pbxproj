@@ -15,6 +15,8 @@
 		1039D58A1BE9B53600A56BE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1039D5881BE9B53600A56BE9 /* LaunchScreen.storyboard */; };
 		1039D5951BE9B53600A56BE9 /* BlueToothBLETests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D5941BE9B53600A56BE9 /* BlueToothBLETests.m */; };
 		1039D5A01BE9B53600A56BE9 /* BlueToothBLEUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D59F1BE9B53600A56BE9 /* BlueToothBLEUITests.m */; };
+		C6188EF81BEB09CC00E2F684 /* UIColor-Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EF51BEB09CC00E2F684 /* UIColor-Expanded.m */; };
+		C6188EF91BEB09CC00E2F684 /* UIImage+ColorAtPixel.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EF71BEB09CC00E2F684 /* UIImage+ColorAtPixel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,12 @@
 		1039D59B1BE9B53600A56BE9 /* BlueToothBLEUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlueToothBLEUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1039D59F1BE9B53600A56BE9 /* BlueToothBLEUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueToothBLEUITests.m; sourceTree = "<group>"; };
 		1039D5A11BE9B53600A56BE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6188EEE1BEB030D00E2F684 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		C6188EEF1BEB071300E2F684 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		C6188EF41BEB09CC00E2F684 /* UIColor-Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor-Expanded.h"; sourceTree = "<group>"; };
+		C6188EF51BEB09CC00E2F684 /* UIColor-Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor-Expanded.m"; sourceTree = "<group>"; };
+		C6188EF61BEB09CC00E2F684 /* UIImage+ColorAtPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ColorAtPixel.h"; sourceTree = "<group>"; };
+		C6188EF71BEB09CC00E2F684 /* UIImage+ColorAtPixel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ColorAtPixel.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +109,7 @@
 		1039D5791BE9B53600A56BE9 /* BlueToothBLE */ = {
 			isa = PBXGroup;
 			children = (
+				C6188EF21BEB095000E2F684 /* Libs */,
 				1039D57D1BE9B53600A56BE9 /* AppDelegate.h */,
 				1039D57E1BE9B53600A56BE9 /* AppDelegate.m */,
 				1039D5801BE9B53600A56BE9 /* ViewController.h */,
@@ -118,6 +127,8 @@
 			isa = PBXGroup;
 			children = (
 				1039D57B1BE9B53600A56BE9 /* main.m */,
+				C6188EEE1BEB030D00E2F684 /* PrefixHeader.pch */,
+				C6188EEF1BEB071300E2F684 /* common.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -138,6 +149,25 @@
 				1039D5A11BE9B53600A56BE9 /* Info.plist */,
 			);
 			path = BlueToothBLEUITests;
+			sourceTree = "<group>";
+		};
+		C6188EF21BEB095000E2F684 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				C6188EF31BEB09A400E2F684 /* Color */,
+			);
+			name = Libs;
+			sourceTree = "<group>";
+		};
+		C6188EF31BEB09A400E2F684 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				C6188EF41BEB09CC00E2F684 /* UIColor-Expanded.h */,
+				C6188EF51BEB09CC00E2F684 /* UIColor-Expanded.m */,
+				C6188EF61BEB09CC00E2F684 /* UIImage+ColorAtPixel.h */,
+				C6188EF71BEB09CC00E2F684 /* UIImage+ColorAtPixel.m */,
+			);
+			name = Color;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +300,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6188EF91BEB09CC00E2F684 /* UIImage+ColorAtPixel.m in Sources */,
+				C6188EF81BEB09CC00E2F684 /* UIColor-Expanded.m in Sources */,
 				1039D5821BE9B53600A56BE9 /* ViewController.m in Sources */,
 				1039D57F1BE9B53600A56BE9 /* AppDelegate.m in Sources */,
 				1039D57C1BE9B53600A56BE9 /* main.m in Sources */,
@@ -411,7 +443,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = BlueToothBLE/PrefixHeader.pch;
 				INFOPLIST_FILE = BlueToothBLE/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.beimu.BlueToothBLE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -422,7 +457,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = BlueToothBLE/PrefixHeader.pch;
 				INFOPLIST_FILE = BlueToothBLE/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.beimu.BlueToothBLE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -496,6 +534,7 @@
 				1039D5A61BE9B53600A56BE9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1039D5A71BE9B53600A56BE9 /* Build configuration list for PBXNativeTarget "BlueToothBLETests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +543,7 @@
 				1039D5A91BE9B53600A56BE9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1039D5AA1BE9B53600A56BE9 /* Build configuration list for PBXNativeTarget "BlueToothBLEUITests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +552,7 @@
 				1039D5AC1BE9B53600A56BE9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

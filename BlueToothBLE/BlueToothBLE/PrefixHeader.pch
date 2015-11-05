@@ -1,0 +1,20 @@
+//
+//  PrefixHeader.pch
+//  BlueToothBLE
+//
+//  Created by wzq on 15/11/5.
+//  Copyright (c) 2015年 beimu. All rights reserved.
+//
+
+#ifndef BlueToothBLE_PrefixHeader_pch
+#define BlueToothBLE_PrefixHeader_pch
+#import "common.h"
+
+#ifdef DEBUG
+# define DLog(format, ...) NSLog((@"[文件名:%s]" "[函数名:%s]" "[行号:%d]" format), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+# define DLog(...);
+#endif
+
+
+#endif
