@@ -17,6 +17,10 @@
 		1039D5A01BE9B53600A56BE9 /* BlueToothBLEUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D59F1BE9B53600A56BE9 /* BlueToothBLEUITests.m */; };
 		C6188EF81BEB09CC00E2F684 /* UIColor-Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EF51BEB09CC00E2F684 /* UIColor-Expanded.m */; };
 		C6188EF91BEB09CC00E2F684 /* UIImage+ColorAtPixel.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EF71BEB09CC00E2F684 /* UIImage+ColorAtPixel.m */; };
+		C6188F011BEB0B5800E2F684 /* JKBLEDeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EFC1BEB0B5800E2F684 /* JKBLEDeviceUtil.m */; };
+		C6188F021BEB0B5800E2F684 /* JKBLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EFE1BEB0B5800E2F684 /* JKBLEManager.m */; };
+		C6188F031BEB0B5800E2F684 /* JKBLEServicAndCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188F001BEB0B5800E2F684 /* JKBLEServicAndCharacter.m */; };
+		C6188F071BEB0E1100E2F684 /* JKBLEListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188F061BEB0E1100E2F684 /* JKBLEListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +63,15 @@
 		C6188EF51BEB09CC00E2F684 /* UIColor-Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor-Expanded.m"; sourceTree = "<group>"; };
 		C6188EF61BEB09CC00E2F684 /* UIImage+ColorAtPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ColorAtPixel.h"; sourceTree = "<group>"; };
 		C6188EF71BEB09CC00E2F684 /* UIImage+ColorAtPixel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ColorAtPixel.m"; sourceTree = "<group>"; };
+		C6188EFB1BEB0B5800E2F684 /* JKBLEDeviceUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKBLEDeviceUtil.h; sourceTree = "<group>"; };
+		C6188EFC1BEB0B5800E2F684 /* JKBLEDeviceUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKBLEDeviceUtil.m; sourceTree = "<group>"; };
+		C6188EFD1BEB0B5800E2F684 /* JKBLEManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKBLEManager.h; sourceTree = "<group>"; };
+		C6188EFE1BEB0B5800E2F684 /* JKBLEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKBLEManager.m; sourceTree = "<group>"; };
+		C6188EFF1BEB0B5800E2F684 /* JKBLEServicAndCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKBLEServicAndCharacter.h; sourceTree = "<group>"; };
+		C6188F001BEB0B5800E2F684 /* JKBLEServicAndCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKBLEServicAndCharacter.m; sourceTree = "<group>"; };
+		C6188F041BEB0C2400E2F684 /* JKLEDSendDataDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKLEDSendDataDelegate.h; sourceTree = "<group>"; };
+		C6188F051BEB0E1100E2F684 /* JKBLEListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKBLEListViewController.h; sourceTree = "<group>"; };
+		C6188F061BEB0E1100E2F684 /* JKBLEListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKBLEListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +122,11 @@
 		1039D5791BE9B53600A56BE9 /* BlueToothBLE */ = {
 			isa = PBXGroup;
 			children = (
+				C6188F0B1BEB0F4900E2F684 /* sence */,
 				C6188EF21BEB095000E2F684 /* Libs */,
+				C6188F0A1BEB0E8100E2F684 /* help */,
+				C6188F091BEB0E7700E2F684 /* control */,
+				C6188F081BEB0E5500E2F684 /* search */,
 				1039D57D1BE9B53600A56BE9 /* AppDelegate.h */,
 				1039D57E1BE9B53600A56BE9 /* AppDelegate.m */,
 				1039D5801BE9B53600A56BE9 /* ViewController.h */,
@@ -154,6 +171,7 @@
 		C6188EF21BEB095000E2F684 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				C6188EFA1BEB0B1500E2F684 /* BLE */,
 				C6188EF31BEB09A400E2F684 /* Color */,
 			);
 			name = Libs;
@@ -168,6 +186,50 @@
 				C6188EF71BEB09CC00E2F684 /* UIImage+ColorAtPixel.m */,
 			);
 			name = Color;
+			sourceTree = "<group>";
+		};
+		C6188EFA1BEB0B1500E2F684 /* BLE */ = {
+			isa = PBXGroup;
+			children = (
+				C6188F041BEB0C2400E2F684 /* JKLEDSendDataDelegate.h */,
+				C6188EFB1BEB0B5800E2F684 /* JKBLEDeviceUtil.h */,
+				C6188EFC1BEB0B5800E2F684 /* JKBLEDeviceUtil.m */,
+				C6188EFD1BEB0B5800E2F684 /* JKBLEManager.h */,
+				C6188EFE1BEB0B5800E2F684 /* JKBLEManager.m */,
+				C6188EFF1BEB0B5800E2F684 /* JKBLEServicAndCharacter.h */,
+				C6188F001BEB0B5800E2F684 /* JKBLEServicAndCharacter.m */,
+			);
+			name = BLE;
+			sourceTree = "<group>";
+		};
+		C6188F081BEB0E5500E2F684 /* search */ = {
+			isa = PBXGroup;
+			children = (
+				C6188F051BEB0E1100E2F684 /* JKBLEListViewController.h */,
+				C6188F061BEB0E1100E2F684 /* JKBLEListViewController.m */,
+			);
+			name = search;
+			sourceTree = "<group>";
+		};
+		C6188F091BEB0E7700E2F684 /* control */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = control;
+			sourceTree = "<group>";
+		};
+		C6188F0A1BEB0E8100E2F684 /* help */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = help;
+			sourceTree = "<group>";
+		};
+		C6188F0B1BEB0F4900E2F684 /* sence */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = sence;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,10 +362,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6188F031BEB0B5800E2F684 /* JKBLEServicAndCharacter.m in Sources */,
 				C6188EF91BEB09CC00E2F684 /* UIImage+ColorAtPixel.m in Sources */,
 				C6188EF81BEB09CC00E2F684 /* UIColor-Expanded.m in Sources */,
 				1039D5821BE9B53600A56BE9 /* ViewController.m in Sources */,
 				1039D57F1BE9B53600A56BE9 /* AppDelegate.m in Sources */,
+				C6188F011BEB0B5800E2F684 /* JKBLEDeviceUtil.m in Sources */,
+				C6188F021BEB0B5800E2F684 /* JKBLEManager.m in Sources */,
+				C6188F071BEB0E1100E2F684 /* JKBLEListViewController.m in Sources */,
 				1039D57C1BE9B53600A56BE9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
