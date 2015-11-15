@@ -20,6 +20,7 @@
 		C6188F011BEB0B5800E2F684 /* JKBLEDeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EFC1BEB0B5800E2F684 /* JKBLEDeviceUtil.m */; };
 		C6188F021BEB0B5800E2F684 /* JKBLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EFE1BEB0B5800E2F684 /* JKBLEManager.m */; };
 		C6188F031BEB0B5800E2F684 /* JKBLEServicAndCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188F001BEB0B5800E2F684 /* JKBLEServicAndCharacter.m */; };
+		C68A77B01BF8BB09001BBA04 /* JKTopLightView.m in Sources */ = {isa = PBXBuildFile; fileRef = C68A77AF1BF8BB09001BBA04 /* JKTopLightView.m */; settings = {ASSET_TAGS = (); }; };
 		C6EF30FA1BEB515800AF2133 /* JKScenesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EF30F91BEB515800AF2133 /* JKScenesViewController.m */; settings = {ASSET_TAGS = (); }; };
 		C6EF30FE1BEB569600AF2133 /* JKSceneViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EF30FD1BEB569600AF2133 /* JKSceneViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		C6EF31011BEB6C0500AF2133 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6EF31031BEB6C0500AF2133 /* Localizable.strings */; };
@@ -77,6 +78,8 @@
 		C6188EFF1BEB0B5800E2F684 /* JKBLEServicAndCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKBLEServicAndCharacter.h; sourceTree = "<group>"; };
 		C6188F001BEB0B5800E2F684 /* JKBLEServicAndCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKBLEServicAndCharacter.m; sourceTree = "<group>"; };
 		C6188F041BEB0C2400E2F684 /* JKLEDSendDataDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKLEDSendDataDelegate.h; sourceTree = "<group>"; };
+		C68A77AE1BF8BB09001BBA04 /* JKTopLightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKTopLightView.h; sourceTree = "<group>"; };
+		C68A77AF1BF8BB09001BBA04 /* JKTopLightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKTopLightView.m; sourceTree = "<group>"; };
 		C6EF30F81BEB515800AF2133 /* JKScenesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKScenesViewController.h; sourceTree = "<group>"; };
 		C6EF30F91BEB515800AF2133 /* JKScenesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKScenesViewController.m; sourceTree = "<group>"; };
 		C6EF30FC1BEB569600AF2133 /* JKSceneViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSceneViewCell.h; sourceTree = "<group>"; };
@@ -252,6 +255,7 @@
 		C6188F091BEB0E7700E2F684 /* Control */ = {
 			isa = PBXGroup;
 			children = (
+				C68A77AD1BF8BAAC001BBA04 /* view */,
 				C6FD4E251BF5DF1200B1D6C5 /* JKControlViewController.h */,
 				C6FD4E261BF5DF1200B1D6C5 /* JKControlViewController.m */,
 			);
@@ -263,6 +267,15 @@
 			children = (
 			);
 			name = Help;
+			sourceTree = "<group>";
+		};
+		C68A77AD1BF8BAAC001BBA04 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				C68A77AE1BF8BB09001BBA04 /* JKTopLightView.h */,
+				C68A77AF1BF8BB09001BBA04 /* JKTopLightView.m */,
+			);
+			name = view;
 			sourceTree = "<group>";
 		};
 		C6EF30FB1BEB563000AF2133 /* View */ = {
@@ -422,6 +435,7 @@
 				C6FD4E2A1BF5EADA00B1D6C5 /* JKGroupTableViewController.m in Sources */,
 				C6FD4E241BF5DDEB00B1D6C5 /* JKNavigationController.m in Sources */,
 				C6188F031BEB0B5800E2F684 /* JKBLEServicAndCharacter.m in Sources */,
+				C68A77B01BF8BB09001BBA04 /* JKTopLightView.m in Sources */,
 				C6188EF91BEB09CC00E2F684 /* UIImage+ColorAtPixel.m in Sources */,
 				C6188EF81BEB09CC00E2F684 /* UIColor-Expanded.m in Sources */,
 				1039D5821BE9B53600A56BE9 /* ViewController.m in Sources */,

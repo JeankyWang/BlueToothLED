@@ -7,6 +7,7 @@
 //
 
 #import "JKControlViewController.h"
+#import "JKTopLightView.h"
 
 @interface JKControlViewController ()
 
@@ -16,14 +17,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
     [self setupUI];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
 }
 
 - (void)setupUI
 {
     _mainScrollView.contentSize = CGSizeMake(FullScreen_width*3, FullScreen_height);
-    _mainScrollView.backgroundColor = [UIColor brownColor];
+    _mainScrollView.backgroundColor = [UIColor clearColor];
+    
+    JKTopLightView *top = [[JKTopLightView alloc] initWithFrame:CGRectMake(0, 0, FullScreen_width, 100)];
+    [_mainScrollView addSubview:top];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

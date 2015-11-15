@@ -37,17 +37,18 @@
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                             <animations/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2F-rR-A8r">
-                                            <rect key="frame" x="16" y="159" width="53" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2F-rR-A8r">
+                                            <rect key="frame" x="16" y="159" width="80" height="21"/>
                                             <animations/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5A-nT-8IN">
-                                            <rect key="frame" x="109" y="154" width="33" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5A-nT-8IN">
+                                            <rect key="frame" x="109" y="156" width="34" height="25"/>
                                             <animations/>
-                                            <state key="normal" title="?"/>
+                                            <state key="normal" image="light_on"/>
+                                            <state key="selected" image="light_off"/>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13V-nL-Mip">
                                             <rect key="frame" x="122" y="0.0" width="30" height="30"/>
@@ -194,7 +195,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="帮助" id="DLN-UJ-s9K"/>
+                    <tabBarItem key="tabBarItem" title="帮助" image="tab_help" selectedImage="tab_help_un" id="DLN-UJ-s9K"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ZI-Eu-tni" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -212,9 +213,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                         <color key="backgroundColor" red="0.44132024050267404" green="0.2637305599404432" blue="0.62493799603174605" alpha="0.0" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" red="0.99182969325968218" green="1" blue="0.9831473775162618" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.13333333333333333" green="0.10980392156862745" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="selectedImageTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
                         <segue destination="Qo8-Lu-vvi" kind="relationship" relationship="viewControllers" id="Vkb-Bi-WNl"/>
@@ -230,14 +231,14 @@
         <scene sceneID="SM1-mT-5sO">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qo8-Lu-vvi" customClass="JKNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="场景" id="j43-Dt-5Pl"/>
+                    <tabBarItem key="tabBarItem" title="场景" image="tab_scene" selectedImage="tab_scene" id="j43-Dt-5Pl"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="lfa-7a-1sU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="barTintColor" red="0.020239309785892629" green="0.78742972883597884" blue="0.62976912187840262" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.9776860120721641" green="1" blue="0.98336794653712956" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -255,7 +256,7 @@
         <scene sceneID="UUF-SD-dWq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UAq-x7-wJT" customClass="JKNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="设备" id="DJU-5t-6yN"/>
+                    <tabBarItem key="tabBarItem" title="设备" image="tab_device" selectedImage="tab_device_un" id="DJU-5t-6yN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6px-Yd-7z6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -272,4 +273,13 @@
             <point key="canvasLocation" x="-553" y="875"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="light_off" width="25" height="25"/>
+        <image name="light_on" width="25" height="25"/>
+        <image name="tab_device" width="30" height="30"/>
+        <image name="tab_device_un" width="30" height="30"/>
+        <image name="tab_help" width="30" height="30"/>
+        <image name="tab_help_un" width="30" height="30"/>
+        <image name="tab_scene" width="30" height="30"/>
+    </resources>
 </document>

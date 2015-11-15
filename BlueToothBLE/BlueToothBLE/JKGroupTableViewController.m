@@ -42,11 +42,9 @@
 {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
+    self.tableview.backgroundColor = [UIColor clearColor];
 
-    
-    
-    
     
     
     UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ble_bg"]];

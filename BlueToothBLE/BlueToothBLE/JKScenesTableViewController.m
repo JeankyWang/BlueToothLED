@@ -54,6 +54,10 @@
     return 10;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 65;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell_id"];
@@ -62,8 +66,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell_id"];
         cell.tintColor = [UIColor colorWithHexString:@"66cc99"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
-//        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.backgroundColor = [UIColor colorWithWhite:1 alpha:0.07];
+        cell.textLabel.textColor = [UIColor whiteColor];
     }
     
     if (indexPath.section == 0) {
