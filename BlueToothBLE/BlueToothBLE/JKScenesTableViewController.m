@@ -7,6 +7,7 @@
 //
 
 #import "JKScenesTableViewController.h"
+#import "JKNewScenceController.h"
 
 @interface JKScenesTableViewController ()
 
@@ -21,7 +22,16 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction)];
+    self.title = @"添加场景";
+    self.tableView.allowsMultipleSelection = YES;
+    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_bg"]];
+
+}
+
+- (void)doneAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,11 +43,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
+    if (section == 1) {
+        return 1;
+    }
     return 10;
 }
 
@@ -47,16 +60,54 @@
     
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell_id"];
+        cell.tintColor = [UIColor colorWithHexString:@"66cc99"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
+//        cell.textLabel.textColor = [UIColor whiteColor];
     }
     
-    cell.textLabel.text = @"1232323123";
+    if (indexPath.section == 0) {
+        cell.textLabel.text = @"1232323123";
+        cell.accessoryType = UITableViewCellAccessoryNone;
+
+    } else {
+        cell.textLabel.text = @"添加新场景";
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 20;
+    return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (indexPath.section == 0) {
+        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+    
+        JKNewScenceController *vc = [[JKNewScenceController alloc] initWithStyle:UITableViewStyleGrouped];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+
 }
 
 /*

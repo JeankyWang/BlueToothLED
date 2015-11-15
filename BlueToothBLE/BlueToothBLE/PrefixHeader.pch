@@ -9,6 +9,7 @@
 #ifndef BlueToothBLE_PrefixHeader_pch
 #define BlueToothBLE_PrefixHeader_pch
 #import "common.h"
+#import "UIColor-Expanded.h"
 
 #ifdef DEBUG
 # define DLog(format, ...) NSLog((@"[文件名:%s]" "[函数名:%s]" "[行号:%d]" format), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);

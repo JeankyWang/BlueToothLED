@@ -24,8 +24,8 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     // self.clearsSelectionOnViewWillAppear = NO;
     self.title = @"场景";
     [self setupLayout];
-//    self.navigationController.navigationBar.barTintColor = [UIColor yellowColor];
-//    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_bg"]];
+
 }
 
 - (void)setupLayout
