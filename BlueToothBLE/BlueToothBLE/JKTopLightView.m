@@ -34,12 +34,14 @@
         offOnBtn = [[UIButton alloc] initWithFrame:CGRectMake(18, CGRectGetHeight(frame)/2-12.5, 25, 25)];
         
         UIImageView *light = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"light_bg"]];
-        lightBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 28, 60)];
+        
+        lightBgView = [[UIView alloc] initWithFrame:CGRectMake(light.center.x - 22.5, light.center.y + 10 - 35, 45, 60)];
+        lightBgView.layer.cornerRadius = 20;
+
         lightBgView.backgroundColor = [UIColor redColor];
-        [lightBgView addSubview:light];
         
         [self addSubview:lightBgView];
-        
+        [self addSubview:light];
         
         conditionBtn = [[UIButton alloc] initWithFrame:CGRectMake(18, CGRectGetHeight(frame)/2-12.5, 25, 25)];
     }
