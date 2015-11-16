@@ -40,8 +40,8 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
 {
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake(FullScreen_width/2, 190);
-    layout.minimumInteritemSpacing = 0;
+    layout.itemSize = CGSizeMake(FullScreen_width/2-2, 190);
+    layout.minimumInteritemSpacing = 2;
     layout.minimumLineSpacing = 5;
     self.collectionView.collectionViewLayout = layout;
     
@@ -95,8 +95,9 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     JKSceneViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     cell.nameLabel.text = @"客厅";
-
-    
+    cell.themeImg.image = [UIImage imageNamed:@"scene_bedroom"];
+    cell.themeImg.layer.masksToBounds = YES;
+//    cell.backgroundColor = [UIColor redColor];
     return cell;
 }
 

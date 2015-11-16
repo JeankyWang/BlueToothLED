@@ -31,6 +31,12 @@
     
     NSMutableArray *currentDevice;
     NSInteger selectRowNo;
+    
+    
+    UIView *searchView;
+    UIView *rotationView;
+    
+    CGFloat angle;
 }
 @end
 
@@ -42,27 +48,59 @@
 {
     [super viewDidLoad];
 
+    [self setupData];
+    [self setupUI];
+    [self startAnimation];
+}
+
+- (void)setupUI
+{
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
     self.tableview.backgroundColor = [UIColor clearColor];
-
-    
-    
-    UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ble_bg"]];
-    img.frame = self.view.bounds;
-    [self.view addSubview:img];
-    
-    groupArray = [NSMutableArray arrayWithCapacity:0];
-    allDevices = [NSMutableArray arrayWithCapacity:0];
     [self.view bringSubviewToFront:self.tableview];
     self.tableview.tableFooterView = [UIView new];
     self.tableview.backgroundColor = [UIColor clearColor];
     CGRect frame = self.tableview.frame;
     frame.size.width = FullScreen_width;
     self.tableview.frame = frame;
+    
+    [self setupSearchingView];
+}
 
+- (void)setupSearchingView
+{
+
+    searchView = [[UIView alloc] initWithFrame:self.view.bounds];
+    searchView.backgroundColor = [UIColor clearColor];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"searching_img"]];
+    imageView.center = searchView.center;
+    [searchView addSubview:imageView];
+    rotationView = [[UIView alloc] initWithFrame:imageView.bounds];
+    
+    
+    UIImageView *spot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"searching_spot"]];
+    spot.frame = CGRectMake(CGRectGetWidth(imageView.frame)/2 - CGRectGetWidth(spot.frame)/2, 32, CGRectGetWidth(spot.frame), CGRectGetWidth(spot.frame));
+
+    [rotationView addSubview:spot];
+    [imageView addSubview:rotationView];
+    rotationView.transform = CGAffineTransformMakeRotation(1);
+    
+    
+    
+    [self.view addSubview:searchView];
+}
+
+- (void)setupData
+{
+    
+    groupArray = [NSMutableArray arrayWithCapacity:0];
+    allDevices = [NSMutableArray arrayWithCapacity:0];
+    
+    
     self.peripheralArray = [NSMutableArray new];
     connectedDevice = [NSMutableArray new];
-
+    
     [allDevices addObject:@{@"name":NSLocalizedString(@"ALL DEVICES", @""),@"device":_peripheralArray,@"status":@false}];
     NSMutableArray *mulDict = [[NSUserDefaults standardUserDefaults] objectForKey:_GROUP_KEY_];
     
@@ -74,8 +112,23 @@
     self.cbCentralMgr = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     writeChars = [NSMutableArray new];
     currentDevice = [NSMutableArray new];
+
+
 }
 
+
+- (void)startAnimation
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.005];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(startAnimation)];
+    angle += 3;
+    
+    rotationView.transform = CGAffineTransformMakeRotation(angle * (M_PI / 180.0f));
+    
+    [UIView commitAnimations];
+}
 
 - (void)timerTest
 {
@@ -89,29 +142,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [self.navigationController.navigationBar setHidden:NO];
-    [self.navigationController.toolbar setHidden:NO];
-    
 }
-
-
-- (IBAction)addGroup:(id)sender
-{
-
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Add new group", @"")
-                                                   message:@""
-                                                  delegate:self
-                                         cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
-                                         otherButtonTitles:NSLocalizedString(@"Confirm", @""), nil];
-    
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    UITextField *groupFiled = [alert textFieldAtIndex:0];
-    alert.tag = NO_NAME_ALERT_TAG;
-    groupFiled.placeholder = NSLocalizedString(@"Add new group", @"");
-    
-    [alert show];
-}
-
 
 - (IBAction)refreshBle:(id)sender
 {
@@ -285,33 +316,9 @@
     [_tableview reloadData];
 }
 
-- (void)controllLight:(UILongPressGestureRecognizer*)guesture
-{
-
-////    JKBLEListViewController *vc = [[JKBLEListViewController alloc]init];
-//    JKGroupTableViewCell *cell = (JKGroupTableViewCell* )guesture.view;
-//    int tag = cell.isOnSwitch.tag;
-////    vc.perArray = self.peripheralArray;
-////    vc.rowNum = tag;
-////    vc.delegate = self;
-////    vc.selectedDevices = [[groupArray objectAtIndex:tag] objectForKey:@"device"];
-//    
-//    JKRGBTabBarViewController *tabbar = [self.storyboard instantiateViewControllerWithIdentifier:@"JKRGBTabBarViewController"];
-//    NSMutableArray *array = [[groupArray objectAtIndex:tag] objectForKey:@"device"];
-//    
-//    tabbar.pers = array;
-//    [self.navigationController pushViewController:tabbar animated:YES];
-//    
-//    NSLog(@"进入调节模式");
-
-}
-
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
-
     return 2;
 }
 
@@ -327,7 +334,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70;
+    return 50;
 }
 
 
@@ -339,38 +346,13 @@
         
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"groupCell"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.backgroundColor = [UIColor colorWithWhite:1 alpha:0.3];
-//        cell.contentView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.3];
-        cell.imageView.image = [UIImage imageNamed:@"rgb_item1"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.textColor = [UIColor whiteColor];
         cell.detailTextLabel.textColor = [UIColor whiteColor];
     }
     
     
     NSDictionary *dict = [NSDictionary dictionary];
-    
-    if (indexPath.section == 0)
-    {
-//        cell.isOnSwitch.tag = -1;
-        dict = [allDevices objectAtIndex:indexPath.row];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d %@ %d %@",((NSArray*)[dict objectForKey:@"device"]).count,NSLocalizedString(@"devices", @""),connectedDevice.count,NSLocalizedString(@"connected", @"")];
-    }
-    else
-    {
-//        cell.isOnSwitch.tag = indexPath.row;
-        dict = [groupArray objectAtIndex:indexPath.row];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d %@",((NSArray*)[dict objectForKey:@"device"]).count,NSLocalizedString(@"devices", @"")];
-    }
-//    
     cell.textLabel.text = [dict objectForKey:@"name"];
-//    [cell.isOnSwitch setOn:[[dict objectForKey:@"status"] boolValue]];
-    
-    //为开关增事件
-//    [cell.isOnSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
-    
-    
-    
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(controllLight:)];
     longPress.minimumPressDuration = 2;
     [cell addGestureRecognizer:longPress];

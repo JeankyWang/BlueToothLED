@@ -10,7 +10,10 @@
 #import "JKNewScenceController.h"
 
 @interface JKScenesTableViewController ()
-
+{
+    NSArray *sceneImgArray;
+    NSArray *sceneNameArray;
+}
 @end
 
 @implementation JKScenesTableViewController
@@ -26,7 +29,13 @@
     self.title = @"添加场景";
     self.tableView.allowsMultipleSelection = YES;
     self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_bg"]];
+    [self setupData];
+}
 
+- (void)setupData
+{
+    sceneImgArray = @[@"scene_bedroom",@"scene_living",@"scene_wash",@"scene_kitchen",@"scene_dining",@"scene_office",@"scene_book",@"scene_entertenment",@"scene_sport"];
+    sceneNameArray =@[@"卧室",@"客厅",@"洗手间",@"厨房",@"餐厅",@"办公",@"书房",@"娱乐",@"运动"];
 }
 
 - (void)doneAction
@@ -51,7 +60,7 @@
     if (section == 1) {
         return 1;
     }
-    return 10;
+    return sceneNameArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -71,12 +80,22 @@
     }
     
     if (indexPath.section == 0) {
-        cell.textLabel.text = @"1232323123";
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.textLabel.text = sceneNameArray[indexPath.row];
+        
+        UIGraphicsBeginImageContext(CGSizeMake(50, 50));
+        UIImage *img = [UIImage imageNamed:sceneImgArray[indexPath.row]];
+        [img drawInRect:CGRectMake(0, 0, 50, 50)];
+        img = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        cell.imageView.image = img;
+        cell.imageView.layer.masksToBounds = YES;
+        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"uncheck_icon"]];
 
     } else {
         cell.textLabel.text = @"添加新场景";
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow_right"]];
+
     }
     
     return cell;
@@ -96,7 +115,7 @@
 {
     
     if (indexPath.section == 0) {
-        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+        [tableView cellForRowAtIndexPath:indexPath].accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checked_icon"]];
     } else {
     
         JKNewScenceController *vc = [[JKNewScenceController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -108,54 +127,10 @@
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
-    }
+        [tableView cellForRowAtIndexPath:indexPath].accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"uncheck_icon"]];    }
     
 
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
