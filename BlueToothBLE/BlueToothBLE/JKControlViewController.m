@@ -24,7 +24,7 @@
 
 - (void)setupUI
 {
-    _mainScrollView.contentSize = CGSizeMake(FullScreen_width*3, FullScreen_height);
+    _mainScrollView.contentSize = CGSizeMake(FullScreen_width*3, s);
     _mainScrollView.backgroundColor = [UIColor clearColor];
     
     JKTopLightView *top = [[JKTopLightView alloc] initWithFrame:CGRectMake(0, 0, FullScreen_width, 100)];
