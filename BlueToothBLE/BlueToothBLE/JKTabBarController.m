@@ -1,28 +1,34 @@
 //
-//  JKNavigationController.m
+//  JKTabBarController.m
 //  BlueToothBLE
 //
-//  Created by wzq on 15/11/13.
+//  Created by klicen on 15/11/16.
 //  Copyright © 2015年 beimu. All rights reserved.
 //
 
-#import "JKNavigationController.h"
+#import "JKTabBarController.h"
 
-@interface JKNavigationController ()
+@interface JKTabBarController ()
 
 @end
 
-@implementation JKNavigationController
+@implementation JKTabBarController
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.tabBar.tintColor = [UIColor whiteColor];
+    
+    //tabbar icon 按照原始颜色显示 good
+    for (UITabBarItem *item in self.tabBar.items) {
+        item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationBar.tintColor = [UIColor whiteColor];
-//    self.tabBarController.tabBar.selectedImageTintColor =[UIColor colorWithHexString:@"917b9f"];
-//
-//    self.tabBarController.tabBar.tintColor = [UIColor whiteColor]; //[UIColor colorWithHexString:@"917b9f"];
-    self.navigationBar.backIndicatorImage = [UIImage imageNamed:@"back_nav"];
-    self.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"back_nav"];
+
+  
 }
 
 - (void)didReceiveMemoryWarning {

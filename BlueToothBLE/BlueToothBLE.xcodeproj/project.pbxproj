@@ -15,20 +15,21 @@
 		1039D58A1BE9B53600A56BE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1039D5881BE9B53600A56BE9 /* LaunchScreen.storyboard */; };
 		1039D5951BE9B53600A56BE9 /* BlueToothBLETests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D5941BE9B53600A56BE9 /* BlueToothBLETests.m */; };
 		1039D5A01BE9B53600A56BE9 /* BlueToothBLEUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D59F1BE9B53600A56BE9 /* BlueToothBLEUITests.m */; };
+		10B08ABA1BF9741400A30654 /* JKTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B08AB91BF9741400A30654 /* JKTabBarController.m */; };
 		C6188EF81BEB09CC00E2F684 /* UIColor-Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EF51BEB09CC00E2F684 /* UIColor-Expanded.m */; };
 		C6188EF91BEB09CC00E2F684 /* UIImage+ColorAtPixel.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EF71BEB09CC00E2F684 /* UIImage+ColorAtPixel.m */; };
 		C6188F011BEB0B5800E2F684 /* JKBLEDeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EFC1BEB0B5800E2F684 /* JKBLEDeviceUtil.m */; };
 		C6188F021BEB0B5800E2F684 /* JKBLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EFE1BEB0B5800E2F684 /* JKBLEManager.m */; };
 		C6188F031BEB0B5800E2F684 /* JKBLEServicAndCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188F001BEB0B5800E2F684 /* JKBLEServicAndCharacter.m */; };
-		C68A77B01BF8BB09001BBA04 /* JKTopLightView.m in Sources */ = {isa = PBXBuildFile; fileRef = C68A77AF1BF8BB09001BBA04 /* JKTopLightView.m */; settings = {ASSET_TAGS = (); }; };
-		C6EF30FA1BEB515800AF2133 /* JKScenesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EF30F91BEB515800AF2133 /* JKScenesViewController.m */; settings = {ASSET_TAGS = (); }; };
-		C6EF30FE1BEB569600AF2133 /* JKSceneViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EF30FD1BEB569600AF2133 /* JKSceneViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		C68A77B01BF8BB09001BBA04 /* JKTopLightView.m in Sources */ = {isa = PBXBuildFile; fileRef = C68A77AF1BF8BB09001BBA04 /* JKTopLightView.m */; };
+		C6EF30FA1BEB515800AF2133 /* JKScenesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EF30F91BEB515800AF2133 /* JKScenesViewController.m */; };
+		C6EF30FE1BEB569600AF2133 /* JKSceneViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EF30FD1BEB569600AF2133 /* JKSceneViewCell.m */; };
 		C6EF31011BEB6C0500AF2133 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6EF31031BEB6C0500AF2133 /* Localizable.strings */; };
-		C6EF31081BEB7EE200AF2133 /* JKScenesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EF31071BEB7EE200AF2133 /* JKScenesTableViewController.m */; settings = {ASSET_TAGS = (); }; };
-		C6FD4E201BF5D51000B1D6C5 /* JKNewScenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E1F1BF5D51000B1D6C5 /* JKNewScenceController.m */; settings = {ASSET_TAGS = (); }; };
-		C6FD4E241BF5DDEB00B1D6C5 /* JKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E231BF5DDEB00B1D6C5 /* JKNavigationController.m */; settings = {ASSET_TAGS = (); }; };
-		C6FD4E271BF5DF1200B1D6C5 /* JKControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E261BF5DF1200B1D6C5 /* JKControlViewController.m */; settings = {ASSET_TAGS = (); }; };
-		C6FD4E2A1BF5EADA00B1D6C5 /* JKGroupTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E281BF5EADA00B1D6C5 /* JKGroupTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C6EF31081BEB7EE200AF2133 /* JKScenesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EF31071BEB7EE200AF2133 /* JKScenesTableViewController.m */; };
+		C6FD4E201BF5D51000B1D6C5 /* JKNewScenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E1F1BF5D51000B1D6C5 /* JKNewScenceController.m */; };
+		C6FD4E241BF5DDEB00B1D6C5 /* JKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E231BF5DDEB00B1D6C5 /* JKNavigationController.m */; };
+		C6FD4E271BF5DF1200B1D6C5 /* JKControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E261BF5DF1200B1D6C5 /* JKControlViewController.m */; };
+		C6FD4E2A1BF5EADA00B1D6C5 /* JKGroupTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E281BF5EADA00B1D6C5 /* JKGroupTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,8 @@
 		1039D59B1BE9B53600A56BE9 /* BlueToothBLEUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlueToothBLEUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1039D59F1BE9B53600A56BE9 /* BlueToothBLEUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueToothBLEUITests.m; sourceTree = "<group>"; };
 		1039D5A11BE9B53600A56BE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10B08AB81BF9741400A30654 /* JKTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKTabBarController.h; sourceTree = "<group>"; };
+		10B08AB91BF9741400A30654 /* JKTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKTabBarController.m; sourceTree = "<group>"; };
 		C6188EEE1BEB030D00E2F684 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		C6188EEF1BEB071300E2F684 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		C6188EF41BEB09CC00E2F684 /* UIColor-Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor-Expanded.h"; sourceTree = "<group>"; };
@@ -292,6 +295,8 @@
 			children = (
 				C6FD4E221BF5DDEB00B1D6C5 /* JKNavigationController.h */,
 				C6FD4E231BF5DDEB00B1D6C5 /* JKNavigationController.m */,
+				10B08AB81BF9741400A30654 /* JKTabBarController.h */,
+				10B08AB91BF9741400A30654 /* JKTabBarController.m */,
 			);
 			name = MyUIKit;
 			sourceTree = "<group>";
@@ -436,6 +441,7 @@
 				C6FD4E241BF5DDEB00B1D6C5 /* JKNavigationController.m in Sources */,
 				C6188F031BEB0B5800E2F684 /* JKBLEServicAndCharacter.m in Sources */,
 				C68A77B01BF8BB09001BBA04 /* JKTopLightView.m in Sources */,
+				10B08ABA1BF9741400A30654 /* JKTabBarController.m in Sources */,
 				C6188EF91BEB09CC00E2F684 /* UIImage+ColorAtPixel.m in Sources */,
 				C6188EF81BEB09CC00E2F684 /* UIColor-Expanded.m in Sources */,
 				1039D5821BE9B53600A56BE9 /* ViewController.m in Sources */,

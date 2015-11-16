@@ -26,6 +26,12 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_bg"]];
     [self setupLayout];
     
+    UIImage *newImage = [[UIImage imageNamed:@"tab_scene_un"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *newSelectedImage = [[UIImage imageNamed:@"tab_scene"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} forState:UIControlStateSelected];
+    [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor yellowColor]} forState:UIControlStateNormal];
+    self.tabBarItem.image = newImage;
+    self.tabBarItem.selectedImage = newSelectedImage;
 
 
 }
