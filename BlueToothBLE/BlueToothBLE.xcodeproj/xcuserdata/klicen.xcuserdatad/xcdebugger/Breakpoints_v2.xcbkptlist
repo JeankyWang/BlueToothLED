@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BlueToothBLE/JKControlViewController.m"
-            timestampString = "469433978.00989"
+            timestampString = "469443882.747254"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "-clickTitleBtn:"
             landmarkType = "5">
             <Locations>
@@ -26,11 +26,11 @@
                   moduleName = "BlueToothBLE"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/klicen/ios/BlueToothLED/BlueToothBLE/BlueToothBLE/JKControlViewController.m"
-                  timestampString = "469432809.65741"
+                  timestampString = "469437205.643542"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "89"
-                  endingLineNumber = "89"
+                  startingLineNumber = "100"
+                  endingLineNumber = "100"
                   offsetFromSymbolStart = "92">
                </Location>
                <Location
@@ -41,14 +41,30 @@
                   moduleName = "BlueToothBLE"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/klicen/ios/BlueToothLED/BlueToothBLE/BlueToothBLE/JKControlViewController.m"
-                  timestampString = "469432809.657679"
+                  timestampString = "469437205.643758"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "89"
-                  endingLineNumber = "89"
+                  startingLineNumber = "100"
+                  endingLineNumber = "100"
                   offsetFromSymbolStart = "112">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BlueToothBLE/JKColorPicker.m"
+            timestampString = "469440737.96925"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "-distanceToCenter:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

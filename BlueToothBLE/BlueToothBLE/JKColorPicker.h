@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface JKColorPicker : UIControl
-
+@property (nonatomic,strong) UIColor *selectColor;
 @end

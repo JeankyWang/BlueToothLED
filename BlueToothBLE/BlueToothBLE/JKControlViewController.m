@@ -53,12 +53,56 @@
     
     [self setupNavBtns];
     [self setupColorPicker];
+    [self setupBrightnessPicker];
+    [self setupColorTmpPicker];
 }
 
 - (void)setupColorPicker
 {
-    colorPicker = [[JKColorPicker alloc] initWithFrame:CGRectMake(FullScreen_width/2-91, CGRectGetMaxY(topLightView.frame)+20, 182, 182)];
-    [self.view addSubview:colorPicker];
+    UIView *pickBackView = [[UIView alloc] initWithFrame:CGRectMake(40, FullScreen_height/2 - 150, FullScreen_width - 80, FullScreen_width - 80)];
+    pickBackView.backgroundColor = [UIColor colorWithWhite:1 alpha:.27];
+    pickBackView.layer.cornerRadius = 20;
+    
+    
+    colorPicker = [[JKColorPicker alloc] initWithFrame:CGRectMake(0, 0, 182, 182)];
+    colorPicker.layer.cornerRadius = 91;
+    [colorPicker addTarget:self action:@selector(pickColor:) forControlEvents:UIControlEventAllEvents];
+    colorPicker.backgroundColor = [UIColor whiteColor];
+    colorPicker.center = CGPointMake(CGRectGetWidth(pickBackView.frame)/2, CGRectGetWidth(pickBackView.frame)/2);
+    [pickBackView addSubview:colorPicker];
+    
+    [_mainScrollView addSubview:pickBackView];
+}
+
+- (void)setupBrightnessPicker
+{
+    UIView *pickBackView = [[UIView alloc] initWithFrame:CGRectMake(40+FullScreen_width, FullScreen_height/2 - 150, FullScreen_width - 80, FullScreen_width - 80)];
+    pickBackView.backgroundColor = [UIColor colorWithWhite:1 alpha:.27];
+    pickBackView.layer.cornerRadius = 20;
+    [_mainScrollView addSubview:pickBackView];
+    
+    for (int i = 0; i < 12; i++) {
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(36 * (i%6) + 10, i/6 * 60 + 50, 36, 50)];
+        [button addTarget:self action:@selector(brightnessClick:) forControlEvents:UIControlEventTouchUpInside];
+        button.backgroundColor = [UIColor colorWithWhite:(1.0 - i / 12.0) alpha:1];
+        [pickBackView addSubview:button];
+    }
+
+}
+
+- (void)setupColorTmpPicker
+{
+    UIView *pickBackView = [[UIView alloc] initWithFrame:CGRectMake(40 + FullScreen_width*2, FullScreen_height/2 - 150, FullScreen_width - 80, FullScreen_width - 80)];
+    pickBackView.backgroundColor = [UIColor colorWithWhite:1 alpha:.27];
+    pickBackView.layer.cornerRadius = 20;
+    pickBackView.userInteractionEnabled = YES;
+    [_mainScrollView addSubview:pickBackView];
+    
+    
+    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(20, CGRectGetHeight(pickBackView.frame)/2 - 10, CGRectGetWidth(pickBackView.frame)-30, 40)];
+    [pickBackView addSubview:slider];
+    
+
 }
 
 - (void)setupNavBtns
@@ -113,7 +157,21 @@
 
 - (void)scrollToPage:(NSInteger)page
 {
-    _mainScrollView.contentOffset = CGPointMake(FullScreen_width * page, 0);
+    [UIView animateWithDuration:.25 animations:^{
+        _mainScrollView.contentOffset = CGPointMake(FullScreen_width * page, _mainScrollView.contentOffset.y);
+    }];
+    
+    
+}
+
+- (void)pickColor:(JKColorPicker *)picker
+{
+    [topLightView setLightColor:picker.selectColor];
+}
+
+- (void)brightnessClick:(UIButton *)button
+{
+    [topLightView setLightColor:button.backgroundColor];
 }
 
 - (void)showColorControl
