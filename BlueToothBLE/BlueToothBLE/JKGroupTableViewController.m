@@ -109,7 +109,7 @@
     }
     
     
-    self.cbCentralMgr = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+//    self.cbCentralMgr = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     writeChars = [NSMutableArray new];
     currentDevice = [NSMutableArray new];
 

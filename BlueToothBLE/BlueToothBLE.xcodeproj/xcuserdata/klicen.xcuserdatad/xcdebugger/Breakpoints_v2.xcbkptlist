@@ -9,14 +9,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BlueToothBLE/JKTabBarController.m"
-            timestampString = "469357919.505262"
+            filePath = "BlueToothBLE/JKControlViewController.m"
+            timestampString = "469433978.00989"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "-awakeFromNib"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "-clickTitleBtn:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[JKControlViewController clickTitleBtn:]"
+                  moduleName = "BlueToothBLE"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/klicen/ios/BlueToothLED/BlueToothBLE/BlueToothBLE/JKControlViewController.m"
+                  timestampString = "469432809.65741"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "92">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[JKControlViewController clickTitleBtn:]"
+                  moduleName = "BlueToothBLE"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/klicen/ios/BlueToothLED/BlueToothBLE/BlueToothBLE/JKControlViewController.m"
+                  timestampString = "469432809.657679"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "112">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

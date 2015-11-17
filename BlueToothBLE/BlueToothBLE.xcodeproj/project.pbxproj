@@ -16,6 +16,8 @@
 		1039D5951BE9B53600A56BE9 /* BlueToothBLETests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D5941BE9B53600A56BE9 /* BlueToothBLETests.m */; };
 		1039D5A01BE9B53600A56BE9 /* BlueToothBLEUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D59F1BE9B53600A56BE9 /* BlueToothBLEUITests.m */; };
 		10B08ABA1BF9741400A30654 /* JKTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B08AB91BF9741400A30654 /* JKTabBarController.m */; };
+		10B08ABD1BFABB9C00A30654 /* JKDefineMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B08ABC1BFABB9C00A30654 /* JKDefineMenuView.m */; };
+		10B08AC01BFAFD0C00A30654 /* JKColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B08ABF1BFAFD0C00A30654 /* JKColorPicker.m */; };
 		C6188EF81BEB09CC00E2F684 /* UIColor-Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EF51BEB09CC00E2F684 /* UIColor-Expanded.m */; };
 		C6188EF91BEB09CC00E2F684 /* UIImage+ColorAtPixel.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EF71BEB09CC00E2F684 /* UIImage+ColorAtPixel.m */; };
 		C6188F011BEB0B5800E2F684 /* JKBLEDeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EFC1BEB0B5800E2F684 /* JKBLEDeviceUtil.m */; };
@@ -68,6 +70,10 @@
 		1039D5A11BE9B53600A56BE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10B08AB81BF9741400A30654 /* JKTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKTabBarController.h; sourceTree = "<group>"; };
 		10B08AB91BF9741400A30654 /* JKTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKTabBarController.m; sourceTree = "<group>"; };
+		10B08ABB1BFABB9C00A30654 /* JKDefineMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDefineMenuView.h; sourceTree = "<group>"; };
+		10B08ABC1BFABB9C00A30654 /* JKDefineMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDefineMenuView.m; sourceTree = "<group>"; };
+		10B08ABE1BFAFD0C00A30654 /* JKColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKColorPicker.h; sourceTree = "<group>"; };
+		10B08ABF1BFAFD0C00A30654 /* JKColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKColorPicker.m; sourceTree = "<group>"; };
 		C6188EEE1BEB030D00E2F684 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		C6188EEF1BEB071300E2F684 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		C6188EF41BEB09CC00E2F684 /* UIColor-Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor-Expanded.h"; sourceTree = "<group>"; };
@@ -277,6 +283,8 @@
 			children = (
 				C68A77AE1BF8BB09001BBA04 /* JKTopLightView.h */,
 				C68A77AF1BF8BB09001BBA04 /* JKTopLightView.m */,
+				10B08ABE1BFAFD0C00A30654 /* JKColorPicker.h */,
+				10B08ABF1BFAFD0C00A30654 /* JKColorPicker.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -297,6 +305,8 @@
 				C6FD4E231BF5DDEB00B1D6C5 /* JKNavigationController.m */,
 				10B08AB81BF9741400A30654 /* JKTabBarController.h */,
 				10B08AB91BF9741400A30654 /* JKTabBarController.m */,
+				10B08ABB1BFABB9C00A30654 /* JKDefineMenuView.h */,
+				10B08ABC1BFABB9C00A30654 /* JKDefineMenuView.m */,
 			);
 			name = MyUIKit;
 			sourceTree = "<group>";
@@ -435,6 +445,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6EF30FE1BEB569600AF2133 /* JKSceneViewCell.m in Sources */,
+				10B08ABD1BFABB9C00A30654 /* JKDefineMenuView.m in Sources */,
 				C6EF31081BEB7EE200AF2133 /* JKScenesTableViewController.m in Sources */,
 				C6FD4E271BF5DF1200B1D6C5 /* JKControlViewController.m in Sources */,
 				C6FD4E2A1BF5EADA00B1D6C5 /* JKGroupTableViewController.m in Sources */,
@@ -447,6 +458,7 @@
 				1039D5821BE9B53600A56BE9 /* ViewController.m in Sources */,
 				1039D57F1BE9B53600A56BE9 /* AppDelegate.m in Sources */,
 				C6188F011BEB0B5800E2F684 /* JKBLEDeviceUtil.m in Sources */,
+				10B08AC01BFAFD0C00A30654 /* JKColorPicker.m in Sources */,
 				C6EF30FA1BEB515800AF2133 /* JKScenesViewController.m in Sources */,
 				C6188F021BEB0B5800E2F684 /* JKBLEManager.m in Sources */,
 				C6FD4E201BF5D51000B1D6C5 /* JKNewScenceController.m in Sources */,

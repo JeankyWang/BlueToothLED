@@ -16,5 +16,6 @@
 @end
 
 @interface JKTopLightView : UIView
+@property (nonatomic,assign) id<JKTopLightViewDelegate> delegate;
 - (void)setLightColor:(UIColor *)color;
 @end
