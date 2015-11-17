@@ -109,7 +109,7 @@
     }
     
     
-//    self.cbCentralMgr = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+    self.cbCentralMgr = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     writeChars = [NSMutableArray new];
     currentDevice = [NSMutableArray new];
 
@@ -125,18 +125,13 @@
     [UIView setAnimationDidStopSelector:@selector(startAnimation)];
     angle += 3;
     
+    if (angle == 360) {
+        angle = 0;
+    }
+    
     rotationView.transform = CGAffineTransformMakeRotation(angle * (M_PI / 180.0f));
     
     [UIView commitAnimations];
-}
-
-- (void)timerTest
-{
-    
-    
-    dispatch_sync(dispatch_get_global_queue(0, 0), ^{
-    NSLog(@"running--");
-    });
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -182,8 +177,6 @@
         [bc.bleDevice writeValue:data forCharacteristic:bc.character type:CBCharacteristicWriteWithoutResponse];
     }
    
-    
-    
     [_tableview reloadData];
 }
 
@@ -209,71 +202,6 @@
     }
 }
 
-- (void)switchChanged:(UISwitch *)switcher
-{
-    
-    int index = (int)switcher.tag;
-    
-    if (index != -1 && switcher.isOn)
-    {
-        NSMutableArray *dvs = [[groupArray objectAtIndex:index] objectForKey:@"device"];
-        if(dvs == nil || dvs.count == 0)
-        {
-            [switcher setOn:NO];
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"warning", @"") message:NSLocalizedString(@"Add device first", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") otherButtonTitles:NSLocalizedString(@"Confirm", @""), nil];
-            alert.tag = NO_DEVICE_ALERT_TAG;
-            selectRowNo = index;
-            [alert show];
-            return;
-        }
-
-    }
-    
-    
-    Byte cmd[] = {0x7e,0x04,0x04,switcher.isOn?0x01:0x00,0x00,0xff,0xff,0x0,0xef};
-    NSData *data = [NSData dataWithBytes:&cmd length:sizeof(cmd)];
-    
-    if(index == -1)
-    {
-        
-        for (JKBLEServicAndCharacter *bc in [JKBLEManager shareInstance].writeCharacteristic)
-        {
-            [bc.bleDevice writeValue:data forCharacteristic:bc.character type:CBCharacteristicWriteWithResponse];
-        }
-        
-        return;
-    }
-    
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[groupArray objectAtIndex:index]];
-    
-    [dict setObject:@(switcher.isOn) forKey:@"status"];
-     NSMutableArray *array = [[groupArray objectAtIndex:switcher.tag] objectForKey:@"device"];
-    
-    [currentDevice removeAllObjects];
-    
-    
-    for (NSString *str in array)
-    {
-        for (JKBLEServicAndCharacter *obj in [JKBLEManager shareInstance].writeCharacteristic)
-        {
-            if ([obj.bleDevice.identifier.UUIDString isEqualToString:str])
-            {
-//                [currentDevice addObject:obj];
-                [obj.bleDevice writeValue:data forCharacteristic:obj.character type:CBCharacteristicWriteWithResponse];
-                
-            }
-            
-            
-        }
-    }
-    
-    
-    
-
-    [self saveGroup];
-    
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -281,40 +209,6 @@
 }
 
 
-#pragma mark -JKBLEListSelectDelegate
-
-- (void)selectBLE:(CBPeripheral*)pers groupNo:(int)row
-{
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[groupArray objectAtIndex:row]];
-    NSMutableArray *devs = [NSMutableArray arrayWithArray:[dict objectForKey:@"device"]];
-    
-
-    if (![devs containsObject:pers.identifier.UUIDString])
-    {
-        [devs addObject:pers.identifier.UUIDString];
-    }
-    
-    [dict setObject:devs forKey:@"device"];
-    
-    [groupArray replaceObjectAtIndex:row withObject:dict];
-    
-    
-    [self saveGroup];
-    [_tableview reloadData];
-}
-
-- (void)unbindByRow:(NSInteger)row
-{
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[groupArray objectAtIndex:row]];
-    NSMutableArray *devs = [NSMutableArray arrayWithArray:[dict objectForKey:@"device"]];
-    [devs removeAllObjects];
-    [dict setObject:devs forKey:@"device"];
-    
-    [groupArray replaceObjectAtIndex:row withObject:dict];
-    
-    [self saveGroup];
-    [_tableview reloadData];
-}
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -350,12 +244,7 @@
         cell.detailTextLabel.textColor = [UIColor whiteColor];
     }
     
-    
-    NSDictionary *dict = [NSDictionary dictionary];
-    cell.textLabel.text = [dict objectForKey:@"name"];
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(controllLight:)];
-    longPress.minimumPressDuration = 2;
-    [cell addGestureRecognizer:longPress];
+
 
     
     return cell;
@@ -367,84 +256,7 @@
 
     if (_peripheralArray.count == 0)
     {
-//        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"No device", @"")];
         return;
-    }
-    
-    
-//    JKRGBTabBarViewController *tabbar = [self.storyboard instantiateViewControllerWithIdentifier:@"JKRGBTabBarViewController"];
-    
-    //开关状态判断跳转
-    if (indexPath.section == 0)
-    {
-        NSDictionary  *dict = [allDevices objectAtIndex:indexPath.row];
-        NSMutableArray *uuids = [NSMutableArray new];
-        for (CBPeripheral *per in _peripheralArray) {
-            if (![uuids containsObject:per.identifier.UUIDString]) {
-                [uuids addObject:per.identifier.UUIDString];
-            }
-        }
-//        tabbar.selectedSceneName = [dict objectForKey:@"name"];
-//        tabbar.pers = uuids;
-//        [self presentViewController:tabbar animated:YES completion:^{}];
-
-    }
-    else
-    {   //进入控制界面
-        selectRowNo = indexPath.row;
-//        
-//        if(IOS8)
-//        {
-//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-//            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Control", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//            //
-//            
-//                NSMutableArray *array = [[groupArray objectAtIndex:indexPath.row] objectForKey:@"device"];
-//                
-//                if(array == nil || array.count == 0)
-//                {
-//                    //没有设备进入设备列表进行添加
-//                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"No device", @"") message:NSLocalizedString(@"Add device first", @"") delegate:self cancelButtonTitle:    NSLocalizedString(@"Cancel", @"") otherButtonTitles:NSLocalizedString(@"Confirm", @""), nil];
-//                        alert.tag = NO_DEVICE_ALERT_TAG;
-//                    
-//                        [alert show];
-//                        return;
-//                    }
-//                NSDictionary  *dict = [groupArray objectAtIndex:indexPath.row];
-//                tabbar.selectedSceneName = [dict objectForKey:@"name"];
-//                tabbar.pers = array;
-//                [self presentViewController:tabbar animated:YES completion:^{}];
-//          
-//            }]];
-//        
-//            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Adddevice", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//            //
-//                if (indexPath.section == 0)
-//                {
-//                    return;
-//                }
-//                JKBLEListViewController *vc = [[JKBLEListViewController alloc]init];
-//                vc.perArray = self.peripheralArray;
-//                vc.rowNum = indexPath.row;
-//                vc.delegate = self;
-//                vc.selectedDevices = [[groupArray objectAtIndex:indexPath.row] objectForKey:@"device"];
-//            
-//                [self.navigationController pushViewController:vc animated:YES];
-//            }]];
-//            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-//            //
-//            }]];
-//        
-//            [self presentViewController:alert animated:YES completion:nil];
-//        }
-//        else
-        {
-        
-            UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Control", @""),NSLocalizedString(@"Adddevice", @""), nil];
-            [sheet showInView:self.view];
-        }
-        
-        
     }
     
     
@@ -472,129 +284,25 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
         [groupArray removeObjectAtIndex:indexPath.row];
-        [self saveGroup];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
         
         
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
 }
 
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    switch (section)
-    {
-        case 0:
-            return NSLocalizedString(@"System", @"");
-            break;
-        case 1:
-            return NSLocalizedString(@"User defined", @"");
-            break;
-        default:
-            break;
-    }
-    return nil;
-}
 
 #pragma mark -action sheet delegate
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    switch (buttonIndex) {
-        case 0:
-        {
-//            JKRGBTabBarViewController *tabbar = [self.storyboard instantiateViewControllerWithIdentifier:@"JKRGBTabBarViewController"];
-            NSMutableArray *array = [[groupArray objectAtIndex:selectRowNo] objectForKey:@"device"];
-            
-            if(array == nil || array.count == 0)
-            {
-                //没有设备进入设备列表进行添加
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"No device", @"") message:NSLocalizedString(@"Add device first", @"") delegate:self cancelButtonTitle:    NSLocalizedString(@"Cancel", @"") otherButtonTitles:NSLocalizedString(@"Confirm", @""), nil];
-                alert.tag = NO_DEVICE_ALERT_TAG;
-                
-                [alert show];
-                return;
-            }
-            NSDictionary  *dict = [groupArray objectAtIndex:selectRowNo];
-//            tabbar.selectedSceneName = [dict objectForKey:@"name"];
-//            tabbar.pers = array;
-//            [self presentViewController:tabbar animated:YES completion:^{}];
-        }
-            break;
-        case 1:
-            [self jumpToDeviceList:selectRowNo];
-            break;
-
-            
-        default:
-            break;
-    }
 }
 
 #pragma mark - alert delegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    switch (buttonIndex) {
-        case 0:
-
-            break;
-        case 1:
-        {
-            if(alertView.tag == NO_NAME_ALERT_TAG)
-            {
-                UITextField *groupFiled = [alertView textFieldAtIndex:0];
-                NSString *groupName = groupFiled.text;
-                
-                //组名不可为空
-                if (groupName == nil || [groupName isEqualToString:@""])
-                {
-//                    [SVProgressHUD showErrorWithStatus:@"组名不可为空"];
-                    break;
-                }
-                NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithObjectsAndKeys:groupName,@"name",[NSMutableArray new],@"device", @false,@"status",nil];
-                [groupArray addObject:dict];
-                [self saveGroup];
-                [self.tableview reloadData];
-                NSLog(@"添加分组");
-            }
-            else if (alertView.tag == NO_DEVICE_ALERT_TAG)
-            {
-                [self jumpToDeviceList:selectRowNo];
-            }
-            
-            
-            
-            
-        }
-            break;
-        default:
-            break;
-    }
 
 }
-
-- (void)jumpToDeviceList:(NSInteger)rowNo
-{
-//    JKBLEListViewController *vc = [[JKBLEListViewController alloc]init];
-//    vc.perArray = self.peripheralArray;
-//    vc.rowNum = rowNo;
-//    vc.delegate = self;
-//    vc.selectedDevices = [[groupArray objectAtIndex:rowNo] objectForKey:@"device"];
-//    
-//    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)saveGroup
-{
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    [def setObject:groupArray forKey:_GROUP_KEY_];
-
-}
-
 
 
 #pragma mark - coreblue delegate
@@ -606,7 +314,6 @@
             
         case CBCentralManagerStatePoweredOn:
             
-            // Scans for any peripheral
             
             [self.cbCentralMgr scanForPeripheralsWithServices: nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES }];
             
@@ -653,7 +360,6 @@
     
     NSLog(@"搜索服务");
     [peripheral discoverServices:@[[CBUUID UUIDWithString:@"FFE5"],[CBUUID UUIDWithString:WRITE_SERVICE_UUID_OTHER]]];
-//    [peripheral discoverServices:nil];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
@@ -684,14 +390,6 @@
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    NSLog(@"-----occur some error");
-    
-//    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"connect alert" message:@"" delegate:self cancelButtonTitle:@"dismiss" otherButtonTitles:nil, nil];
-//    [alert show];
-    
-    
-    
-    
     
     [self connectBLE];
     
@@ -744,8 +442,6 @@
 //    CBService *s = [peripheral.services objectAtIndex:(peripheral.services.count - 1)];
     
     if (!error) {
-//        NSLog(@"=========== %d Characteristics of service ",service.characteristics.count);
-//        NSLog(@"==========service:%@",service);
         NSLog(@"--------发现服务--------");
         for(CBCharacteristic *c in service.characteristics)
         {
@@ -803,20 +499,5 @@
         NSLog(@"发送数据成功");
     }
 }
-
-
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
