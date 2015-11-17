@@ -321,7 +321,7 @@
             
         default:
             
-            NSLog(@"Central Manager did change state");
+            DLog(@"可能不支持蓝牙");
             
             break;
             
@@ -340,7 +340,7 @@
         [_tableview reloadData];
     }
     
-    NSLog(@"%@",RSSI);
+    DLog(@"%@",RSSI);
         
 }
 
@@ -348,7 +348,7 @@
 
 {
     //链接成功后必须去发现service
-    NSLog(@"connected successfully:%d",peripheral.RSSI.intValue);
+    DLog(@"connected successfully:%d",peripheral.RSSI.intValue);
     
     if (![connectedDevice containsObject:peripheral])
     {
@@ -358,14 +358,14 @@
     
     peripheral.delegate = self;
     
-    NSLog(@"搜索服务");
+    DLog(@"搜索服务");
     [peripheral discoverServices:@[[CBUUID UUIDWithString:@"FFE5"],[CBUUID UUIDWithString:WRITE_SERVICE_UUID_OTHER]]];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     
-    NSLog(@"-----------断开");
+    DLog(@"-----------断开");
     if ([connectedDevice containsObject:peripheral])
     {
         [connectedDevice removeObject:peripheral];
@@ -382,7 +382,7 @@
     [self.tableview reloadData];
     
     [self connectBLE];
-    NSLog(@"-----------重新连接");
+    DLog(@"-----------重新连接");
     
     
 
@@ -403,7 +403,7 @@
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
 {
     
-    NSLog(@"RSSI 变化：%@",peripheral.RSSI);
+    DLog(@"RSSI 变化：%@",peripheral.RSSI);
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
@@ -411,13 +411,13 @@
 {
     if( peripheral.identifier == NULL  ) return;
     if (!error) {
-        NSLog(@"====%@\n",peripheral.name);
-        NSLog(@"=========== %l of service for UUID %@ ===========\n",peripheral.services.count,peripheral.identifier.UUIDString);
+        DLog(@"====%@\n",peripheral.name);
+        DLog(@"=========== %l of service for UUID %@ ===========\n",peripheral.services.count,peripheral.identifier.UUIDString);
         
         //一个外围设备含有多个服务通道，每个通道下面有多个特征，下一个通过服务通道寻找特征传输通道
         for (CBService *p in peripheral.services)
         {
-            NSLog(@"Service found with UUID: %@\n", p.UUID);
+            DLog(@"Service found with UUID: %@\n", p.UUID);
             
             //判断选择相应通道的服务uuid，如果是该通道就去发现该特征值
             if ([p.UUID isEqual:[CBUUID UUIDWithString:WRITE_SERVICE_UUID]]
@@ -431,7 +431,7 @@
         
     }
     else {
-        NSLog(@"Service discovery was unsuccessfull !\n");
+        DLog(@"Service discovery was unsuccessfull !\n");
     }
 }
 
@@ -442,11 +442,11 @@
 //    CBService *s = [peripheral.services objectAtIndex:(peripheral.services.count - 1)];
     
     if (!error) {
-        NSLog(@"--------发现服务--------");
+        DLog(@"--------发现服务--------");
         for(CBCharacteristic *c in service.characteristics)
         {
             
-            NSLog(@"cbcharacteristic =%@",c);
+            DLog(@"cbcharacteristic =%@",c);
             
             
             JKBLEServicAndCharacter *bAndc = [[JKBLEServicAndCharacter alloc]init];
@@ -466,12 +466,12 @@
             }
             
         }
-        NSLog(@"===服务添加成功===\n");
+        DLog(@"===服务添加成功===\n");
         
         
     }
     else {
-        NSLog(@"Characteristic discorvery unsuccessfull !\n");
+        DLog(@"Characteristic discorvery unsuccessfull !\n");
         
     }
     
@@ -493,10 +493,10 @@
 -(void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
     if (error) {
-        NSLog(@"=======%@",error.userInfo);
+        DLog(@"=======%@",error.userInfo);
     }else{
         
-        NSLog(@"发送数据成功");
+        DLog(@"发送数据成功");
     }
 }
 

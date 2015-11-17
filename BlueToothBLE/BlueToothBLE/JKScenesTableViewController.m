@@ -94,6 +94,7 @@
 
     } else {
         cell.textLabel.text = @"添加新场景";
+        cell.imageView.image = [UIImage imageNamed:@"scene_add_img"];
         cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow_right"]];
 
     }
