@@ -8,7 +8,7 @@
 
 #import "JKGroupTableViewController.h"
 #import "JKBLEManager.h"
-
+#import "FXBlurView.h"
 
 #define _GROUP_KEY_ @"_group_"
 #define NO_DEVICE_ALERT_TAG 100
@@ -86,9 +86,14 @@
     [imageView addSubview:rotationView];
     rotationView.transform = CGAffineTransformMakeRotation(1);
     
-    
+//    FXBlurView *blurView = [[FXBlurView alloc] initWithFrame:self.view.bounds];
+//    blurView.blurRadius = 30;
+//    blurView.dynamic = YES;
+////    blurView.blurEnabled = YES;
+//    blurView.tintColor = [UIColor clearColor];
     
     [self.view addSubview:searchView];
+//    [[UIApplication sharedApplication].keyWindow addSubview:blurView];
 }
 
 - (void)setupData

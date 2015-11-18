@@ -11,6 +11,7 @@
 
 #define FullScreen_width [UIScreen mainScreen].bounds.size.width
 #define FullScreen_height [UIScreen mainScreen].bounds.size.height
-
+#define Font(v) [UIFont systemFontOfSize:(v)]
+#define FontBold(v) [UIFont boldSystemFontOfSize:(v)]
 
 #endif

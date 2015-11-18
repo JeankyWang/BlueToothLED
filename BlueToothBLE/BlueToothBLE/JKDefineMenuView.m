@@ -15,6 +15,8 @@
     CGRect finalFrame;
     CGRect orignalFrame;
     BOOL isShowing;
+    
+    FXBlurView *blur;
 }
 @end
 
@@ -33,6 +35,22 @@
     self = [super initWithFrame:frame];
     finalFrame = frame;
     superView = view;
+    
+    
+    
+    blur = [[FXBlurView alloc] initWithFrame:frame];
+    blur.blurRadius = 15;
+    blur.dynamic = YES;
+    blur.blurEnabled = YES;
+    blur.tintColor = [UIColor clearColor];
+    
+    
+    //ios 8
+//    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+//    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+//    effectView.frame = self.bounds;
+//    [self addSubview:effectView];
+    
     return self;
 
 }
@@ -41,7 +59,7 @@
 {
     self.backgroundView = backgroundView;
     backgroundView.frame = self.bounds;
-    [self addSubview:backgroundView];
+//    [self addSubview:backgroundView];
 }
 
 - (void)showMenu
@@ -52,10 +70,9 @@
     
     backView = [[UIView alloc] initWithFrame:superView.frame];
     backView.backgroundColor = [UIColor clearColor];
+    
     [self addAllGesture:backView];
     [backView addSubview:self];
-    [superView addSubview:backView];
-    
     
     if (_style == JKDefineMenuViewTop) {
         
@@ -67,8 +84,19 @@
     }
     
     self.frame = orignalFrame;
-    [UIView animateWithDuration:self.animationDuration animations:^{
+    blur.frame = finalFrame;
+    blur.alpha = 0;
+    
+    [superView addSubview:blur];
+    [superView addSubview:backView];
+    
+    
+    
+    [UIView animateWithDuration:.25 animations:^{
         self.frame = finalFrame;
+        blur.alpha = 1;
+    } completion:^(BOOL finished) {
+        
         isShowing = YES;
     }];
     
@@ -90,8 +118,10 @@
 {
     [UIView animateWithDuration:self.animationDuration animations:^{
         self.frame = orignalFrame;
+        blur.frame = orignalFrame;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
+        [blur removeFromSuperview];
         [backView removeFromSuperview];
         isShowing = NO;
         

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "FXBlurView.h"
 
 typedef enum {
     JKDefineMenuViewTop,

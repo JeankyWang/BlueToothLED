@@ -11,10 +11,12 @@
 #import "JKDefineMenuView.h"
 #import "JKColorPicker.h"
 
-@interface JKControlViewController ()<JKTopLightViewDelegate>
+@interface JKControlViewController ()<JKTopLightViewDelegate,UIScrollViewDelegate>
 {
-    JKDefineMenuView *topMenu;
-    JKTopLightView *topLightView;
+    JKDefineMenuView *topMenu;//弹出菜单
+    JKDefineMenuView *bottomMenu;
+    
+    JKTopLightView *topLightView; //灯光指示view
     
     UIButton *colorBtn;
     UIButton *bwBtn;
@@ -22,6 +24,8 @@
     
     NSArray *titleBtnArray;
     JKColorPicker *colorPicker;
+    
+    UILabel *ctValue;
 }
 @end
 
@@ -41,15 +45,31 @@
     _mainScrollView.frame = self.view.bounds;
     _mainScrollView.contentSize = CGSizeMake(FullScreen_width*3, CGRectGetHeight(self.view.frame)-64);
     _mainScrollView.backgroundColor = [UIColor clearColor];
+    _mainScrollView.delaysContentTouches = YES;
     
     topLightView = [[JKTopLightView alloc] initWithFrame:CGRectMake(0, 70, FullScreen_width, 100)];
     topLightView.delegate = self;
+   
     [self.view addSubview:topLightView];
     
-    topMenu = [[JKDefineMenuView alloc] initWithFrame:CGRectMake(0, 0, FullScreen_width, 200) inView:[UIApplication sharedApplication].keyWindow];
+    
+    
+    
+    //自定弹出层显示
+    topMenu = [[JKDefineMenuView alloc] initWithFrame:CGRectMake(0, 0, FullScreen_width, 200) inView:self.view];
     topMenu.animationDuration = .25;
-    topMenu.backgroundColor = [UIColor colorWithWhite:0 alpha:.3];
     topMenu.style = JKDefineMenuViewTop;
+
+
+    
+    bottomMenu = [[JKDefineMenuView alloc] initWithFrame:CGRectMake(0, FullScreen_height - 200, FullScreen_width, 200) inView:self.view];
+    bottomMenu.animationDuration = .25;
+    bottomMenu.style = JKDefineMenuViewBottom;
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 50, 50)];
+    button.backgroundColor = [UIColor redColor];
+    [bottomMenu addSubview:button];
+
     
     [self setupNavBtns];
     [self setupColorPicker];
@@ -61,7 +81,7 @@
 {
     UIView *pickBackView = [[UIView alloc] initWithFrame:CGRectMake(40, FullScreen_height/2 - 150, FullScreen_width - 80, FullScreen_width - 80)];
     pickBackView.backgroundColor = [UIColor colorWithWhite:1 alpha:.27];
-    pickBackView.layer.cornerRadius = 20;
+    pickBackView.layer.cornerRadius = 4;
     
     
     colorPicker = [[JKColorPicker alloc] initWithFrame:CGRectMake(0, 0, 182, 182)];
@@ -72,13 +92,29 @@
     [pickBackView addSubview:colorPicker];
     
     [_mainScrollView addSubview:pickBackView];
+    
+    
+    UIScrollView *defaultColorView = [[UIScrollView alloc] initWithFrame:CGRectMake(CGRectGetMinX(pickBackView.frame), CGRectGetMaxY(pickBackView.frame) + 30, CGRectGetWidth(pickBackView.frame), 50)];
+    defaultColorView.backgroundColor = [UIColor whiteColor];
+    defaultColorView.contentSize = CGSizeMake(400, 50);
+    [_mainScrollView addSubview:defaultColorView];
+    
+    
+    for (int i = 0; i < 10; i++) {
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(40*i, 0, 40, 50)];
+        btn.backgroundColor = @[[UIColor redColor],[UIColor greenColor],[UIColor blueColor],[UIColor purpleColor],[UIColor yellowColor],[UIColor cyanColor],[UIColor brownColor],[UIColor orangeColor],[UIColor grayColor],[UIColor blueColor]][i];
+        [defaultColorView addSubview:btn];
+    }
+    
+    
+    
 }
 
 - (void)setupBrightnessPicker
 {
     UIView *pickBackView = [[UIView alloc] initWithFrame:CGRectMake(40+FullScreen_width, FullScreen_height/2 - 150, FullScreen_width - 80, FullScreen_width - 80)];
     pickBackView.backgroundColor = [UIColor colorWithWhite:1 alpha:.27];
-    pickBackView.layer.cornerRadius = 20;
+    pickBackView.layer.cornerRadius = 4;
     [_mainScrollView addSubview:pickBackView];
     
     for (int i = 0; i < 12; i++) {
@@ -94,14 +130,26 @@
 {
     UIView *pickBackView = [[UIView alloc] initWithFrame:CGRectMake(40 + FullScreen_width*2, FullScreen_height/2 - 150, FullScreen_width - 80, FullScreen_width - 80)];
     pickBackView.backgroundColor = [UIColor colorWithWhite:1 alpha:.27];
-    pickBackView.layer.cornerRadius = 20;
+    pickBackView.layer.cornerRadius = 4;
     pickBackView.userInteractionEnabled = YES;
     [_mainScrollView addSubview:pickBackView];
     
     
-    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(20, CGRectGetHeight(pickBackView.frame)/2 - 10, CGRectGetWidth(pickBackView.frame)-30, 40)];
+    
+    
+    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(20, CGRectGetHeight(pickBackView.frame)/2 - 10, CGRectGetWidth(pickBackView.frame)-50, 40)];
+    [slider setThumbImage:[UIImage imageNamed:@"slider_btn"] forState:UIControlStateNormal];
+    slider.minimumTrackTintColor = [UIColor yellowColor];
+    [slider addTarget:self action:@selector(ctChange:) forControlEvents:UIControlEventValueChanged];
     [pickBackView addSubview:slider];
     
+    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+    icon.frame = CGRectMake(0, CGRectGetMinY(slider.frame), 10, 10);
+    
+    ctValue = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(slider.frame)+5, CGRectGetMinY(slider.frame), 30, 40)];
+    ctValue.font = Font(12);
+    ctValue.textColor = [UIColor whiteColor];
+    [pickBackView addSubview:ctValue];
 
 }
 
@@ -181,13 +229,26 @@
 
 - (void)showTopMenu
 {
-
     [topMenu showMenu];
 }
+
+- (void)showBottomMenu
+{
+    [bottomMenu showMenu];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    CGFloat x = scrollView.contentOffset.x + 10;
+    DLog(@"x:%f",x);
+    NSInteger page = x/FullScreen_width;
+    UIButton *btn = titleBtnArray[page];
+    [self clickTitleBtn:btn];
 }
 
 #pragma mark -top light delegate
@@ -202,7 +263,13 @@
 
 - (void)conditionBtnClick:(UIButton *)conditionBtn
 {
+    [self showBottomMenu];
+}
 
+- (void)ctChange:(UISlider *)slider
+{
+    
+    ctValue.text = [NSString stringWithFormat:@"%d",(int)(slider.value * 100)];
 }
 
 @end
