@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		103505741BFC15C400065C7D /* JKScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 103505731BFC15C400065C7D /* JKScrollView.m */; };
+		1035057B1BFC45FB00065C7D /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1035057A1BFC45FB00065C7D /* FXBlurView.m */; };
+		1035057D1BFC4C1200065C7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1035057C1BFC4C1200065C7D /* QuartzCore.framework */; };
+		1035057F1BFC4C2000065C7D /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1035057E1BFC4C2000065C7D /* CoreImage.framework */; };
+		103505811BFC4C4500065C7D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 103505801BFC4C4500065C7D /* Accelerate.framework */; };
 		1039D57C1BE9B53600A56BE9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D57B1BE9B53600A56BE9 /* main.m */; };
 		1039D57F1BE9B53600A56BE9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D57E1BE9B53600A56BE9 /* AppDelegate.m */; };
 		1039D5821BE9B53600A56BE9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D5811BE9B53600A56BE9 /* ViewController.m */; };
@@ -52,6 +57,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		103505721BFC15C400065C7D /* JKScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKScrollView.h; sourceTree = "<group>"; };
+		103505731BFC15C400065C7D /* JKScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKScrollView.m; sourceTree = "<group>"; };
+		103505791BFC45FB00065C7D /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
+		1035057A1BFC45FB00065C7D /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
+		1035057C1BFC4C1200065C7D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		1035057E1BFC4C2000065C7D /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		103505801BFC4C4500065C7D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		1039D5771BE9B53600A56BE9 /* BlueToothBLE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueToothBLE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1039D57B1BE9B53600A56BE9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1039D57D1BE9B53600A56BE9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -113,6 +125,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				103505811BFC4C4500065C7D /* Accelerate.framework in Frameworks */,
+				1035057F1BFC4C2000065C7D /* CoreImage.framework in Frameworks */,
+				1035057D1BFC4C1200065C7D /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,9 +148,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		103505781BFC45FB00065C7D /* FXBlurView */ = {
+			isa = PBXGroup;
+			children = (
+				103505791BFC45FB00065C7D /* FXBlurView.h */,
+				1035057A1BFC45FB00065C7D /* FXBlurView.m */,
+			);
+			path = FXBlurView;
+			sourceTree = "<group>";
+		};
 		1039D56E1BE9B53600A56BE9 = {
 			isa = PBXGroup;
 			children = (
+				103505801BFC4C4500065C7D /* Accelerate.framework */,
+				1035057E1BFC4C2000065C7D /* CoreImage.framework */,
+				1035057C1BFC4C1200065C7D /* QuartzCore.framework */,
 				1039D5791BE9B53600A56BE9 /* BlueToothBLE */,
 				1039D5931BE9B53600A56BE9 /* BlueToothBLETests */,
 				1039D59E1BE9B53600A56BE9 /* BlueToothBLEUITests */,
@@ -220,6 +247,7 @@
 		C6188EF21BEB095000E2F684 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				103505781BFC45FB00065C7D /* FXBlurView */,
 				C6FD4E211BF5DDBD00B1D6C5 /* MyUIKit */,
 				C6188EFA1BEB0B1500E2F684 /* BLE */,
 				C6188EF31BEB09A400E2F684 /* Color */,
@@ -285,6 +313,8 @@
 				C68A77AF1BF8BB09001BBA04 /* JKTopLightView.m */,
 				10B08ABE1BFAFD0C00A30654 /* JKColorPicker.h */,
 				10B08ABF1BFAFD0C00A30654 /* JKColorPicker.m */,
+				103505721BFC15C400065C7D /* JKScrollView.h */,
+				103505731BFC15C400065C7D /* JKScrollView.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -446,8 +476,10 @@
 			files = (
 				C6EF30FE1BEB569600AF2133 /* JKSceneViewCell.m in Sources */,
 				10B08ABD1BFABB9C00A30654 /* JKDefineMenuView.m in Sources */,
+				1035057B1BFC45FB00065C7D /* FXBlurView.m in Sources */,
 				C6EF31081BEB7EE200AF2133 /* JKScenesTableViewController.m in Sources */,
 				C6FD4E271BF5DF1200B1D6C5 /* JKControlViewController.m in Sources */,
+				103505741BFC15C400065C7D /* JKScrollView.m in Sources */,
 				C6FD4E2A1BF5EADA00B1D6C5 /* JKGroupTableViewController.m in Sources */,
 				C6FD4E241BF5DDEB00B1D6C5 /* JKNavigationController.m in Sources */,
 				C6188F031BEB0B5800E2F684 /* JKBLEServicAndCharacter.m in Sources */,
