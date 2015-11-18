@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		103505741BFC15C400065C7D /* JKScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 103505731BFC15C400065C7D /* JKScrollView.m */; };
 		1035057B1BFC45FB00065C7D /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1035057A1BFC45FB00065C7D /* FXBlurView.m */; };
-		1035057D1BFC4C1200065C7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1035057C1BFC4C1200065C7D /* QuartzCore.framework */; };
-		1035057F1BFC4C2000065C7D /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1035057E1BFC4C2000065C7D /* CoreImage.framework */; };
-		103505811BFC4C4500065C7D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 103505801BFC4C4500065C7D /* Accelerate.framework */; };
 		1039D57C1BE9B53600A56BE9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D57B1BE9B53600A56BE9 /* main.m */; };
 		1039D57F1BE9B53600A56BE9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D57E1BE9B53600A56BE9 /* AppDelegate.m */; };
 		1039D5821BE9B53600A56BE9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D5811BE9B53600A56BE9 /* ViewController.m */; };
@@ -134,9 +131,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				103505811BFC4C4500065C7D /* Accelerate.framework in Frameworks */,
-				1035057F1BFC4C2000065C7D /* CoreImage.framework in Frameworks */,
-				1035057D1BFC4C1200065C7D /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
