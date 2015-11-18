@@ -28,6 +28,9 @@
 		C6188F011BEB0B5800E2F684 /* JKBLEDeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EFC1BEB0B5800E2F684 /* JKBLEDeviceUtil.m */; };
 		C6188F021BEB0B5800E2F684 /* JKBLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EFE1BEB0B5800E2F684 /* JKBLEManager.m */; };
 		C6188F031BEB0B5800E2F684 /* JKBLEServicAndCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188F001BEB0B5800E2F684 /* JKBLEServicAndCharacter.m */; };
+		C64F8E301BFCC5E10067339C /* JKModeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C64F8E2F1BFCC5E10067339C /* JKModeListViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C64F8E331BFCC6DB0067339C /* JKMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C64F8E321BFCC6DB0067339C /* JKMusicViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C64F8E361BFCC7050067339C /* JKTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C64F8E351BFCC7050067339C /* JKTimerViewController.m */; settings = {ASSET_TAGS = (); }; };
 		C68A77B01BF8BB09001BBA04 /* JKTopLightView.m in Sources */ = {isa = PBXBuildFile; fileRef = C68A77AF1BF8BB09001BBA04 /* JKTopLightView.m */; };
 		C6EF30FA1BEB515800AF2133 /* JKScenesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EF30F91BEB515800AF2133 /* JKScenesViewController.m */; };
 		C6EF30FE1BEB569600AF2133 /* JKSceneViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EF30FD1BEB569600AF2133 /* JKSceneViewCell.m */; };
@@ -99,6 +102,12 @@
 		C6188EFF1BEB0B5800E2F684 /* JKBLEServicAndCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKBLEServicAndCharacter.h; sourceTree = "<group>"; };
 		C6188F001BEB0B5800E2F684 /* JKBLEServicAndCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKBLEServicAndCharacter.m; sourceTree = "<group>"; };
 		C6188F041BEB0C2400E2F684 /* JKLEDSendDataDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKLEDSendDataDelegate.h; sourceTree = "<group>"; };
+		C64F8E2E1BFCC5E10067339C /* JKModeListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKModeListViewController.h; sourceTree = "<group>"; };
+		C64F8E2F1BFCC5E10067339C /* JKModeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKModeListViewController.m; sourceTree = "<group>"; };
+		C64F8E311BFCC6DB0067339C /* JKMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKMusicViewController.h; sourceTree = "<group>"; };
+		C64F8E321BFCC6DB0067339C /* JKMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKMusicViewController.m; sourceTree = "<group>"; };
+		C64F8E341BFCC7050067339C /* JKTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKTimerViewController.h; sourceTree = "<group>"; };
+		C64F8E351BFCC7050067339C /* JKTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKTimerViewController.m; sourceTree = "<group>"; };
 		C68A77AE1BF8BB09001BBA04 /* JKTopLightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKTopLightView.h; sourceTree = "<group>"; };
 		C68A77AF1BF8BB09001BBA04 /* JKTopLightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKTopLightView.m; sourceTree = "<group>"; };
 		C6EF30F81BEB515800AF2133 /* JKScenesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKScenesViewController.h; sourceTree = "<group>"; };
@@ -295,6 +304,12 @@
 				C68A77AD1BF8BAAC001BBA04 /* view */,
 				C6FD4E251BF5DF1200B1D6C5 /* JKControlViewController.h */,
 				C6FD4E261BF5DF1200B1D6C5 /* JKControlViewController.m */,
+				C64F8E2E1BFCC5E10067339C /* JKModeListViewController.h */,
+				C64F8E2F1BFCC5E10067339C /* JKModeListViewController.m */,
+				C64F8E311BFCC6DB0067339C /* JKMusicViewController.h */,
+				C64F8E321BFCC6DB0067339C /* JKMusicViewController.m */,
+				C64F8E341BFCC7050067339C /* JKTimerViewController.h */,
+				C64F8E351BFCC7050067339C /* JKTimerViewController.m */,
 			);
 			name = Control;
 			sourceTree = "<group>";
@@ -481,9 +496,11 @@
 				C6FD4E271BF5DF1200B1D6C5 /* JKControlViewController.m in Sources */,
 				103505741BFC15C400065C7D /* JKScrollView.m in Sources */,
 				C6FD4E2A1BF5EADA00B1D6C5 /* JKGroupTableViewController.m in Sources */,
+				C64F8E331BFCC6DB0067339C /* JKMusicViewController.m in Sources */,
 				C6FD4E241BF5DDEB00B1D6C5 /* JKNavigationController.m in Sources */,
 				C6188F031BEB0B5800E2F684 /* JKBLEServicAndCharacter.m in Sources */,
 				C68A77B01BF8BB09001BBA04 /* JKTopLightView.m in Sources */,
+				C64F8E301BFCC5E10067339C /* JKModeListViewController.m in Sources */,
 				10B08ABA1BF9741400A30654 /* JKTabBarController.m in Sources */,
 				C6188EF91BEB09CC00E2F684 /* UIImage+ColorAtPixel.m in Sources */,
 				C6188EF81BEB09CC00E2F684 /* UIColor-Expanded.m in Sources */,
@@ -495,6 +512,7 @@
 				C6188F021BEB0B5800E2F684 /* JKBLEManager.m in Sources */,
 				C6FD4E201BF5D51000B1D6C5 /* JKNewScenceController.m in Sources */,
 				1039D57C1BE9B53600A56BE9 /* main.m in Sources */,
+				C64F8E361BFCC7050067339C /* JKTimerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

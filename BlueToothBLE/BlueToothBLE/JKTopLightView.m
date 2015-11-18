@@ -11,7 +11,7 @@
 @interface JKTopLightView ()
 {
     UIButton *offOnBtn;
-    UIButton *conditionBtn;
+    
     UIView *lightBgView;
 }
 @end
@@ -32,11 +32,11 @@
     
     if (self) {
         
-        offOnBtn = [[UIButton alloc] initWithFrame:CGRectMake(FullScreen_width/4 - 35, CGRectGetHeight(frame)/2-12.5, 50, 50)];
+        offOnBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, CGRectGetHeight(frame)/2-12.5, 50, 50)];
         [offOnBtn setImage:[UIImage imageNamed:@"light_on"] forState:UIControlStateSelected];
         [offOnBtn setImage:[UIImage imageNamed:@"light_off"] forState:UIControlStateNormal];
         [offOnBtn addTarget:self action:@selector(offOnBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        
+    
         [self addSubview:offOnBtn];
         
         UIImageView *light = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"light_bg"]];
@@ -49,10 +49,10 @@
         [self addSubview:lightBgView];
         [self addSubview:light];
         
-        conditionBtn = [[UIButton alloc] initWithFrame:CGRectMake(FullScreen_width * 3/4 + 10, CGRectGetHeight(frame)/2-12.5, 50, 50)];
-        [conditionBtn setImage:[UIImage imageNamed:@"light_condition"] forState:UIControlStateNormal];
-        [conditionBtn addTarget:self action:@selector(conditionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:conditionBtn];
+        _conditionBtn = [[UIButton alloc] initWithFrame:CGRectMake(FullScreen_width * 3/4 + 10, CGRectGetHeight(frame)/2-12.5, 50, 50)];
+        [_conditionBtn setImage:[UIImage imageNamed:@"light_condition"] forState:UIControlStateNormal];
+        [_conditionBtn addTarget:self action:@selector(conditionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_conditionBtn];
     }
     
     return self;

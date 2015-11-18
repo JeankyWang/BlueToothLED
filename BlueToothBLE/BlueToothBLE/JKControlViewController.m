@@ -56,20 +56,50 @@
     
     
     //自定弹出层显示
-    topMenu = [[JKDefineMenuView alloc] initWithFrame:CGRectMake(0, 0, FullScreen_width, 200) inView:self.view];
+    topMenu = [[JKDefineMenuView alloc] initWithFrame:CGRectMake(0, 0, FullScreen_width, 134) inView:self.view];
     topMenu.animationDuration = .25;
     topMenu.style = JKDefineMenuViewTop;
+    topMenu.backgroundColor = [UIColor colorWithWhite:0 alpha:.5];
 
+    UIView *v_line = [[UIView alloc] initWithFrame:CGRectMake(FullScreen_width/2, 80, 0.5, 30)];
+    v_line.backgroundColor = [UIColor whiteColor];
+    [topMenu addSubview:v_line];
+    
+    UIButton *musicBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 64, FullScreen_width/2, 70)];
+    [musicBtn setImage:[UIImage imageNamed:@"music_music"] forState:UIControlStateNormal];
+    
+    [topMenu addSubview:musicBtn];
+    UIButton *timerBtn = [[UIButton alloc] initWithFrame:CGRectMake(FullScreen_width/2, 64, FullScreen_width/2, 70)];
+    [timerBtn setImage:[UIImage imageNamed:@"light_timer"] forState:UIControlStateNormal];
+    
+    [topMenu addSubview:timerBtn];
 
     
-    bottomMenu = [[JKDefineMenuView alloc] initWithFrame:CGRectMake(0, FullScreen_height - 200, FullScreen_width, 200) inView:self.view];
+    
+    //底部弹出
+    bottomMenu = [[JKDefineMenuView alloc] initWithFrame:CGRectMake(0, FullScreen_height - 200, FullScreen_width, 200) inView:[UIApplication sharedApplication].keyWindow];
     bottomMenu.animationDuration = .25;
     bottomMenu.style = JKDefineMenuViewBottom;
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 50, 50)];
-    button.backgroundColor = [UIColor redColor];
-    [bottomMenu addSubview:button];
+    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"color_rate"]];
+    icon.frame = CGRectMake(23, 39, 27, 27);
+    [bottomMenu addSubview:icon];
+    //频率和亮度view
+    UISlider *rateSlider = [[UISlider alloc] initWithFrame:CGRectMake(CGRectGetMaxX(icon.frame)+10, CGRectGetMinY(icon.frame), FullScreen_width-100, 27)];
+    [rateSlider setThumbImage:[UIImage imageNamed:@"slider_btn"] forState:UIControlStateNormal];
+    rateSlider.minimumTrackTintColor = [UIColor whiteColor];
+    [bottomMenu addSubview:rateSlider];
+    
+    UIImageView *icon2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"color_brightness"]];
+    icon2.frame = CGRectMake(CGRectGetMinX(icon.frame), CGRectGetMaxY(icon.frame)+33, 27, 27);
+    [bottomMenu addSubview:icon2];
 
+    UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(CGRectGetMaxX(icon2.frame)+10, CGRectGetMinY(icon2.frame), FullScreen_width-100, 27)];
+    [brightSlider setThumbImage:[UIImage imageNamed:@"slider_btn"] forState:UIControlStateNormal];
+    brightSlider.minimumTrackTintColor = [UIColor whiteColor];
+    [bottomMenu addSubview:brightSlider];
+    
+    
     
     [self setupNavBtns];
     [self setupColorPicker];
@@ -79,7 +109,7 @@
 
 - (void)setupColorPicker
 {
-    UIView *pickBackView = [[UIView alloc] initWithFrame:CGRectMake(40, FullScreen_height/2 - 150, FullScreen_width - 80, FullScreen_width - 80)];
+    UIView *pickBackView = [[UIView alloc] initWithFrame:CGRectMake(45, FullScreen_height/2 - 170*FullScreen_height/568, FullScreen_width - 80, FullScreen_width - 80)];
     pickBackView.backgroundColor = [UIColor colorWithWhite:1 alpha:.27];
     pickBackView.layer.cornerRadius = 4;
     
@@ -87,7 +117,7 @@
     colorPicker = [[JKColorPicker alloc] initWithFrame:CGRectMake(0, 0, 182, 182)];
     colorPicker.layer.cornerRadius = 91;
     [colorPicker addTarget:self action:@selector(pickColor:) forControlEvents:UIControlEventAllEvents];
-    colorPicker.backgroundColor = [UIColor whiteColor];
+//    colorPicker.backgroundColor = [UIColor whiteColor];
     colorPicker.center = CGPointMake(CGRectGetWidth(pickBackView.frame)/2, CGRectGetWidth(pickBackView.frame)/2);
     [pickBackView addSubview:colorPicker];
     
@@ -112,23 +142,28 @@
 
 - (void)setupBrightnessPicker
 {
-    UIView *pickBackView = [[UIView alloc] initWithFrame:CGRectMake(40+FullScreen_width, FullScreen_height/2 - 150, FullScreen_width - 80, FullScreen_width - 80)];
+    UIView *pickBackView = [[UIView alloc] initWithFrame:CGRectMake(45+FullScreen_width, FullScreen_height/2 - 170*FullScreen_height/568, FullScreen_width - 80, FullScreen_width - 80)];
     pickBackView.backgroundColor = [UIColor colorWithWhite:1 alpha:.27];
     pickBackView.layer.cornerRadius = 4;
     [_mainScrollView addSubview:pickBackView];
     
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 36*6, 110)];
+    view.center = CGPointMake(CGRectGetWidth(pickBackView.frame)/2, CGRectGetHeight(pickBackView.frame)/2);
+    
     for (int i = 0; i < 12; i++) {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(36 * (i%6) + 10, i/6 * 60 + 50, 36, 50)];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(36 * (i%6), i/6 * 60 , 36, 50)];
         [button addTarget:self action:@selector(brightnessClick:) forControlEvents:UIControlEventTouchUpInside];
         button.backgroundColor = [UIColor colorWithWhite:(1.0 - i / 12.0) alpha:1];
-        [pickBackView addSubview:button];
+        [view addSubview:button];
     }
+    
+    [pickBackView addSubview:view];
 
 }
 
 - (void)setupColorTmpPicker
 {
-    UIView *pickBackView = [[UIView alloc] initWithFrame:CGRectMake(40 + FullScreen_width*2, FullScreen_height/2 - 150, FullScreen_width - 80, FullScreen_width - 80)];
+    UIView *pickBackView = [[UIView alloc] initWithFrame:CGRectMake(45 + FullScreen_width*2, FullScreen_height/2 - 170*FullScreen_height/568, FullScreen_width - 80, FullScreen_width - 80)];
     pickBackView.backgroundColor = [UIColor colorWithWhite:1 alpha:.27];
     pickBackView.layer.cornerRadius = 4;
     pickBackView.userInteractionEnabled = YES;
@@ -137,14 +172,15 @@
     
     
     
-    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(20, CGRectGetHeight(pickBackView.frame)/2 - 10, CGRectGetWidth(pickBackView.frame)-50, 40)];
+    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(25, CGRectGetHeight(pickBackView.frame)/2 - 20, CGRectGetWidth(pickBackView.frame)-60, 40)];
     [slider setThumbImage:[UIImage imageNamed:@"slider_btn"] forState:UIControlStateNormal];
     slider.minimumTrackTintColor = [UIColor yellowColor];
     [slider addTarget:self action:@selector(ctChange:) forControlEvents:UIControlEventValueChanged];
     [pickBackView addSubview:slider];
     
-    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
-    icon.frame = CGRectMake(0, CGRectGetMinY(slider.frame), 10, 10);
+    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ct_icon"]];
+    icon.frame = CGRectMake(5, CGRectGetMinY(slider.frame), 9, 28);
+    [pickBackView addSubview:icon];
     
     ctValue = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(slider.frame)+5, CGRectGetMinY(slider.frame), 30, 40)];
     ctValue.font = Font(12);
@@ -182,7 +218,7 @@
     
     self.navigationItem.titleView = titleView;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showTopMenu)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"more_menu"] style:UIBarButtonItemStyleDone target:self action:@selector(showTopMenu)];
 }
 
 - (void)clickTitleBtn:(UIButton *)button
@@ -205,6 +241,15 @@
 
 - (void)scrollToPage:(NSInteger)page
 {
+    
+    [topMenu dismissMenu];
+    [bottomMenu dismissMenu];
+    if (page == 0) {
+        topLightView.conditionBtn.enabled = YES;
+    } else {
+        topLightView.conditionBtn.enabled = NO;
+    }
+    
     [UIView animateWithDuration:.25 animations:^{
         _mainScrollView.contentOffset = CGPointMake(FullScreen_width * page, _mainScrollView.contentOffset.y);
     }];

@@ -17,5 +17,6 @@
 
 @interface JKTopLightView : UIView
 @property (nonatomic,assign) id<JKTopLightViewDelegate> delegate;
+@property (nonatomic,strong) UIButton *conditionBtn;
 - (void)setLightColor:(UIColor *)color;
 @end

@@ -43,7 +43,7 @@
 {
     CGPoint point = [touch locationInView:self];
     
-    if ([self distanceToCenter:point] > CGRectGetWidth(self.frame)/2) {
+    if ([self distanceToCenter:point] > CGRectGetWidth(self.frame)/2|| [self distanceToCenter:point] < 32) {
         return NO;
     }
     
@@ -57,7 +57,8 @@
     CGPoint point = [touch locationInView:self];
     
     
-    if ([self distanceToCenter:point] > CGRectGetWidth(self.frame)/2) {
+    if ([self distanceToCenter:point] > CGRectGetWidth(self.frame)/2 || [self distanceToCenter:point] < 32)
+    {
         return NO;
     }
     
@@ -75,7 +76,7 @@
 - (void)endTrackingWithTouch:(nullable UITouch *)touch withEvent:(nullable UIEvent *)event
 {
     CGPoint point = [touch locationInView:self];
-    if ([self distanceToCenter:point] > CGRectGetWidth(self.frame)/2) {
+    if ([self distanceToCenter:point] > CGRectGetWidth(self.frame)/2|| [self distanceToCenter:point] < 32) {
         return;
     }
     
