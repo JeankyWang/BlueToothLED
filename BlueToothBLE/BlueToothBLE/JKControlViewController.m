@@ -81,7 +81,7 @@
     
     
     //底部弹出
-    bottomMenu = [[JKDefineMenuView alloc] initWithFrame:CGRectMake(0, FullScreen_height - 200, FullScreen_width, 200) inView:[UIApplication sharedApplication].keyWindow];
+    bottomMenu = [[JKDefineMenuView alloc] initWithFrame:CGRectMake(0, FullScreen_height - 200, FullScreen_width, 200) inView:self.view];
     bottomMenu.animationDuration = .25;
     bottomMenu.style = JKDefineMenuViewBottom;
     
@@ -101,6 +101,7 @@
     UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(CGRectGetMaxX(icon2.frame)+10, CGRectGetMinY(icon2.frame), FullScreen_width-100, 27)];
     [brightSlider setThumbImage:[UIImage imageNamed:@"slider_btn"] forState:UIControlStateNormal];
     brightSlider.minimumTrackTintColor = [UIColor whiteColor];
+    [brightSlider addTarget:self action:@selector(brightnessCondition:) forControlEvents:UIControlEventValueChanged];
     [bottomMenu addSubview:brightSlider];
     
     
@@ -171,6 +172,7 @@
     for (int i = 0; i < 12; i++) {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(36 * (i%6), i/6 * 60 , 36, 50)];
         [button addTarget:self action:@selector(brightnessClick:) forControlEvents:UIControlEventTouchUpInside];
+        button.tag = i+1;
         button.backgroundColor = [UIColor colorWithWhite:(1.0 - i / 12.0) alpha:1];
         [view addSubview:button];
     }
@@ -275,14 +277,23 @@
     
 }
 
+#pragma mark -选择颜色
 - (void)pickColor:(JKColorPicker *)picker
 {
+    [self sendColorToDevice:picker.selectColor];
     [topLightView setLightColor:picker.selectColor];
+    
+}
+
+- (void)brightnessCondition:(UISlider *)slider
+{
+    [self sendDataBright:(Byte)(slider.value * 100)];
 }
 
 #pragma mark -选择内置颜色
 - (void)selectDefaultColor:(UIButton *)button
 {
+    [self sendColorToDevice:button.backgroundColor];
     [topLightView setLightColor:button.backgroundColor];
     
     UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
@@ -303,11 +314,11 @@
 
 }
 
+#pragma mark -单色调节
 - (void)brightnessClick:(UIButton *)button
 {
+    [self sendDataDMBright:100 - 100.0/12.0 * button.tag];
     [topLightView setLightColor:button.backgroundColor];
-    
-    
 }
 
 - (void)showTopMenu
@@ -338,8 +349,11 @@
 - (void)offOnBtnClick:(UIButton *)offOnButton
 {
     if (offOnButton.selected) {
-        
+        [self openLight];
+        [topLightView setLightColor:[UIColor whiteColor]];
+
     } else {
+        [self closeLight];
         [topLightView setLightColor:[UIColor lightGrayColor]];
     }
 }
@@ -349,9 +363,10 @@
     [self showBottomMenu];
 }
 
+#pragma mark -色温调节
 - (void)ctChange:(UISlider *)slider
 {
-    
+    [self sendDataCTWithHot:(Byte)(slider.value * 100) cold:(100-(Byte)(slider.value * 100))];
     ctValue.text = [NSString stringWithFormat:@"%d",(int)(slider.value * 100)];
 }
 
@@ -376,6 +391,97 @@
     JKModeListViewController *vc = [[JKModeListViewController alloc] init];
     JKNavigationController *nav = [[JKNavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)closeLight
+{
+    Byte dataOFF[9] = {0x7e,0x04,0x04,0x00,0x00,0xff,0xff,0x0,0xef};
+    NSData *data = [[NSData alloc]initWithBytes:dataOFF length:9];
+    [self sendCMD:data];
+    
+}
+
+- (void)openLight
+{
+    Byte dataON[9]  = {0x7e,0x04,0x04,0x01,0x00,0xff,0xff,0x0,0xef};
+    NSData *data = [[NSData alloc]initWithBytes:dataON length:9];
+    [self sendCMD:data];
+}
+
+- (void)sendCMD:(NSData*)data
+{
+    for (CBPeripheral *per in _deviceArray)
+    {
+        [per writeValue:data forCharacteristic:_writeCharacter type:CBCharacteristicWriteWithoutResponse];
+    }
+}
+
+- (void)sendDataBright:(Byte)brightness
+{
+    
+    Byte byte[] = {0x7e,0x04,0x01,brightness==100?99:brightness,0xff,0xff,0xff,0x00,0xef};
+    NSData *data = [[NSData alloc]initWithBytes:byte length:9];
+    [self sendCMD:data];
+
+    
+    NSLog(@"-------RGB---bright:%d-",brightness);
+//    const CGFloat *color =  CGColorGetComponents(_picker.selectedColor.CGColor);
+//    
+//    if (color != nil)
+//    {
+//        
+//        NSLog(@"rgb:%f %f %f",color[0]*255,color[1]*255,color[2]*255);
+//        
+//    }
+}
+
+- (void)sendDataRGBWithRed:(Byte)red green:(Byte)green blue:(Byte)blue
+{
+    
+    Byte byte[] = {0x7e,0x07,0x05,0x03,red,green,blue,0x0,0xef};
+    
+    NSData *data = [[NSData alloc]initWithBytes:byte length:sizeof(byte)];
+    [self sendCMD:data];
+    
+    NSLog(@"-------RGB---red:%d- green:%d- blue:%d-",red,green,blue);
+    
+}
+
+- (void)sendDataCTWithHot:(Byte)hot cold:(Byte)cold
+{
+    
+    Byte byte[] = {0x7e,0x06,0x05,0x02,hot,cold,0xff,0x08,0xef};
+    NSData *data = [[NSData alloc]initWithBytes:byte length:9];
+    
+    NSLog(@"-------CT---hot:%d-cold:%d-",hot,cold);
+    [self sendCMD:data];
+    
+    
+}
+
+//单色模式
+- (void)sendDataDMBright:(Byte)brightness
+{
+
+    Byte byte[] = {0x7e,0x05,0x05,0x01,brightness,0xff,0xff,0x08,0xef};
+    NSData *data = [[NSData alloc]initWithBytes:byte length:9];
+    [self sendCMD:data];
+    
+    NSLog(@"-------RGB---bright:%d-",brightness);
+}
+
+
+
+- (void)sendColorToDevice:(UIColor *)color
+{
+    const CGFloat *colorZone =  CGColorGetComponents(color.CGColor);
+    
+    if (color != nil)
+    {
+        [self sendDataRGBWithRed:colorZone[0]*255 green:colorZone[1]*255 blue:colorZone[2]*255];
+    }
+    
+
 }
 
 @end

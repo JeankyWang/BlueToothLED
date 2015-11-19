@@ -29,6 +29,9 @@
 
 - (void)setupUI
 {
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close_nav"] style:UIBarButtonItemStyleBordered target:self action:@selector(dismissSelf)];
+    self.navigationItem.leftBarButtonItem = item;
+    
     myTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     myTableView.delegate = self;
     myTableView.dataSource = self;
@@ -57,6 +60,12 @@
 
     
 }
+
+- (void)dismissSelf
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 - (void)chooseColor:(JKColorPicker *)picker
 {

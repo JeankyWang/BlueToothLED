@@ -130,12 +130,12 @@
 #pragma  mark -image picker delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

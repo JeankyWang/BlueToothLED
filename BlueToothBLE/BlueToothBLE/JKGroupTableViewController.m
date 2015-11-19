@@ -9,6 +9,7 @@
 #import "JKGroupTableViewController.h"
 #import "JKBLEManager.h"
 #import "FXBlurView.h"
+#import "JKControlViewController.h"
 
 #define _GROUP_KEY_ @"_group_"
 #define NO_DEVICE_ALERT_TAG 100
@@ -41,6 +42,11 @@
     CGFloat angle;
     
     NSTimer *searchingTime;
+    CBCharacteristic *writeCharacter;
+    
+    UIActionSheet *_actionSheet;
+    
+    NSInteger clickIndex;
 }
 @end
 
@@ -59,17 +65,20 @@
 
 - (void)setupUI
 {
+    self.title = @"在线设备";
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(refreshBle:)];
     
+    self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, FullScreen_width, FullScreen_height-64-49) style:UITableViewStyleGrouped];
+    self.tableview.delegate = self;
+    self.tableview.dataSource = self;
     self.tableview.backgroundColor = [UIColor clearColor];
-    [self.view bringSubviewToFront:self.tableview];
     self.tableview.tableFooterView = [UIView new];
-    self.tableview.backgroundColor = [UIColor clearColor];
-    CGRect frame = self.tableview.frame;
-    frame.size.width = FullScreen_width;
-    self.tableview.frame = frame;
+    self.tableview.separatorColor = [UIColor clearColor];
+    [self.view addSubview:self.tableview];
     
+    _actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择操作方式" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"修改名称" otherButtonTitles:@"控制", nil];
     
     [self setupSearchingView];
 }
@@ -138,6 +147,7 @@
     if (_peripheralArray.count == 0) {
         [self showNoBLEView];
     }
+    [_tableview reloadData];
 }
 
 - (void)setupData
@@ -206,16 +216,6 @@
 {
 
     
-    for ( int i = 0 ; i<groupArray.count; i++) {
-        NSDictionary *dict = [groupArray objectAtIndex:i];
-        NSMutableDictionary *m_dict = [NSMutableDictionary dictionaryWithDictionary:dict];
-        [m_dict setValue:@true forKey:@"status"];
-        
-        [groupArray replaceObjectAtIndex:i withObject:m_dict];
-    }
-    
-    
-    
     Byte cmd[] = {0x7e,0x04,0x04,0x01,0x00,0xff,0xff,0x0,0xef};
     NSData *data = [NSData dataWithBytes:&cmd length:sizeof(cmd)];
 
@@ -251,6 +251,16 @@
     }
 }
 
+#pragma mark - 进入控制界面
+- (void)enterControlView
+{
+    JKControlViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"JKControlViewController"];
+    vc.deviceArray = @[_peripheralArray[clickIndex]];
+    vc.writeCharacter = writeCharacter;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -262,17 +272,17 @@
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
-    if (section==0)
-    {
-        return 1;
-    }
     return _peripheralArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -289,11 +299,24 @@
         
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"groupCell"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.textColor = [UIColor whiteColor];
-        cell.detailTextLabel.textColor = [UIColor whiteColor];
+        cell.backgroundColor = [UIColor colorWithWhite:1 alpha:.23];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    cell.textLabel.text = @"BLE";
+    
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
+    CBPeripheral *peripheral = _peripheralArray[indexPath.row];
+    if (peripheral.state == CBPeripheralStateConnected)
+    {
+        cell.textLabel.textColor = BLE_Theme_Color;
+        cell.detailTextLabel.textColor = BLE_Theme_Color;
+        cell.detailTextLabel.text = @"已连接";
+    } else {
+        cell.textLabel.textColor = [UIColor grayColor];
+        cell.detailTextLabel.text = @"未连接";
+    }
+    cell.textLabel.text = peripheral.name;
 
 
     
@@ -308,7 +331,8 @@
     {
         return;
     }
-    
+    clickIndex = indexPath.row;
+    [_actionSheet showInView:self.view];
     
     
 
@@ -345,6 +369,24 @@
 #pragma mark -action sheet delegate
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if (actionSheet == _actionSheet)
+    {
+        switch (buttonIndex) {
+            case 0:
+            {
+            }
+                break;
+            case 1:
+            {
+                [self enterControlView];
+            }
+                break;
+                
+            default:
+                break;
+        }
+    
+    }
 }
 
 #pragma mark - alert delegate
@@ -387,6 +429,11 @@
     {
         
         [_peripheralArray addObject:peripheral];
+        
+        if (peripheral.state != CBPeripheralStateConnected)
+        {
+            [self.cbCentralMgr connectPeripheral:peripheral options:nil];
+        }
         [_tableview reloadData];
     }
     
@@ -493,26 +540,26 @@
     
     if (!error) {
         DLog(@"--------发现服务--------");
-        for(CBCharacteristic *c in service.characteristics)
+        for(CBCharacteristic *chara in service.characteristics)
         {
             
-            DLog(@"cbcharacteristic =%@",c);
+            DLog(@"可写特征值 =%@",chara);
             
             
-            JKBLEServicAndCharacter *bAndc = [[JKBLEServicAndCharacter alloc]init];
+//            JKBLEServicAndCharacter *bAndc = [[JKBLEServicAndCharacter alloc]init];
             
             //活得可用通道
-            if ([c.UUID isEqual:[CBUUID UUIDWithString:WRITE_CHARA_UUID]]
-                || [c.UUID isEqual:[CBUUID UUIDWithString:WRITE_CHARA_UUID_OTHER]]) {
-                writeCharacteristic = c;
-                
-                bAndc.bleDevice = peripheral;
-                bAndc.character = c;
-                if (![[JKBLEManager shareInstance].writeCharacteristic containsObject:bAndc])
-                {
-                    [[JKBLEManager shareInstance].writeCharacteristic addObject:bAndc];
-                }
-                
+            if ([chara.UUID isEqual:[CBUUID UUIDWithString:WRITE_CHARA_UUID]]
+                || [chara.UUID isEqual:[CBUUID UUIDWithString:WRITE_CHARA_UUID_OTHER]]) {
+                writeCharacter = chara;
+//                
+//                bAndc.bleDevice = peripheral;
+//                bAndc.character = c;
+//                if (![[JKBLEManager shareInstance].writeCharacteristic containsObject:bAndc])
+//                {
+//                    [[JKBLEManager shareInstance].writeCharacteristic addObject:bAndc];
+//                }
+//                
             }
             
         }

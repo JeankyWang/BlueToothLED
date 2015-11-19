@@ -109,10 +109,10 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="9ct-Og-oze">
-                                <rect key="frame" x="0.0" y="114" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="113.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9ct-Og-oze" id="Dsi-LF-HAM">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </tableViewCellContentView>
@@ -134,7 +134,7 @@
         <!--Control View Controller-->
         <scene sceneID="vo9-Q6-U0o">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="Vcf-b3-2P9" customClass="JKControlViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JKControlViewController" hidesBottomBarWhenPushed="YES" id="Vcf-b3-2P9" customClass="JKControlViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hqh-Oe-TuE"/>
                         <viewControllerLayoutGuide type="bottom" id="g3j-ad-x2k"/>
@@ -186,13 +186,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="KPI-6B-nQm">
-                        <barButtonItem key="rightBarButtonItem" systemItem="play" id="jQW-UL-CtE">
-                            <connections>
-                                <segue destination="Vcf-b3-2P9" kind="push" id="ot7-oF-pNN"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="KPI-6B-nQm"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

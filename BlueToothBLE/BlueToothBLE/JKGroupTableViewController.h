@@ -13,7 +13,7 @@
 
 
 @interface JKGroupTableViewController : UIViewController<CBCentralManagerDelegate,CBPeripheralDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableview;
+@property (strong, nonatomic) UITableView *tableview;
 @property (strong, nonatomic) NSMutableArray *peripheralArray;//全部的周边设备
 
 @property (strong, nonatomic) CBCentralManager *cbCentralMgr;
