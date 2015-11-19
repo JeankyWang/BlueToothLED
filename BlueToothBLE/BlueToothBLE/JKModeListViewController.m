@@ -108,6 +108,8 @@
     [bottomMenu dismissMenu];
 }
 
+
+
 - (void)chooseColor:(JKColorPicker *)picker
 {
     currentAddBtn.backgroundColor = picker.selectColor;

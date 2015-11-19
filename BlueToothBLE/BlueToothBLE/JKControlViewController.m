@@ -140,13 +140,16 @@
     
     UIScrollView *defaultColorView = [[UIScrollView alloc] initWithFrame:CGRectMake(CGRectGetMinX(pickBackView.frame), CGRectGetMaxY(defineBtn.frame) + 20, CGRectGetWidth(pickBackView.frame), 50)];
     defaultColorView.backgroundColor = [UIColor whiteColor];
-    defaultColorView.contentSize = CGSizeMake(400, 50);
+    defaultColorView.contentSize = CGSizeMake(320, 50);
     [_mainScrollView addSubview:defaultColorView];
     
     
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 8; i++) {
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(40*i, 0, 40, 50)];
-        btn.backgroundColor = @[[UIColor redColor],[UIColor greenColor],[UIColor blueColor],[UIColor purpleColor],[UIColor yellowColor],[UIColor cyanColor],[UIColor brownColor],[UIColor orangeColor],[UIColor grayColor],[UIColor blueColor]][i];
+        btn.backgroundColor = @[[UIColor colorWithHexString:@"77baef"],[UIColor colorWithHexString:@"807cd1"],
+                                [UIColor colorWithHexString:@"fe6ac8"],[UIColor colorWithHexString:@"7330d5"],
+                                [UIColor colorWithHexString:@"0db4eb"],[UIColor colorWithHexString:@"3fc765"],
+                                [UIColor colorWithHexString:@"f88264"],[UIColor colorWithHexString:@"f1a663"]][i];
         [btn addTarget:self action:@selector(selectDefaultColor:) forControlEvents:UIControlEventTouchUpInside];
         [defaultColorView addSubview:btn];
     }
@@ -277,12 +280,13 @@
     [topLightView setLightColor:picker.selectColor];
 }
 
+#pragma mark -选择内置颜色
 - (void)selectDefaultColor:(UIButton *)button
 {
     [topLightView setLightColor:button.backgroundColor];
     
     UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    tmpView.center = CGPointMake(colorPicker.superview.center.x, colorPicker.superview.center.y);
+    tmpView.center = CGPointMake(colorPicker.superview.superview.center.x, colorPicker.superview.superview.center.y);
     tmpView.backgroundColor = button.backgroundColor;
     tmpView.layer.cornerRadius = 25;
     [self.view addSubview:tmpView];
@@ -353,14 +357,18 @@
 
 - (void)showMusicView
 {
+    [topMenu dismissMenu];
     JKMusicViewController *vc = [[JKMusicViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    JKNavigationController *nav = [[JKNavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)showTimerView
 {
+    [topMenu dismissMenu];
     JKTimerViewController *vc = [[JKTimerViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    JKNavigationController *nav = [[JKNavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)showDefineColorView
