@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JKTimerViewController : UITableViewController
+@interface JKTimerViewController : UIViewController
 
 @end

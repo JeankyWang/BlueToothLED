@@ -7,11 +7,16 @@
 //
 
 #import "JKModeListViewController.h"
+#import "JKDefineMenuView.h"
+#import "JKColorPicker.h"
 
 @interface JKModeListViewController ()
 {
     UISegmentedControl *segmentView;
     double begin;
+    
+    JKDefineMenuView *bottomMenu;
+    UIButton *currentAddBtn;
     
 }
 @end
@@ -21,7 +26,6 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     return self;
 }
 
@@ -29,13 +33,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = NSLocalizedString(@"Select colors", @"");
-    UIImageView *bgImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"bg.png"]];
-    bgImage.frame = self.view.frame;
-    [self.view addSubview:bgImage];
+    self.title = @"自定义";
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
     
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"RUN", @"") style:UIBarButtonItemStyleDone target:self action:@selector(runWithColor)];
-    self.navigationItem.rightBarButtonItem = item;
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close_nav"] style:UIBarButtonItemStyleBordered target:self action:@selector(dismissSelf)];
+    self.navigationItem.leftBarButtonItem = item;
     
     _colorsArray = [NSMutableArray arrayWithCapacity:0];
 
@@ -46,18 +49,17 @@
 
 - (void)initView
 {
-    UILabel *info = [[UILabel alloc]initWithFrame:CGRectMake(30, 24, 280, 80)];
+    UILabel *info = [[UILabel alloc]initWithFrame:CGRectMake(0, 70, FullScreen_width, 20)];
     info.backgroundColor = [UIColor clearColor];
-    info.text = NSLocalizedString(@"info", @"");
-    info.numberOfLines = 0;
-    info.lineBreakMode = NSLineBreakByWordWrapping;
+    info.text = @"添加自定义颜色组合";
+    info.textAlignment = NSTextAlignmentCenter;
     info.font = [UIFont systemFontOfSize:14];
     info.textColor = [UIColor whiteColor];
     [self.view addSubview:info];
     
     int length = 260;
     
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(FullScreen_width/2-length/2, 90, length, length)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(FullScreen_width/2-length/2, CGRectGetMaxY(info.frame)+20, length, length)];
 
 
     view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
@@ -75,7 +77,6 @@
         btn.backgroundColor = [UIColor clearColor];
         [btn addTarget:self action:@selector(colorPicker:) forControlEvents:UIControlEventTouchUpInside];
         [btn addTarget:self action:@selector(clickBegin:) forControlEvents:UIControlEventTouchDown];
-//        [btn addTarget:self action:@selector(clickEnd:) forControlEvents:UIControlEventTouchUpInside];
         btn.tag = i+100;
 
         [btn setTitle:@"+" forState:UIControlStateNormal];
@@ -83,18 +84,45 @@
         [view addSubview:btn];
         
     }
+    
+    //底部弹出色盘
+    bottomMenu = [[JKDefineMenuView alloc] initWithFrame:CGRectMake(0, FullScreen_height-300, FullScreen_width, 300) inView:self.view];
+    bottomMenu.style = JKDefineMenuViewBottom;
+    bottomMenu.backgroundColor = [UIColor colorWithWhite:0 alpha:.1];
+
+    JKColorPicker *colorPicker = [[JKColorPicker alloc] initWithFrame:CGRectMake(0, 0, 182, 182)];
+    colorPicker.center = CGPointMake(CGRectGetWidth(bottomMenu.frame)/2, CGRectGetHeight(bottomMenu.frame)/2-20);
+    [colorPicker addTarget:self action:@selector(chooseColor:) forControlEvents:UIControlEventTouchUpInside];
+    [bottomMenu addSubview:colorPicker];
+    
  
+}
+
+- (void)showBottomMenu
+{
+    [bottomMenu showMenu];
+}
+
+- (void)hideBottomMenu
+{
+    [bottomMenu dismissMenu];
+}
+
+- (void)chooseColor:(JKColorPicker *)picker
+{
+    currentAddBtn.backgroundColor = picker.selectColor;
 }
 
 - (void)colorPicker:(UIButton *)btn
 {
-    
+    currentAddBtn = btn;
     double end = [[NSDate date] timeIntervalSince1970] - begin;
     if (end > 0.5) {
         [self delColor:btn];
         return;
+    } else {
+        [self showBottomMenu];
     }
-    NSLog(@"end:%f",end);
 
 }
 
@@ -104,6 +132,11 @@
     UIButton *btn = (UIButton *)[self.view viewWithTag:tag];
     btn.backgroundColor = color;
     [btn setTitle:@"" forState:UIControlStateNormal];
+}
+
+- (void)dismissSelf
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning

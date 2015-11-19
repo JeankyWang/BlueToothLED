@@ -18,11 +18,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationBar.tintColor = [UIColor whiteColor];
-//    self.tabBarController.tabBar.selectedImageTintColor =[UIColor colorWithHexString:@"917b9f"];
-//
-//    self.tabBarController.tabBar.tintColor = [UIColor whiteColor]; //[UIColor colorWithHexString:@"917b9f"];
     self.navigationBar.backIndicatorImage = [UIImage imageNamed:@"back_nav"];
     self.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"back_nav"];
+    [self.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [UIColor whiteColor], NSForegroundColorAttributeName,nil]];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -35,8 +35,12 @@
     
     UIView *searchView;
     UIView *rotationView;
+    UIView *noBLEView;
+    
     
     CGFloat angle;
+    
+    NSTimer *searchingTime;
 }
 @end
 
@@ -56,6 +60,8 @@
 - (void)setupUI
 {
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(refreshBle:)];
+    
     self.tableview.backgroundColor = [UIColor clearColor];
     [self.view bringSubviewToFront:self.tableview];
     self.tableview.tableFooterView = [UIView new];
@@ -64,18 +70,29 @@
     frame.size.width = FullScreen_width;
     self.tableview.frame = frame;
     
+    
     [self setupSearchingView];
 }
 
 - (void)setupSearchingView
 {
-
     searchView = [[UIView alloc] initWithFrame:self.view.bounds];
     searchView.backgroundColor = [UIColor clearColor];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"searching_img"]];
     imageView.center = searchView.center;
     [searchView addSubview:imageView];
+    
+    
+    UILabel *searchingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame)+10, FullScreen_width, 20)];
+    searchingLabel.textAlignment = NSTextAlignmentCenter;
+    searchingLabel.text = @"搜索中...";
+    searchingLabel.textColor = [UIColor whiteColor];
+    searchingLabel.font = Font(14);
+    [searchView addSubview:searchingLabel];
+    
+    
+    
     rotationView = [[UIView alloc] initWithFrame:imageView.bounds];
     
     
@@ -86,14 +103,41 @@
     [imageView addSubview:rotationView];
     rotationView.transform = CGAffineTransformMakeRotation(1);
     
-//    FXBlurView *blurView = [[FXBlurView alloc] initWithFrame:self.view.bounds];
-//    blurView.blurRadius = 30;
-//    blurView.dynamic = YES;
-////    blurView.blurEnabled = YES;
-//    blurView.tintColor = [UIColor clearColor];
-    
     [self.view addSubview:searchView];
-//    [[UIApplication sharedApplication].keyWindow addSubview:blurView];
+    
+    
+    searchingTime = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(hideSearchView) userInfo:nil repeats:NO];
+
+}
+
+- (void)showNoBLEView
+{
+    noBLEView = [[UIView alloc] initWithFrame:self.view.bounds];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+    imageView.center = searchView.center;
+    [searchView addSubview:imageView];
+    
+    UILabel *noBLELabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame)+10, FullScreen_width, 20)];
+    noBLELabel.textAlignment = NSTextAlignmentCenter;
+    noBLELabel.text = @"没有设备";
+    noBLELabel.textColor = [UIColor whiteColor];
+    noBLELabel.font = Font(14);
+    [noBLEView addSubview:noBLELabel];
+    
+    [self.view addSubview:noBLEView];
+}
+
+- (void)hideNoBLEView
+{
+    [noBLEView removeFromSuperview];
+}
+
+- (void)hideSearchView
+{
+    [searchView removeFromSuperview];
+    if (_peripheralArray.count == 0) {
+        [self showNoBLEView];
+    }
 }
 
 - (void)setupData
@@ -228,7 +272,7 @@
     {
         return 1;
     }
-    return groupArray.count;
+    return _peripheralArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -243,12 +287,13 @@
     if (!cell)
     {
         
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"groupCell"];
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"groupCell"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.textColor = [UIColor whiteColor];
         cell.detailTextLabel.textColor = [UIColor whiteColor];
     }
     
+    cell.textLabel.text = @"BLE";
 
 
     

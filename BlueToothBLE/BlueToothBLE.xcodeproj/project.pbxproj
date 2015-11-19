@@ -25,9 +25,9 @@
 		C6188F011BEB0B5800E2F684 /* JKBLEDeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EFC1BEB0B5800E2F684 /* JKBLEDeviceUtil.m */; };
 		C6188F021BEB0B5800E2F684 /* JKBLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188EFE1BEB0B5800E2F684 /* JKBLEManager.m */; };
 		C6188F031BEB0B5800E2F684 /* JKBLEServicAndCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = C6188F001BEB0B5800E2F684 /* JKBLEServicAndCharacter.m */; };
-		C64F8E301BFCC5E10067339C /* JKModeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C64F8E2F1BFCC5E10067339C /* JKModeListViewController.m */; settings = {ASSET_TAGS = (); }; };
-		C64F8E331BFCC6DB0067339C /* JKMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C64F8E321BFCC6DB0067339C /* JKMusicViewController.m */; settings = {ASSET_TAGS = (); }; };
-		C64F8E361BFCC7050067339C /* JKTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C64F8E351BFCC7050067339C /* JKTimerViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C64F8E301BFCC5E10067339C /* JKModeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C64F8E2F1BFCC5E10067339C /* JKModeListViewController.m */; };
+		C64F8E331BFCC6DB0067339C /* JKMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C64F8E321BFCC6DB0067339C /* JKMusicViewController.m */; };
+		C64F8E361BFCC7050067339C /* JKTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C64F8E351BFCC7050067339C /* JKTimerViewController.m */; };
 		C68A77B01BF8BB09001BBA04 /* JKTopLightView.m in Sources */ = {isa = PBXBuildFile; fileRef = C68A77AF1BF8BB09001BBA04 /* JKTopLightView.m */; };
 		C6EF30FA1BEB515800AF2133 /* JKScenesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EF30F91BEB515800AF2133 /* JKScenesViewController.m */; };
 		C6EF30FE1BEB569600AF2133 /* JKSceneViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EF30FD1BEB569600AF2133 /* JKSceneViewCell.m */; };
@@ -61,9 +61,6 @@
 		103505731BFC15C400065C7D /* JKScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKScrollView.m; sourceTree = "<group>"; };
 		103505791BFC45FB00065C7D /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
 		1035057A1BFC45FB00065C7D /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
-		1035057C1BFC4C1200065C7D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		1035057E1BFC4C2000065C7D /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
-		103505801BFC4C4500065C7D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		1039D5771BE9B53600A56BE9 /* BlueToothBLE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueToothBLE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1039D57B1BE9B53600A56BE9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1039D57D1BE9B53600A56BE9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -163,9 +160,6 @@
 		1039D56E1BE9B53600A56BE9 = {
 			isa = PBXGroup;
 			children = (
-				103505801BFC4C4500065C7D /* Accelerate.framework */,
-				1035057E1BFC4C2000065C7D /* CoreImage.framework */,
-				1035057C1BFC4C1200065C7D /* QuartzCore.framework */,
 				1039D5791BE9B53600A56BE9 /* BlueToothBLE */,
 				1039D5931BE9B53600A56BE9 /* BlueToothBLETests */,
 				1039D59E1BE9B53600A56BE9 /* BlueToothBLEUITests */,

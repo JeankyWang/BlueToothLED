@@ -10,6 +10,10 @@
 #import "JKTopLightView.h"
 #import "JKDefineMenuView.h"
 #import "JKColorPicker.h"
+#import "JKMusicViewController.h"
+#import "JKModeListViewController.h"
+#import "JKTimerViewController.h"
+#import "JKNavigationController.h"
 
 @interface JKControlViewController ()<JKTopLightViewDelegate,UIScrollViewDelegate>
 {
@@ -67,11 +71,11 @@
     
     UIButton *musicBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 64, FullScreen_width/2, 70)];
     [musicBtn setImage:[UIImage imageNamed:@"music_music"] forState:UIControlStateNormal];
-    
+    [musicBtn addTarget:self action:@selector(showMusicView) forControlEvents:UIControlEventTouchUpInside];
     [topMenu addSubview:musicBtn];
     UIButton *timerBtn = [[UIButton alloc] initWithFrame:CGRectMake(FullScreen_width/2, 64, FullScreen_width/2, 70)];
     [timerBtn setImage:[UIImage imageNamed:@"light_timer"] forState:UIControlStateNormal];
-    
+    [timerBtn addTarget:self action:@selector(showTimerView) forControlEvents:UIControlEventTouchUpInside];
     [topMenu addSubview:timerBtn];
 
     
@@ -123,8 +127,18 @@
     
     [_mainScrollView addSubview:pickBackView];
     
+    UIButton *defineBtn = [[UIButton alloc] initWithFrame:CGRectMake(FullScreen_width/2-30, CGRectGetMaxY(pickBackView.frame)+10, 60, 30)];
+    defineBtn.layer.cornerRadius = 15;
+    defineBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    defineBtn.layer.borderWidth = .5;
+    [defineBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [defineBtn setTitle:@"自定义" forState:UIControlStateNormal];
+    defineBtn.titleLabel.font = Font(14);
+    [defineBtn addTarget:self action:@selector(showDefineColorView) forControlEvents:UIControlEventTouchUpInside];
+    [_mainScrollView addSubview:defineBtn];
     
-    UIScrollView *defaultColorView = [[UIScrollView alloc] initWithFrame:CGRectMake(CGRectGetMinX(pickBackView.frame), CGRectGetMaxY(pickBackView.frame) + 30, CGRectGetWidth(pickBackView.frame), 50)];
+    
+    UIScrollView *defaultColorView = [[UIScrollView alloc] initWithFrame:CGRectMake(CGRectGetMinX(pickBackView.frame), CGRectGetMaxY(defineBtn.frame) + 20, CGRectGetWidth(pickBackView.frame), 50)];
     defaultColorView.backgroundColor = [UIColor whiteColor];
     defaultColorView.contentSize = CGSizeMake(400, 50);
     [_mainScrollView addSubview:defaultColorView];
@@ -133,6 +147,7 @@
     for (int i = 0; i < 10; i++) {
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(40*i, 0, 40, 50)];
         btn.backgroundColor = @[[UIColor redColor],[UIColor greenColor],[UIColor blueColor],[UIColor purpleColor],[UIColor yellowColor],[UIColor cyanColor],[UIColor brownColor],[UIColor orangeColor],[UIColor grayColor],[UIColor blueColor]][i];
+        [btn addTarget:self action:@selector(selectDefaultColor:) forControlEvents:UIControlEventTouchUpInside];
         [defaultColorView addSubview:btn];
     }
     
@@ -262,14 +277,33 @@
     [topLightView setLightColor:picker.selectColor];
 }
 
+- (void)selectDefaultColor:(UIButton *)button
+{
+    [topLightView setLightColor:button.backgroundColor];
+    
+    UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    tmpView.center = CGPointMake(colorPicker.superview.center.x, colorPicker.superview.center.y);
+    tmpView.backgroundColor = button.backgroundColor;
+    tmpView.layer.cornerRadius = 25;
+    [self.view addSubview:tmpView];
+    
+    [UIView animateWithDuration:.25 animations:^{
+        tmpView.frame = CGRectMake(topLightView.center.x, topLightView.center.y, 1, 1);
+        tmpView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [tmpView removeFromSuperview];
+    }];
+    
+    
+    
+
+}
+
 - (void)brightnessClick:(UIButton *)button
 {
     [topLightView setLightColor:button.backgroundColor];
-}
-
-- (void)showColorControl
-{
-
+    
+    
 }
 
 - (void)showTopMenu
@@ -315,6 +349,25 @@
 {
     
     ctValue.text = [NSString stringWithFormat:@"%d",(int)(slider.value * 100)];
+}
+
+- (void)showMusicView
+{
+    JKMusicViewController *vc = [[JKMusicViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)showTimerView
+{
+    JKTimerViewController *vc = [[JKTimerViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)showDefineColorView
+{
+    JKModeListViewController *vc = [[JKModeListViewController alloc] init];
+    JKNavigationController *nav = [[JKNavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 @end
