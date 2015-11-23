@@ -17,6 +17,9 @@
 		1039D58A1BE9B53600A56BE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1039D5881BE9B53600A56BE9 /* LaunchScreen.storyboard */; };
 		1039D5951BE9B53600A56BE9 /* BlueToothBLETests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D5941BE9B53600A56BE9 /* BlueToothBLETests.m */; };
 		1039D5A01BE9B53600A56BE9 /* BlueToothBLEUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D59F1BE9B53600A56BE9 /* BlueToothBLEUITests.m */; };
+		10A8271D1C02D955005C9BAD /* JKSceneModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A8271C1C02D955005C9BAD /* JKSceneModel.m */; };
+		10A8273C1C02E804005C9BAD /* JKBLEModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A8273B1C02E804005C9BAD /* JKBLEModel.m */; };
+		10A827401C02EDAB005C9BAD /* JKSaveSceneTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A8273F1C02EDAB005C9BAD /* JKSaveSceneTool.m */; };
 		10B08ABA1BF9741400A30654 /* JKTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B08AB91BF9741400A30654 /* JKTabBarController.m */; };
 		10B08ABD1BFABB9C00A30654 /* JKDefineMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B08ABC1BFABB9C00A30654 /* JKDefineMenuView.m */; };
 		10B08AC01BFAFD0C00A30654 /* JKColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B08ABF1BFAFD0C00A30654 /* JKColorPicker.m */; };
@@ -77,6 +80,12 @@
 		1039D59B1BE9B53600A56BE9 /* BlueToothBLEUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlueToothBLEUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1039D59F1BE9B53600A56BE9 /* BlueToothBLEUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueToothBLEUITests.m; sourceTree = "<group>"; };
 		1039D5A11BE9B53600A56BE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10A8271B1C02D955005C9BAD /* JKSceneModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSceneModel.h; sourceTree = "<group>"; };
+		10A8271C1C02D955005C9BAD /* JKSceneModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSceneModel.m; sourceTree = "<group>"; };
+		10A8273A1C02E804005C9BAD /* JKBLEModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKBLEModel.h; sourceTree = "<group>"; };
+		10A8273B1C02E804005C9BAD /* JKBLEModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKBLEModel.m; sourceTree = "<group>"; };
+		10A8273E1C02EDAB005C9BAD /* JKSaveSceneTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSaveSceneTool.h; sourceTree = "<group>"; };
+		10A8273F1C02EDAB005C9BAD /* JKSaveSceneTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSaveSceneTool.m; sourceTree = "<group>"; };
 		10B08AB81BF9741400A30654 /* JKTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKTabBarController.h; sourceTree = "<group>"; };
 		10B08AB91BF9741400A30654 /* JKTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKTabBarController.m; sourceTree = "<group>"; };
 		10B08ABB1BFABB9C00A30654 /* JKDefineMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDefineMenuView.h; sourceTree = "<group>"; };
@@ -227,9 +236,31 @@
 			path = BlueToothBLEUITests;
 			sourceTree = "<group>";
 		};
+		10A8271A1C02D91F005C9BAD /* model */ = {
+			isa = PBXGroup;
+			children = (
+				10A8271B1C02D955005C9BAD /* JKSceneModel.h */,
+				10A8271C1C02D955005C9BAD /* JKSceneModel.m */,
+				10A8273A1C02E804005C9BAD /* JKBLEModel.h */,
+				10A8273B1C02E804005C9BAD /* JKBLEModel.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		10A8273D1C02ED6C005C9BAD /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				10A8273E1C02EDAB005C9BAD /* JKSaveSceneTool.h */,
+				10A8273F1C02EDAB005C9BAD /* JKSaveSceneTool.m */,
+			);
+			name = Tool;
+			sourceTree = "<group>";
+		};
 		C6109E671BEB16910050C8EB /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				10A8273D1C02ED6C005C9BAD /* Tool */,
+				10A8271A1C02D91F005C9BAD /* model */,
 				C6EF30FB1BEB563000AF2133 /* View */,
 				C6EF30F81BEB515800AF2133 /* JKScenesViewController.h */,
 				C6EF30F91BEB515800AF2133 /* JKScenesViewController.m */,
@@ -412,7 +443,7 @@
 				TargetAttributes = {
 					1039D5761BE9B53600A56BE9 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 8RDH8AEPS5;
+						DevelopmentTeam = WQXXZ7WCE3;
 					};
 					1039D58F1BE9B53600A56BE9 = {
 						CreatedOnToolsVersion = 7.1;
@@ -481,8 +512,11 @@
 				C6EF30FE1BEB569600AF2133 /* JKSceneViewCell.m in Sources */,
 				10B08ABD1BFABB9C00A30654 /* JKDefineMenuView.m in Sources */,
 				1035057B1BFC45FB00065C7D /* FXBlurView.m in Sources */,
+				10A8271D1C02D955005C9BAD /* JKSceneModel.m in Sources */,
+				10A8273C1C02E804005C9BAD /* JKBLEModel.m in Sources */,
 				C6EF31081BEB7EE200AF2133 /* JKScenesTableViewController.m in Sources */,
 				C6FD4E271BF5DF1200B1D6C5 /* JKControlViewController.m in Sources */,
+				10A827401C02EDAB005C9BAD /* JKSaveSceneTool.m in Sources */,
 				103505741BFC15C400065C7D /* JKScrollView.m in Sources */,
 				C6FD4E2A1BF5EADA00B1D6C5 /* JKGroupTableViewController.m in Sources */,
 				C64F8E331BFCC6DB0067339C /* JKMusicViewController.m in Sources */,

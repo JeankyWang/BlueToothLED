@@ -8,9 +8,15 @@
 
 #import "JKScenesViewController.h"
 #import "JKSceneViewCell.h"
+#import "JKSceneModel.h"
+#import "JKSaveSceneTool.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface JKScenesViewController ()<UICollectionViewDelegateFlowLayout>
-
+{
+    NSMutableArray *sceneArray;
+    ALAssetsLibrary *assetLib;
+}
 @end
 
 @implementation JKScenesViewController
@@ -33,7 +39,18 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     self.tabBarItem.image = newImage;
     self.tabBarItem.selectedImage = newSelectedImage;
 
+    [self setupData];
+}
 
+- (void)setupData
+{
+    sceneArray = [[JKSaveSceneTool sharedInstance] unarchiveBrandsIconWithKey:@"myScenes"];
+    assetLib = [[ALAssetsLibrary alloc] init];
+}
+
+- (void)saveScene
+{
+    [[JKSaveSceneTool sharedInstance] archiveScene:sceneArray withKey:@"myScenes"];
 }
 
 - (void)setupLayout
@@ -72,7 +89,7 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 
-    return 6;
+    return sceneArray.count;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -93,11 +110,27 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     JKSceneViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    JKSceneModel *scene = sceneArray[indexPath.item];
+    UIImage *img = [UIImage imageNamed:scene.imgName];
     
-    cell.nameLabel.text = @"客厅";
-    cell.themeImg.image = [UIImage imageNamed:@"scene_bedroom"];
+    if (img) {
+        cell.themeImg.image = img;
+    } else {
+        [assetLib assetForURL:[NSURL URLWithString:scene.imgName] resultBlock:^(ALAsset *asset) {
+            
+
+            cell.themeImg.image = [UIImage imageWithCGImage:[asset thumbnail]];//[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+        } failureBlock:^(NSError *error) {
+            
+        }];
+
+    }
+    
+    
+    cell.nameLabel.text = scene.name;
+    
     cell.themeImg.layer.masksToBounds = YES;
-//    cell.backgroundColor = [UIColor redColor];
+
     return cell;
 }
 

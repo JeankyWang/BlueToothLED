@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
+    <entity name="JKBLEEntity" representedClassName="JKBLEEntity" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="JKSceneEntity" representedClassName="JKSceneEntity" isAbstract="YES" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photo" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="JKSceneEntity" positionX="-380" positionY="-36" width="128" height="73"/>
+        <element name="JKBLEEntity" positionX="-54" positionY="9" width="128" height="73"/>
+    </elements>
+</model>
