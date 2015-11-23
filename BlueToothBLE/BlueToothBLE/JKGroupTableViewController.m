@@ -201,6 +201,7 @@
 - (IBAction)refreshBle:(id)sender
 {
     
+    [self setupSearchingView];
     
     for (CBPeripheral *per in _peripheralArray) {
         [_cbCentralMgr cancelPeripheralConnection:per];

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface JKScenesViewController : UICollectionViewController
+- (IBAction)editScene:(UIBarButtonItem *)sender;
 
 @end

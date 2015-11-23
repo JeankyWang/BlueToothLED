@@ -11,11 +11,14 @@
 #import "JKSceneModel.h"
 #import "JKSaveSceneTool.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "JKScenesTableViewController.h"
 
-@interface JKScenesViewController ()<UICollectionViewDelegateFlowLayout>
+@interface JKScenesViewController ()<UICollectionViewDelegateFlowLayout,JKScenesSelectDelegate>
 {
     NSMutableArray *sceneArray;
     ALAssetsLibrary *assetLib;
+    
+    BOOL isEditing;
 }
 @end
 
@@ -29,7 +32,9 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     self.title = @"场景";
-    self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_bg"]];
+//    self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_bg"]];
+    self.collectionView.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
     [self setupLayout];
     
     UIImage *newImage = [[UIImage imageNamed:@"tab_scene_un"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -62,6 +67,13 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     layout.minimumLineSpacing = 5;
     self.collectionView.collectionViewLayout = layout;
     
+}
+
+- (void)deleteScene:(UIButton *)button
+{
+    [sceneArray removeObjectAtIndex:button.tag];
+    [self saveScene];
+    [self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -113,12 +125,16 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     JKSceneModel *scene = sceneArray[indexPath.item];
     UIImage *img = [UIImage imageNamed:scene.imgName];
     
+    cell.delBtn.hidden = !isEditing;
+    cell.delBtn.tag = indexPath.item;
+    [cell.delBtn addTarget:self action:@selector(deleteScene:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     if (img) {
         cell.themeImg.image = img;
     } else {
         [assetLib assetForURL:[NSURL URLWithString:scene.imgName] resultBlock:^(ALAsset *asset) {
             
-
             cell.themeImg.image = [UIImage imageWithCGImage:[asset thumbnail]];//[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
         } failureBlock:^(NSError *error) {
             
@@ -134,5 +150,28 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     return cell;
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"JKScenesTableViewController"]) {
+        JKScenesTableViewController *vc = segue.destinationViewController;
+        vc.delegate = self;
+    }
+}
 
+- (void)addScenes:(NSArray *)scenes
+{
+    if (!sceneArray) {
+        sceneArray = [NSMutableArray array];
+    }
+    
+    [sceneArray addObjectsFromArray:scenes];
+    [self saveScene];
+    [self.collectionView reloadData];
+}
+
+- (IBAction)editScene:(UIBarButtonItem *)sender {
+    
+    isEditing = !isEditing;
+    [self.collectionView reloadData];
+}
 @end

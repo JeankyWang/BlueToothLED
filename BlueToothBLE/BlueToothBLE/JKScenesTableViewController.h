@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JKScenesTableViewController : UITableViewController
+@protocol JKScenesSelectDelegate <NSObject>
 
+- (void)addScenes:(NSArray *)scenes;
+
+@end
+
+@interface JKScenesTableViewController : UITableViewController
+@property (nonatomic,assign) id<JKScenesSelectDelegate> delegate;
 @end

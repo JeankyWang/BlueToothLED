@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JKSceneModel.h"
+
+@protocol JKNewScenceDelegate <NSObject>
+
+- (void)addNewScene:(JKSceneModel *)newScene;
+
+@end
 
 @interface JKNewScenceController : UITableViewController
-
+@property (nonatomic,assign) id<JKNewScenceDelegate> delegate;
 @end

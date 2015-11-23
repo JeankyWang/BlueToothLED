@@ -85,10 +85,14 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="euH-qc-Uiu">
-                        <barButtonItem key="leftBarButtonItem" title="Item" systemItem="edit" id="Ocy-MN-d0r"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" systemItem="edit" id="Ocy-MN-d0r">
+                            <connections>
+                                <action selector="editScene:" destination="ZAj-3Y-Vhc" id="w0h-gH-RPK"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Lpn-DR-Mjo">
                             <connections>
-                                <segue destination="8FH-W0-wmc" kind="push" id="SNJ-Px-FG1"/>
+                                <segue destination="8FH-W0-wmc" kind="push" identifier="JKScenesTableViewController" id="SNJ-Px-FG1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
