@@ -37,6 +37,7 @@
 		C6EF31011BEB6C0500AF2133 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6EF31031BEB6C0500AF2133 /* Localizable.strings */; };
 		C6EF31081BEB7EE200AF2133 /* JKScenesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EF31071BEB7EE200AF2133 /* JKScenesTableViewController.m */; };
 		C6F014B31C04A4BE0051A56F /* JKBLEsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F014B21C04A4BE0051A56F /* JKBLEsManager.m */; };
+		C6F014B61C04BAD50051A56F /* JKBLEsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F014B51C04BAD50051A56F /* JKBLEsTableViewController.m */; };
 		C6FD4E201BF5D51000B1D6C5 /* JKNewScenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E1F1BF5D51000B1D6C5 /* JKNewScenceController.m */; };
 		C6FD4E241BF5DDEB00B1D6C5 /* JKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E231BF5DDEB00B1D6C5 /* JKNavigationController.m */; };
 		C6FD4E271BF5DF1200B1D6C5 /* JKControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E261BF5DF1200B1D6C5 /* JKControlViewController.m */; };
@@ -125,6 +126,8 @@
 		C6EF31071BEB7EE200AF2133 /* JKScenesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKScenesTableViewController.m; sourceTree = "<group>"; };
 		C6F014B11C04A4BE0051A56F /* JKBLEsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKBLEsManager.h; sourceTree = "<group>"; };
 		C6F014B21C04A4BE0051A56F /* JKBLEsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKBLEsManager.m; sourceTree = "<group>"; };
+		C6F014B41C04BAD50051A56F /* JKBLEsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKBLEsTableViewController.h; sourceTree = "<group>"; };
+		C6F014B51C04BAD50051A56F /* JKBLEsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKBLEsTableViewController.m; sourceTree = "<group>"; };
 		C6FD4E1E1BF5D51000B1D6C5 /* JKNewScenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNewScenceController.h; sourceTree = "<group>"; };
 		C6FD4E1F1BF5D51000B1D6C5 /* JKNewScenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNewScenceController.m; sourceTree = "<group>"; };
 		C6FD4E221BF5DDEB00B1D6C5 /* JKNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNavigationController.h; sourceTree = "<group>"; };
@@ -273,6 +276,8 @@
 				C6EF31071BEB7EE200AF2133 /* JKScenesTableViewController.m */,
 				C6FD4E1E1BF5D51000B1D6C5 /* JKNewScenceController.h */,
 				C6FD4E1F1BF5D51000B1D6C5 /* JKNewScenceController.m */,
+				C6F014B41C04BAD50051A56F /* JKBLEsTableViewController.h */,
+				C6F014B51C04BAD50051A56F /* JKBLEsTableViewController.m */,
 			);
 			name = Scene;
 			sourceTree = "<group>";
@@ -526,6 +531,7 @@
 				C6FD4E2A1BF5EADA00B1D6C5 /* JKGroupTableViewController.m in Sources */,
 				C64F8E331BFCC6DB0067339C /* JKMusicViewController.m in Sources */,
 				C6FD4E241BF5DDEB00B1D6C5 /* JKNavigationController.m in Sources */,
+				C6F014B61C04BAD50051A56F /* JKBLEsTableViewController.m in Sources */,
 				C6F014B31C04A4BE0051A56F /* JKBLEsManager.m in Sources */,
 				C6188F031BEB0B5800E2F684 /* JKBLEServicAndCharacter.m in Sources */,
 				C68A77B01BF8BB09001BBA04 /* JKTopLightView.m in Sources */,

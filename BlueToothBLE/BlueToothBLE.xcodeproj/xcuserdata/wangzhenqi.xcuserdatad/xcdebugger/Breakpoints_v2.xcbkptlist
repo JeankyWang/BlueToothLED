@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BlueToothBLE/JKGroupTableViewController.m"
-            timestampString = "470070945.300379"
+            timestampString = "470072592.975713"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
+            startingLineNumber = "335"
+            endingLineNumber = "335"
             landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BlueToothBLE/JKGroupTableViewController.m"
-            timestampString = "470070945.300379"
+            timestampString = "470072592.975713"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "376"
-            endingLineNumber = "376"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
             landmarkName = "@implementation JKGroupTableViewController"
             landmarkType = "3">
          </BreakpointContent>

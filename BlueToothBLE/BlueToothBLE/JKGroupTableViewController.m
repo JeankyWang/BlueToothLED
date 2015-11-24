@@ -159,19 +159,11 @@
     
     self.peripheralArray = [NSMutableArray new];
     connectedDevice = [NSMutableArray new];
-    
-    [allDevices addObject:@{@"name":NSLocalizedString(@"ALL DEVICES", @""),@"device":_peripheralArray,@"status":@false}];
-    NSMutableArray *mulDict = [[NSUserDefaults standardUserDefaults] objectForKey:_GROUP_KEY_];
-    
-    if (mulDict) {
-        [groupArray addObjectsFromArray:mulDict];
-    }
-    
-    
+        
     self.cbCentralMgr = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     writeChars = [NSMutableArray new];
     currentDevice = [NSMutableArray new];
-    [JKBLEsManager sharedInstance].allBLEArray = allDevices;
+    [JKBLEsManager sharedInstance].allBLEArray = _peripheralArray;
     [JKBLEsManager sharedInstance].writeCharacter = writeCharacter;
 
 }

@@ -14,6 +14,7 @@
 #import "JKScenesTableViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "JKBLEsManager.h"
+#import "JKBLEsTableViewController.h"
 
 @interface JKScenesViewController ()<UICollectionViewDelegateFlowLayout,JKScenesSelectDelegate>
 {
@@ -184,6 +185,9 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
 {
     JKSceneModel *scene = sceneArray[indexPath.item];
     DLog(@"选中%@",scene);
+    
+    JKBLEsTableViewController *vc = [[JKBLEsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
