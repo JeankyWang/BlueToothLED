@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CoreBluetooth/CoreBluetooth.h"
 #import "JKBLEServicAndCharacter.h"
-
+#import "JKBLEsManager.h"
 
 
 @interface JKGroupTableViewController : UIViewController<CBCentralManagerDelegate,CBPeripheralDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate>

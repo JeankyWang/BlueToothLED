@@ -12,6 +12,8 @@
 #import "JKSaveSceneTool.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "JKScenesTableViewController.h"
+#import <CoreBluetooth/CoreBluetooth.h>
+#import "JKBLEsManager.h"
 
 @interface JKScenesViewController ()<UICollectionViewDelegateFlowLayout,JKScenesSelectDelegate>
 {
@@ -72,8 +74,35 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
 - (void)deleteScene:(UIButton *)button
 {
     [sceneArray removeObjectAtIndex:button.tag];
+    [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:button.tag inSection:0]]];
     [self saveScene];
-    [self.collectionView reloadData];
+//    [self.collectionView reloadData];
+}
+
+- (void)onOffLight:(UIButton *)button
+{
+    button.selected = !button.selected;
+    BOOL isOn = button.selected;
+    Byte dataOFF[9] = {0x7e,0x04,0x04,isOn,0x00,0xff,0xff,0x0,0xef};
+    NSData *data = [[NSData alloc]initWithBytes:dataOFF length:9];
+
+    
+    
+    JKSceneModel *scene = sceneArray[button.tag];
+    
+    if (!scene.devices) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"本场景暂无添加蓝牙设备" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    
+    
+    for (CBPeripheral *per in [JKBLEsManager sharedInstance].allBLEArray) {
+        if ([scene.devices containsObject:per.name]) {
+            [per writeValue:data forCharacteristic:[JKBLEsManager sharedInstance].writeCharacter type:CBCharacteristicWriteWithoutResponse];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -127,8 +156,9 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     
     cell.delBtn.hidden = !isEditing;
     cell.delBtn.tag = indexPath.item;
+    cell.lightBtn.tag = indexPath.item;
     [cell.delBtn addTarget:self action:@selector(deleteScene:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [cell.lightBtn addTarget:self action:@selector(onOffLight:) forControlEvents:UIControlEventTouchUpInside];
     
     if (img) {
         cell.themeImg.image = img;
@@ -148,6 +178,19 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     cell.themeImg.layer.masksToBounds = YES;
 
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    JKSceneModel *scene = sceneArray[indexPath.item];
+    DLog(@"选中%@",scene);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    JKSceneModel *scene = sceneArray[indexPath.item];
+    DLog(@"取消选中%@",scene);
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

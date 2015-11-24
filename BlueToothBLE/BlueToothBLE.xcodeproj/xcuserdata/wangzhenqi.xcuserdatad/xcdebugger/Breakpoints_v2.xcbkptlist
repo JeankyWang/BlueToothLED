@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BlueToothBLE/JKGroupTableViewController.m"
-            timestampString = "469986381.836561"
+            timestampString = "470070945.300379"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
             landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BlueToothBLE/JKGroupTableViewController.m"
-            timestampString = "469986381.836561"
+            timestampString = "470070945.300379"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "393"
-            endingLineNumber = "393"
+            startingLineNumber = "376"
+            endingLineNumber = "376"
             landmarkName = "@implementation JKGroupTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -122,22 +122,6 @@
             startingLineNumber = "118"
             endingLineNumber = "118"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BlueToothBLE/JKScenesViewController.m"
-            timestampString = "469986225.367314"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "-addScenes:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

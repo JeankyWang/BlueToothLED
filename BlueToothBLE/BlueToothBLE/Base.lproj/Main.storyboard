@@ -234,8 +234,8 @@
                         <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Qo8-Lu-vvi" kind="relationship" relationship="viewControllers" id="Vkb-Bi-WNl"/>
                         <segue destination="UAq-x7-wJT" kind="relationship" relationship="viewControllers" id="8b5-pT-4Lz"/>
+                        <segue destination="Qo8-Lu-vvi" kind="relationship" relationship="viewControllers" id="Vkb-Bi-WNl"/>
                         <segue destination="EiJ-XI-wOX" kind="relationship" relationship="viewControllers" id="RWA-Oc-pVC"/>
                     </connections>
                 </tabBarController>

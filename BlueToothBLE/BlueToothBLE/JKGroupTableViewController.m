@@ -171,7 +171,8 @@
     self.cbCentralMgr = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     writeChars = [NSMutableArray new];
     currentDevice = [NSMutableArray new];
-
+    [JKBLEsManager sharedInstance].allBLEArray = allDevices;
+    [JKBLEsManager sharedInstance].writeCharacter = writeCharacter;
 
 }
 
@@ -210,24 +211,6 @@
     [_peripheralArray removeAllObjects];
     [self centralManagerDidUpdateState:self.cbCentralMgr];
     
-}
-
-//全部打开
-- (void)allOn:(id)sender
-{
-
-    
-    Byte cmd[] = {0x7e,0x04,0x04,0x01,0x00,0xff,0xff,0x0,0xef};
-    NSData *data = [NSData dataWithBytes:&cmd length:sizeof(cmd)];
-
-
-    
-    for (JKBLEServicAndCharacter *bc in [JKBLEManager shareInstance].writeCharacteristic)
-    {
-        [bc.bleDevice writeValue:data forCharacteristic:bc.character type:CBCharacteristicWriteWithoutResponse];
-    }
-   
-    [_tableview reloadData];
 }
 
 
@@ -553,7 +536,8 @@
             if ([chara.UUID isEqual:[CBUUID UUIDWithString:WRITE_CHARA_UUID]]
                 || [chara.UUID isEqual:[CBUUID UUIDWithString:WRITE_CHARA_UUID_OTHER]]) {
                 writeCharacter = chara;
-//                
+                [JKBLEsManager sharedInstance].writeCharacter = chara;
+//
 //                bAndc.bleDevice = peripheral;
 //                bAndc.character = c;
 //                if (![[JKBLEManager shareInstance].writeCharacteristic containsObject:bAndc])
