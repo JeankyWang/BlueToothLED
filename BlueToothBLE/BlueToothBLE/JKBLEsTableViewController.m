@@ -87,7 +87,13 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    cell.textLabel.text = peripheral.name;
+    NSString *rename = [[NSUserDefaults standardUserDefaults] objectForKey:peripheral.name];
+    
+    if (!rename){
+        cell.textLabel.text = peripheral.name;
+    } else {
+        cell.textLabel.text = rename;
+    }
     
     
     

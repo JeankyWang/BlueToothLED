@@ -10,6 +10,7 @@
 #import "JKBLEManager.h"
 #import "FXBlurView.h"
 #import "JKControlViewController.h"
+#import "JKBLEModel.h"
 
 #define _GROUP_KEY_ @"_group_"
 #define NO_DEVICE_ALERT_TAG 100
@@ -47,6 +48,7 @@
     UIActionSheet *_actionSheet;
     
     NSInteger clickIndex;
+    UIAlertView *renameAlert;
 }
 @end
 
@@ -79,6 +81,16 @@
     [self.view addSubview:self.tableview];
     
     _actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择操作方式" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"修改名称" otherButtonTitles:@"控制", nil];
+    
+    renameAlert = [[UIAlertView alloc] initWithTitle:@"输入新的名称" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    renameAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [renameAlert textFieldAtIndex:0].placeholder = @"请输入新的名称";
+    [renameAlert textFieldAtIndex:0].clearButtonMode = UITextFieldViewModeWhileEditing;
+
+    
+    
+    
+    
     
     [self setupSearchingView];
 }
@@ -155,7 +167,6 @@
     
     groupArray = [NSMutableArray arrayWithCapacity:0];
     allDevices = [NSMutableArray arrayWithCapacity:0];
-    
     
     self.peripheralArray = [NSMutableArray new];
     connectedDevice = [NSMutableArray new];
@@ -292,7 +303,14 @@
         cell.textLabel.textColor = [UIColor grayColor];
         cell.detailTextLabel.text = @"未连接";
     }
-    cell.textLabel.text = peripheral.name;
+    
+    NSString *rename = [[NSUserDefaults standardUserDefaults] objectForKey:peripheral.name];
+    
+    if (!rename){
+        cell.textLabel.text = peripheral.name;
+    } else {
+        cell.textLabel.text = rename;
+    }
 
 
     
@@ -350,6 +368,8 @@
         switch (buttonIndex) {
             case 0:
             {
+                //修改名称
+                [renameAlert show];
             }
                 break;
             case 1:
@@ -369,7 +389,12 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-
+    if (alertView == renameAlert && buttonIndex == 1) {
+        NSString *newName = [alertView textFieldAtIndex:0].text;
+        CBPeripheral *per = _peripheralArray[clickIndex];
+        [[NSUserDefaults standardUserDefaults] setObject:newName forKey:per.name];
+        [self.tableview reloadData];
+    }
 }
 
 
@@ -405,7 +430,6 @@
     {
         
         [_peripheralArray addObject:peripheral];
-        
         if (peripheral.state != CBPeripheralStateConnected)
         {
             [self.cbCentralMgr connectPeripheral:peripheral options:nil];
