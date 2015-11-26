@@ -15,19 +15,29 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "JKBLEsManager.h"
 #import "JKBLEsTableViewController.h"
+#import "JKControlViewController.h"
 
-@interface JKScenesViewController ()<UICollectionViewDelegateFlowLayout,JKScenesSelectDelegate>
+@interface JKScenesViewController ()<UICollectionViewDelegateFlowLayout,JKScenesSelectDelegate,UIActionSheetDelegate>
 {
     NSMutableArray *sceneArray;
     ALAssetsLibrary *assetLib;
     
+    UIActionSheet *chooseSheet;
     BOOL isEditing;
+    
+    JKSceneModel *currentScene;
 }
 @end
 
 @implementation JKScenesViewController
 
 static NSString * const reuseIdentifier = @"scene_cell_id";
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.collectionView reloadData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,12 +50,18 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
     [self setupLayout];
     
-    UIImage *newImage = [[UIImage imageNamed:@"tab_scene_un"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    UIImage *newSelectedImage = [[UIImage imageNamed:@"tab_scene"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} forState:UIControlStateSelected];
-    [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor yellowColor]} forState:UIControlStateNormal];
-    self.tabBarItem.image = newImage;
-    self.tabBarItem.selectedImage = newSelectedImage;
+//    UIImage *newImage = [[UIImage imageNamed:@"tab_scene_un"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    UIImage *newSelectedImage = [[UIImage imageNamed:@"tab_scene"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} forState:UIControlStateSelected];
+//    [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor yellowColor]} forState:UIControlStateNormal];
+//    self.tabBarItem.image = newImage;
+//    self.tabBarItem.selectedImage = newSelectedImage;
+    
+    chooseSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"控制",@"添加设备", nil];
+    
+    
+    
+    
 
     [self setupData];
 }
@@ -183,11 +199,8 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    JKSceneModel *scene = sceneArray[indexPath.item];
-    DLog(@"选中%@",scene);
-    
-    JKBLEsTableViewController *vc = [[JKBLEsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:vc animated:YES];
+    currentScene = sceneArray[indexPath.item];
+    [chooseSheet showInView:self.view];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -195,6 +208,20 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     JKSceneModel *scene = sceneArray[indexPath.item];
     DLog(@"取消选中%@",scene);
     
+}
+
+#pragma mark -action sheet delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    DLog(@"index : %d",(int)buttonIndex);
+    if (buttonIndex == 0) {
+        [self enterControlView];
+    } else if(buttonIndex == 1) {
+        JKBLEsTableViewController *vc = [[JKBLEsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        vc.scene = currentScene;
+        [self.navigationController pushViewController:vc animated:YES];
+
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -221,4 +248,28 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     isEditing = !isEditing;
     [self.collectionView reloadData];
 }
+
+#pragma mark - 进入控制界面
+- (void)enterControlView
+{
+    
+    
+    JKControlViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"JKControlViewController"];
+    vc.deviceArray = [self getPerArrayFromScene:currentScene];
+    vc.writeCharacter = [JKBLEsManager sharedInstance].writeCharacter;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+- (NSArray *)getPerArrayFromScene:(JKSceneModel *)scene
+{
+    NSMutableArray *tmp = [NSMutableArray array];
+    for (CBPeripheral *per in [JKBLEsManager sharedInstance].allBLEArray) {
+        if ([scene.devices containsObject:per.name]) {
+            [tmp addObject:per];
+        }
+    }
+    return tmp;
+}
+
 @end

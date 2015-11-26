@@ -10,6 +10,15 @@
 
 @implementation JKSceneModel
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.devices = [NSMutableArray array];
+    }
+    return self;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super init];

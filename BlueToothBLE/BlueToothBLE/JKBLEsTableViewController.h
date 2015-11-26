@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "JKSceneModel.h"
 @interface JKBLEsTableViewController : UITableViewController
-
+@property (nonatomic,strong) JKSceneModel *scene;
 @end
