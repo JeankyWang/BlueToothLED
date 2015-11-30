@@ -19,6 +19,7 @@
 		10A8271D1C02D955005C9BAD /* JKSceneModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A8271C1C02D955005C9BAD /* JKSceneModel.m */; };
 		10A8273C1C02E804005C9BAD /* JKBLEModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A8273B1C02E804005C9BAD /* JKBLEModel.m */; };
 		10A827401C02EDAB005C9BAD /* JKSaveSceneTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A8273F1C02EDAB005C9BAD /* JKSaveSceneTool.m */; };
+		10A8275E1C0C4F0A005C9BAD /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A8275D1C0C4F0A005C9BAD /* NSTimer+Addition.m */; };
 		10B08ABA1BF9741400A30654 /* JKTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B08AB91BF9741400A30654 /* JKTabBarController.m */; };
 		10B08ABD1BFABB9C00A30654 /* JKDefineMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B08ABC1BFABB9C00A30654 /* JKDefineMenuView.m */; };
 		10B08AC01BFAFD0C00A30654 /* JKColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B08ABF1BFAFD0C00A30654 /* JKColorPicker.m */; };
@@ -86,6 +87,8 @@
 		10A8273B1C02E804005C9BAD /* JKBLEModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKBLEModel.m; sourceTree = "<group>"; };
 		10A8273E1C02EDAB005C9BAD /* JKSaveSceneTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSaveSceneTool.h; sourceTree = "<group>"; };
 		10A8273F1C02EDAB005C9BAD /* JKSaveSceneTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSaveSceneTool.m; sourceTree = "<group>"; };
+		10A8275C1C0C4F0A005C9BAD /* NSTimer+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Addition.h"; sourceTree = "<group>"; };
+		10A8275D1C0C4F0A005C9BAD /* NSTimer+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Addition.m"; sourceTree = "<group>"; };
 		10B08AB81BF9741400A30654 /* JKTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKTabBarController.h; sourceTree = "<group>"; };
 		10B08AB91BF9741400A30654 /* JKTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKTabBarController.m; sourceTree = "<group>"; };
 		10B08ABB1BFABB9C00A30654 /* JKDefineMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDefineMenuView.h; sourceTree = "<group>"; };
@@ -372,6 +375,8 @@
 		C6FD4E211BF5DDBD00B1D6C5 /* MyUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				10A8275C1C0C4F0A005C9BAD /* NSTimer+Addition.h */,
+				10A8275D1C0C4F0A005C9BAD /* NSTimer+Addition.m */,
 				C6FD4E221BF5DDEB00B1D6C5 /* JKNavigationController.h */,
 				C6FD4E231BF5DDEB00B1D6C5 /* JKNavigationController.m */,
 				10B08AB81BF9741400A30654 /* JKTabBarController.h */,
@@ -533,6 +538,7 @@
 				C68A77B01BF8BB09001BBA04 /* JKTopLightView.m in Sources */,
 				C64F8E301BFCC5E10067339C /* JKModeListViewController.m in Sources */,
 				10B08ABA1BF9741400A30654 /* JKTabBarController.m in Sources */,
+				10A8275E1C0C4F0A005C9BAD /* NSTimer+Addition.m in Sources */,
 				C6188EF91BEB09CC00E2F684 /* UIImage+ColorAtPixel.m in Sources */,
 				C6188EF81BEB09CC00E2F684 /* UIColor-Expanded.m in Sources */,
 				1039D5821BE9B53600A56BE9 /* ViewController.m in Sources */,

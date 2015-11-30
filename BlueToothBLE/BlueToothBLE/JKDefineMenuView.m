@@ -36,7 +36,7 @@
     finalFrame = frame;
     superView = view;
     
-    
+    self.allowAutoDisappear = YES;
     
     blur = [[FXBlurView alloc] initWithFrame:frame];
     blur.blurRadius = 15;
@@ -71,7 +71,12 @@
     backView = [[UIView alloc] initWithFrame:superView.frame];
     backView.backgroundColor = [UIColor clearColor];
     
-    [self addAllGesture:backView];
+    if (_allowAutoDisappear) {
+        [self addAllGesture:backView];
+    }
+    
+    
+    
     [backView addSubview:self];
     
     if (_style == JKDefineMenuViewTop) {

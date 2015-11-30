@@ -24,6 +24,7 @@ typedef enum {
 @property (nonatomic,assign) JKDefineMenuStyle style;
 @property (nonatomic,assign) CGFloat animationDuration;
 @property (nonatomic,strong) UIView *backgroundView;
+@property (nonatomic,assign) BOOL allowAutoDisappear;
 
 - (instancetype)initWithFrame:(CGRect)frame inView:(UIView *)view;
 - (void)showMenu;
