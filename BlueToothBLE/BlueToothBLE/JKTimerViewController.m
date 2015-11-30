@@ -159,7 +159,7 @@
     
     
     UISwitch *switcher = [[UISwitch alloc] initWithFrame:CGRectMake(FullScreen_width - 60, 35, 60, 30)];
-    switcher.onTintColor = [UIColor colorWithHexString:@"cb83ff"];
+    switcher.onTintColor = [UIColor colorWithHexString:@"5d4965"];
     switcher.tag = indexPath.section;
     [cell.contentView addSubview:switcher];
     

@@ -11,6 +11,8 @@
 @interface JKMusicViewController ()
 {
     NSMutableArray *styleBtnArray;
+    UIImageView *thumbImg;
+    UIProgressView *timeProgress;
 }
 @end
 
@@ -55,15 +57,48 @@
 
     
     
-    UIImageView *thumbImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"searching_img"]];
+    thumbImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"music_strong"]];
     thumbImg.frame = CGRectMake(FullScreen_width/2-100, CGRectGetMaxY(styleView.frame)+33, 200, 200);
     [self.view addSubview:thumbImg];
     
+    //控制按钮
     
-    UIProgressView *timeProgress = [[UIProgressView alloc] initWithFrame:CGRectMake(FullScreen_width/2-113, CGRectGetMaxY(thumbImg.frame)+38, 227, 20)];
+    UIButton *preBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(thumbImg.frame)+30, CGRectGetMaxY(thumbImg.frame) + 10, 30, 30)];
+    [preBtn setImage:[UIImage imageNamed:@"music_pre"] forState:UIControlStateNormal];
+    
+    [self.view addSubview:preBtn];
+    
+    UIButton *playBtn = [[UIButton alloc] initWithFrame:CGRectMake(FullScreen_width/2 - 15, CGRectGetMinY(preBtn.frame), 30, 30)];
+    [playBtn setImage:[UIImage imageNamed:@"music_pause"] forState:UIControlStateNormal];
+    [self.view addSubview:playBtn];
+    
+    UIButton *nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(thumbImg.frame) - 60, CGRectGetMinY(preBtn.frame), 30, 30)];
+    [nextBtn setImage:[UIImage imageNamed:@"music_next"] forState:UIControlStateNormal];
+    [self.view addSubview:nextBtn];
+    
+    timeProgress = [[UIProgressView alloc] initWithFrame:CGRectMake(FullScreen_width/2-113, CGRectGetMaxY(playBtn.frame)+18, 227, 20)];
     timeProgress.progressTintColor = [UIColor colorWithHexString:@"c059f0"];
     [self.view addSubview:timeProgress];
     timeProgress.progress = .5;
+    
+    
+    
+    //
+    UIButton *musicLibBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(timeProgress.frame), CGRectGetMaxY(timeProgress.frame)+30, 100, 30)];
+    [musicLibBtn setImage:[UIImage imageNamed:@"music_db"] forState:UIControlStateNormal];
+    [musicLibBtn setTitle:@"本地音乐" forState:UIControlStateNormal];
+    [musicLibBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    musicLibBtn.titleLabel.font = Font(14);
+    [self.view addSubview:musicLibBtn];
+    
+    UIButton *musicListBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(musicLibBtn.frame)+20, CGRectGetMinY(musicLibBtn.frame), 100, 30)];
+    [musicListBtn setImage:[UIImage imageNamed:@"music_list"] forState:UIControlStateNormal];
+    [musicListBtn setTitle:@"播放列表" forState:UIControlStateNormal];
+    [musicListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    musicListBtn.titleLabel.font = Font(14);
+    [self.view addSubview:musicListBtn];
+    
+    
     
     
     

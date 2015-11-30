@@ -14,7 +14,6 @@
 		1039D5821BE9B53600A56BE9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D5811BE9B53600A56BE9 /* ViewController.m */; };
 		1039D5851BE9B53600A56BE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1039D5831BE9B53600A56BE9 /* Main.storyboard */; };
 		1039D5871BE9B53600A56BE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1039D5861BE9B53600A56BE9 /* Assets.xcassets */; };
-		1039D58A1BE9B53600A56BE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1039D5881BE9B53600A56BE9 /* LaunchScreen.storyboard */; };
 		1039D5951BE9B53600A56BE9 /* BlueToothBLETests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D5941BE9B53600A56BE9 /* BlueToothBLETests.m */; };
 		1039D5A01BE9B53600A56BE9 /* BlueToothBLEUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1039D59F1BE9B53600A56BE9 /* BlueToothBLEUITests.m */; };
 		10A8271D1C02D955005C9BAD /* JKSceneModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A8271C1C02D955005C9BAD /* JKSceneModel.m */; };
@@ -74,7 +73,6 @@
 		1039D5811BE9B53600A56BE9 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		1039D5841BE9B53600A56BE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1039D5861BE9B53600A56BE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1039D5891BE9B53600A56BE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1039D58B1BE9B53600A56BE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1039D5901BE9B53600A56BE9 /* BlueToothBLETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlueToothBLETests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1039D5941BE9B53600A56BE9 /* BlueToothBLETests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueToothBLETests.m; sourceTree = "<group>"; };
@@ -206,7 +204,6 @@
 				1039D5811BE9B53600A56BE9 /* ViewController.m */,
 				1039D5831BE9B53600A56BE9 /* Main.storyboard */,
 				1039D5861BE9B53600A56BE9 /* Assets.xcassets */,
-				1039D5881BE9B53600A56BE9 /* LaunchScreen.storyboard */,
 				1039D58B1BE9B53600A56BE9 /* Info.plist */,
 				1039D57A1BE9B53600A56BE9 /* Supporting Files */,
 			);
@@ -453,7 +450,7 @@
 				TargetAttributes = {
 					1039D5761BE9B53600A56BE9 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 8RDH8AEPS5;
+						DevelopmentTeam = R36RBC6CXH;
 					};
 					1039D58F1BE9B53600A56BE9 = {
 						CreatedOnToolsVersion = 7.1;
@@ -491,7 +488,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1039D58A1BE9B53600A56BE9 /* LaunchScreen.storyboard in Resources */,
 				C6EF31011BEB6C0500AF2133 /* Localizable.strings in Resources */,
 				1039D5871BE9B53600A56BE9 /* Assets.xcassets in Resources */,
 				1039D5851BE9B53600A56BE9 /* Main.storyboard in Resources */,
@@ -591,14 +587,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		1039D5881BE9B53600A56BE9 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1039D5891BE9B53600A56BE9 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 		C6EF31031BEB6C0500AF2133 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -648,7 +636,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -685,7 +673,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -696,7 +684,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BlueToothBLE/PrefixHeader.pch;
 				INFOPLIST_FILE = BlueToothBLE/Info.plist;
@@ -712,7 +702,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BlueToothBLE/PrefixHeader.pch;
 				INFOPLIST_FILE = BlueToothBLE/Info.plist;
