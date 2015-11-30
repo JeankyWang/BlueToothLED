@@ -44,8 +44,6 @@
     self.title = @"音乐";
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
     [self setupUI];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshArtwork) name:MPMusicPlayerControllerNowPlayingItemDidChangeNotification object:nil];
 }
 
 - (void)setupUI
@@ -147,9 +145,13 @@
     [songListView addSubview:songListTabelView];
     
     //播放器
-    musicPlayer = [[MPMusicPlayerController alloc] init];
-    [musicPlayer setQueueWithItemCollection:songsCollection];
-    [musicPlayer play];
+    
+    player = [[AVAudioPlayer alloc] init];
+    MPMediaItem *song = songsCollection.items[0];
+
+//    musicPlayer = [[MPMusicPlayerController alloc] init];
+//    [musicPlayer setQueueWithItemCollection:songsCollection];
+//    [musicPlayer play];
     
     timer = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(thumbImageRotation) userInfo:nil repeats:YES];
 }
