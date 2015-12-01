@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 
 @interface JKMusicViewController : UIViewController
-
+@property (nonatomic,strong) NSArray *deviceArray;
+@property (nonatomic,strong) CBCharacteristic *writeCharacter;
 @end

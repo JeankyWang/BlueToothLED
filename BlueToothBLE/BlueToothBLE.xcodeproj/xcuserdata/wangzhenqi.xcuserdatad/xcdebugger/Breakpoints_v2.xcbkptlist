@@ -57,7 +57,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "422"
             endingLineNumber = "422"
-            landmarkName = "-sendDataBright:"
+            landmarkName = "-openLight"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,7 +73,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "477"
             endingLineNumber = "477"
-            landmarkName = "-sendColorToDevice:"
+            landmarkName = "-sendDataCTWithHot:cold:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -89,7 +89,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "441"
             endingLineNumber = "441"
-            landmarkName = "-sendDataRGBWithRed:green:blue:"
+            landmarkName = "-sendDataBright:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -105,7 +105,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "331"
             endingLineNumber = "331"
-            landmarkName = "-showBottomMenu"
+            landmarkName = "-selectDefaultDynmicColor:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

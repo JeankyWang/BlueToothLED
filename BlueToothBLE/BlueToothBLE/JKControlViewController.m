@@ -393,6 +393,8 @@
 {
     [topMenu dismissMenu];
     JKMusicViewController *vc = [[JKMusicViewController alloc] init];
+    vc.deviceArray = _deviceArray;
+    vc.writeCharacter = _writeCharacter;
     JKNavigationController *nav = [[JKNavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nav animated:YES completion:nil];
 }

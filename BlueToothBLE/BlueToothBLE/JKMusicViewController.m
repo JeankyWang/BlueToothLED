@@ -186,6 +186,10 @@
 
 -(void)playSongAtIndex:(NSInteger)index
 {
+    if (songsCollection.items == 0) {
+        
+        return;
+    }
     
     currentPlayIndex = abs((int)index) % songsCollection.items.count;
     MPMediaItem *song = songsCollection.items[index];
@@ -300,7 +304,7 @@
     
     Byte byte[] = {0x7e,0x04,0x01,brightness,0xff,0xff,0xff,0x00,0xef};
     NSData *data = [[NSData alloc]initWithBytes:byte length:9];
-//    [self sendCMD:data];
+    [self sendCMD:data];
 //    [self sendCMD:data];
     
 //    [[NSUserDefaults standardUserDefaults] setFloat:brightness/100.0 forKey:BRIGHTNESS_USER_DEFAULT];
@@ -351,12 +355,12 @@ int lastVm = 0;//纪录上次的明暗度
 //        
 //    } else{
 //        
-//        if (vm > 0 && m%3 == 0) {
-//            
-//            [self sendDataRGBWithRed:0 green:0 blue:0];
-//        }
-//        
-//        [self sendDataBright:vm];
+        if (vm > 0 && m%3 == 0) {
+            
+            [self sendDataRGBWithRed:0 green:0 blue:0];
+        }
+        
+        [self sendDataBright:vm];
 //    }
 //    
     
@@ -364,6 +368,42 @@ int lastVm = 0;//纪录上次的明暗度
     
 }
 
+//随机光色
+- (void)sendDataRGBWithRed:(Byte)red green:(Byte)green blue:(Byte)blue
+{
+    Byte color[] = {0x00,0xff,0xff,0x00,0xff,0x00};
+//    if (!_isDefind || _colorArray.count == 0) {
+        red = color[arc4random()%6];
+        green = color[arc4random()%6];
+        blue = color[arc4random()%6];
+        
+        if (red == 0 && green ==0 && blue == 0) {
+            red = 0xff;
+            green = 0xff;
+        }
+        
+        Byte byte[] = {0x7e,0x07,0x05,0x03,red,green,blue,0x0,0xef};
+        NSData *data = [[NSData alloc]initWithBytes:byte length:9];
+        NSLog(@"r:%d g:%d b:%d",red,green,blue);
+        [self sendCMD:data];
+        
+//    }
+//    else
+//    {
+//        Byte byte[] = {0x7e,0x07,0x05,0x03,red,green,blue,0x0,0xef};
+//        NSData *data = [[NSData alloc]initWithBytes:byte length:9];
+//        [self sendCMD:data];
+//    }
+    
+}
+
+- (void)sendCMD:(NSData*)data
+{
+    for (CBPeripheral *per in _deviceArray)
+    {
+        [per writeValue:data forCharacteristic:_writeCharacter type:CBCharacteristicWriteWithoutResponse];
+    }
+}
 
 - (void)dealloc
 {
