@@ -42,7 +42,7 @@
     UIButton *footer = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, FullScreen_width, 50)];
     [footer setTitleColor:[UIColor colorWithHexString:@"ff446a"] forState:UIControlStateNormal];
     [footer setTitle:@"  断电后定时信息失效，请重新设置" forState:UIControlStateNormal];
-    [footer setImage:[UIImage imageNamed:@"scene_on"] forState:UIControlStateNormal];
+    [footer setImage:[UIImage imageNamed:@"warn"] forState:UIControlStateNormal];
     footer.titleLabel.font = Font(14);
     myTableView.tableFooterView = footer;
     
@@ -127,13 +127,16 @@
 
     }
     
-    UIButton *lightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, FullScreen_width/3, 100)];
-    lightBtn.backgroundColor = [UIColor colorWithHexString:@"33233d"];
+    UIView *lightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, FullScreen_width/3, 100)];
+    lightView.backgroundColor = [UIColor colorWithHexString:@"33233d"];
+    
+    UIButton *lightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     lightBtn.tag = indexPath.section;
     [lightBtn addTarget:self action:@selector(showBottomMenu:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.contentView addSubview:lightBtn];
+    [lightView addSubview:lightBtn];
+    [cell.contentView addSubview:lightView];
     
-    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(lightBtn.frame), 0, FullScreen_width/2, 60)];
+    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(lightView.frame), 0, FullScreen_width/2, 60)];
     timeLabel.font = [UIFont fontWithName:@"STHeitiSC-Light" size:50];
     timeLabel.textColor = [UIColor whiteColor];
     timeLabel.textAlignment = NSTextAlignmentCenter;

@@ -70,7 +70,7 @@
     self.title = @"在线设备";
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(refreshBle:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(refreshBle:)];
     
     self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, FullScreen_width, FullScreen_height-64-49) style:UITableViewStyleGrouped];
     self.tableview.delegate = self;

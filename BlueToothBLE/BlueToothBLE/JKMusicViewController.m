@@ -17,6 +17,8 @@
 {
     NSMutableArray *styleBtnArray;
     UIImageView *thumbImg;
+    UILabel *pastTimeLabel;
+    UILabel *haveTimeLabel;
     UIProgressView *timeProgress;
     JKDefineMenuView *songListView;
     UITableView *songListTabelView;
@@ -28,6 +30,7 @@
     
     int currentPlayIndex;
     NSTimer *timer;
+    NSTimer *musicTimer;
 }
 @end
 
@@ -36,7 +39,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [musicPlayer pause];
+    [player pause];
 
 }
 
@@ -104,12 +107,24 @@
     [nextBtn addTarget:self action:@selector(playNextSong) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:nextBtn];
     
-    timeProgress = [[UIProgressView alloc] initWithFrame:CGRectMake(FullScreen_width/2-113, CGRectGetMaxY(playBtn.frame)+18, 227, 20)];
+    pastTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(playBtn.frame)+18, 50, 10)];
+    pastTimeLabel.textColor = [UIColor whiteColor];
+    pastTimeLabel.font = Font(10);
+    pastTimeLabel.text = @"00:00";
+    pastTimeLabel.textAlignment = NSTextAlignmentRight;
+    [self.view addSubview:pastTimeLabel];
+    
+    timeProgress = [[UIProgressView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(pastTimeLabel.frame)+5, CGRectGetMinY(pastTimeLabel.frame)+2, FullScreen_width-110, 20)];
     timeProgress.progressTintColor = [UIColor colorWithHexString:@"c059f0"];
     [self.view addSubview:timeProgress];
     timeProgress.progress = .5;
     
-    
+    haveTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(timeProgress.frame)+5, CGRectGetMinY(pastTimeLabel.frame), 50, 10)];
+    haveTimeLabel.textColor = [UIColor whiteColor];
+    haveTimeLabel.font = Font(10);
+    haveTimeLabel.text = @"00:00";
+    haveTimeLabel.textAlignment = NSTextAlignmentLeft;
+    [self.view addSubview:haveTimeLabel];
     
     //
     UIButton *musicLibBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(timeProgress.frame), CGRectGetMaxY(timeProgress.frame)+30, 100, 30)];
@@ -137,7 +152,12 @@
     songListView.allowAutoDisappear = NO;
     songListView.backgroundColor = [UIColor colorWithWhite:0 alpha:.5];
     
-    songListTabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, CGRectGetWidth(songListView.frame), CGRectGetHeight(songListView.frame)-40) style:UITableViewStylePlain];
+    UIButton *hideBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, FullScreen_width, 40)];
+    [hideBtn setImage:[UIImage imageNamed:@"music_down_arrow"] forState:UIControlStateNormal];
+    [hideBtn addTarget:self action:@selector(hideSongList) forControlEvents:UIControlEventTouchUpInside];
+    [songListView addSubview:hideBtn];
+    
+    songListTabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, CGRectGetWidth(songListView.frame), CGRectGetHeight(songListView.frame)-60) style:UITableViewStylePlain];
     songListTabelView.delegate = self;
     songListTabelView.dataSource = self;
     songListTabelView.backgroundColor = [UIColor clearColor];
@@ -156,6 +176,12 @@
     [self playSongAtIndex:0];
     
     timer = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(thumbImageRotation) userInfo:nil repeats:YES];
+    musicTimer = [NSTimer scheduledTimerWithTimeInterval:.2 target:self selector:@selector(playProgress) userInfo:nil repeats:YES];
+}
+
+- (void)hideSongList
+{
+    [songListView dismissMenu];
 }
 
 -(void)playSongAtIndex:(NSInteger)index
@@ -221,9 +247,11 @@
     if (button.selected) {
         [player pause];
         [timer pauseTimer];
+        [musicTimer pauseTimer];
     } else {
         [player play];
         [timer resumeTimer];
+        [musicTimer resumeTimer];
     }
 }
 
@@ -292,8 +320,8 @@ int lastVm = 0;//纪录上次的明暗度
         return;
     }
     timeProgress.progress = player.currentTime/player.duration;
-//    timeLabel1.text = [NSString stringWithFormat:@"%02d:%02d",(int)_player.currentTime/60,(int)_player.currentTime%60];
-//    timeLabel2.text = [NSString stringWithFormat:@"-%02d:%02d",((int)_player.duration-(int)_player.currentTime)/60, ((int)_player.duration-(int)_player.currentTime)%60];
+    pastTimeLabel.text = [NSString stringWithFormat:@"%02d:%02d",(int)player.currentTime/60,(int)player.currentTime%60];
+    haveTimeLabel.text = [NSString stringWithFormat:@"-%02d:%02d",((int)player.duration-(int)player.currentTime)/60, ((int)player.duration-(int)player.currentTime)%60];
     
     [player updateMeters];//更新仪表读数
     //读取每个声道的平均电平和峰值电平，代表每个声道的分贝数,范围在-100～0之间。
@@ -362,10 +390,10 @@ int lastVm = 0;//纪录上次的明暗度
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell_id"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"cell_id"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell_id"];
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.font = Font(16);
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.detailTextLabel.font = Font(12);
     }
     
