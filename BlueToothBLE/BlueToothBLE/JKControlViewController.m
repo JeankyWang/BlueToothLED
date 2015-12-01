@@ -139,19 +139,20 @@
     [_mainScrollView addSubview:defineBtn];
     
     
-    UIScrollView *defaultColorView = [[UIScrollView alloc] initWithFrame:CGRectMake(CGRectGetMinX(pickBackView.frame), CGRectGetMaxY(defineBtn.frame) + 20, CGRectGetWidth(pickBackView.frame), 50)];
+    UIScrollView *defaultColorView = [[UIScrollView alloc] initWithFrame:CGRectMake(CGRectGetMinX(pickBackView.frame), CGRectGetMaxY(defineBtn.frame) + 20, CGRectGetWidth(pickBackView.frame), 44)];
     defaultColorView.backgroundColor = [UIColor whiteColor];
-    defaultColorView.contentSize = CGSizeMake(320, 50);
+    defaultColorView.contentSize = CGSizeMake(32*26, 44);
     [_mainScrollView addSubview:defaultColorView];
     
     
-    for (int i = 0; i < 8; i++) {
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(40*i, 0, 40, 50)];
-        btn.backgroundColor = @[[UIColor colorWithHexString:@"77baef"],[UIColor colorWithHexString:@"807cd1"],
-                                [UIColor colorWithHexString:@"fe6ac8"],[UIColor colorWithHexString:@"7330d5"],
-                                [UIColor colorWithHexString:@"0db4eb"],[UIColor colorWithHexString:@"3fc765"],
-                                [UIColor colorWithHexString:@"f88264"],[UIColor colorWithHexString:@"f1a663"]][i];
-        [btn addTarget:self action:@selector(selectDefaultColor:) forControlEvents:UIControlEventTouchUpInside];
+    for (int i = 0; i < 26; i++) {
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(32*i, 0, 32, 44)];
+        btn.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:[NSString stringWithFormat:@"%d",i+1]]];
+        if (i < 8)
+            [btn addTarget:self action:@selector(selectDefaultColor:) forControlEvents:UIControlEventTouchUpInside];
+        else
+            [btn addTarget:self action:@selector(selectDefaultDynmicColor:) forControlEvents:UIControlEventTouchUpInside];
+        
         [defaultColorView addSubview:btn];
     }
     
@@ -309,8 +310,26 @@
         [tmpView removeFromSuperview];
     }];
     
+}
+
+- (void)selectDefaultDynmicColor:(UIButton *)button
+{
     
+    //发送代码
     
+    [topLightView setLightColor:button.backgroundColor];
+    UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    tmpView.center = CGPointMake(colorPicker.superview.superview.center.x, colorPicker.superview.superview.center.y);
+    tmpView.backgroundColor = button.backgroundColor;
+    tmpView.layer.cornerRadius = 25;
+    [self.view addSubview:tmpView];
+    
+    [UIView animateWithDuration:.25 animations:^{
+        tmpView.frame = CGRectMake(topLightView.center.x, topLightView.center.y, 1, 1);
+        tmpView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [tmpView removeFromSuperview];
+    }];
 
 }
 

@@ -387,43 +387,6 @@
     NSData *data = [[NSData alloc]initWithBytes:byte length:9];
     [self sendCMD:data];
     [self sendCMD:data];
-//    Byte bomb[] = {0x7e,0x04,0x01,0x00,0xff,0xff,0xff,0x00,0xef};
-//    NSData *dataBomb = [[NSData alloc]initWithBytes:bomb length:9];
-//    
-//    Byte jump[] = {0x7e,0x04,0x01,0x64,0xff,0xff,0xff,0x00,0xef};
-//    NSData *dataJump = [[NSData alloc]initWithBytes:jump length:9];
-//    
-//    
-//    switch (_changeMode) {
-//        case JKChangeModeBaoShan:
-//        {
-//            NSLog(@"爆闪");
-//            
-//            if(m % 2 == 0)
-//            {
-//                [self sendCMD:dataBomb];
-//                
-//            }
-//            else [self sendCMD:dataJump];
-//        }
-//            break;
-//        case JKChangeModeJB:
-//            NSLog(@"渐变");
-//            [self sendCMD:data];
-//            NSLog(@"-------RGB---bright:%d-",brightness);
-//            break;
-//        case JKChangeModeJump:
-//            NSLog(@"跳变");
-//            [self sendCMD:dataJump];
-//            
-//            break;
-//            
-//        default:
-//            NSLog(@"渐变");
-//            [self sendCMD:data];
-//            NSLog(@"-------RGB---bright:%d-",brightness);
-//            break;
-//    }
 
     [[NSUserDefaults standardUserDefaults] setFloat:brightness/100.0 forKey:BRIGHTNESS_USER_DEFAULT];
 
@@ -687,19 +650,7 @@ int cIndex = 0;
     musicIndex = abs(index) % mediaItems.count;
     MPMediaItem *item = [mediaItems objectAtIndex:musicIndex];
     NSURL *url=[item valueForKey:MPMediaItemPropertyAssetURL];
-    
-    if (!url) {
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"nosupport", @"")];
-//        return;
-    }
    
-//    NSURL *url = [[mediaItems objectAtIndex:musicIndex] valueForProperty:MPMediaItemPropertyAssetURL];
-    
-//    if ([[url.path lowercaseString] containsString:@"m4p"]) {
-////        NSLog(@"mp3文件");
-//        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"nosupport", @"")];
-//        return;
-//    }
     _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     _player.delegate = self;
     [_player prepareToPlay];

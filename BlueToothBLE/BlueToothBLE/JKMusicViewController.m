@@ -13,7 +13,7 @@
 #import "JKSaveSceneTool.h"
 #import "NSTimer+Addition.h"
 
-@interface JKMusicViewController ()<UITableViewDataSource,UITableViewDelegate,MPMediaPickerControllerDelegate,UINavigationControllerDelegate>
+@interface JKMusicViewController ()<UITableViewDataSource,UITableViewDelegate,MPMediaPickerControllerDelegate,UINavigationControllerDelegate,AVAudioPlayerDelegate>
 {
     NSMutableArray *styleBtnArray;
     UIImageView *thumbImg;
@@ -26,6 +26,7 @@
     MPMusicPlayerController *musicPlayer;
     CGFloat angle;
     
+    int currentPlayIndex;
     NSTimer *timer;
 }
 @end
@@ -136,7 +137,7 @@
     songListView.allowAutoDisappear = NO;
     songListView.backgroundColor = [UIColor colorWithWhite:0 alpha:.5];
     
-    songListTabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, CGRectGetWidth(songListView.frame), CGRectGetHeight(songListView.frame)-40) style:UITableViewStylePlain];
+    songListTabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, CGRectGetWidth(songListView.frame), CGRectGetHeight(songListView.frame)-40) style:UITableViewStylePlain];
     songListTabelView.delegate = self;
     songListTabelView.dataSource = self;
     songListTabelView.backgroundColor = [UIColor clearColor];
@@ -146,21 +147,42 @@
     
     //播放器
     
-    player = [[AVAudioPlayer alloc] init];
-    MPMediaItem *song = songsCollection.items[0];
+
+    
 
 //    musicPlayer = [[MPMusicPlayerController alloc] init];
 //    [musicPlayer setQueueWithItemCollection:songsCollection];
 //    [musicPlayer play];
+    [self playSongAtIndex:0];
     
     timer = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(thumbImageRotation) userInfo:nil repeats:YES];
 }
 
+-(void)playSongAtIndex:(NSInteger)index
+{
+    
+    currentPlayIndex = abs((int)index) % songsCollection.items.count;
+    MPMediaItem *song = songsCollection.items[index];
+    player = [[AVAudioPlayer alloc] initWithContentsOfURL:[song valueForProperty:MPMediaItemPropertyAssetURL] error:nil];
+    player.delegate = self;
+    [player prepareToPlay];
+    [player play];
+    player.meteringEnabled = YES;//开启仪表计数功能
+    [self refreshArtwork];
+    
+}
+
 - (void)refreshArtwork
 {
-    MPMediaItemArtwork *album = [musicPlayer.nowPlayingItem valueForProperty:MPMediaItemPropertyArtwork];
+    MPMediaItemArtwork *album = [songsCollection.items[currentPlayIndex] valueForProperty:MPMediaItemPropertyArtwork];
     UIImage *image = [album imageWithSize:thumbImg.frame.size];
-    thumbImg.image = image;
+    
+    if (image) {
+        thumbImg.image = image;
+    } else {
+        thumbImg.image = [UIImage imageNamed:@"music_strong"];
+    }
+    
 }
 
 - (void)thumbImageRotation
@@ -188,7 +210,8 @@
 
 - (void)playPreSong
 {
-    [musicPlayer skipToPreviousItem];
+//    [musicPlayer skipToPreviousItem];
+    [self playSongAtIndex:--currentPlayIndex];
 }
 
 - (void)playPauseSong:(UIButton *)button
@@ -196,17 +219,18 @@
     button.selected = !button.selected;
     
     if (button.selected) {
-        [musicPlayer pause];
+        [player pause];
         [timer pauseTimer];
     } else {
-        [musicPlayer play];
+        [player play];
         [timer resumeTimer];
     }
 }
 
 - (void)playNextSong
 {
-    [musicPlayer skipToNextItem];
+//    [musicPlayer skipToNextItem];
+    [self playSongAtIndex:++currentPlayIndex];
 }
 
 - (void)refreshSongs
@@ -234,6 +258,84 @@
 {
     
 }
+
+- (void)sendDataBright:(Byte)brightness
+{
+    
+//    if (_changeMode == JKChangeModeBaoShan) {
+//        brightness = brightness > 50? 100:0;
+//        
+//    }else if(_changeMode == JKChangeModeJump){
+//        NSLog(@"柔和");
+//        brightness = brightness < 50? 50:brightness;
+//    }
+    
+    Byte byte[] = {0x7e,0x04,0x01,brightness,0xff,0xff,0xff,0x00,0xef};
+    NSData *data = [[NSData alloc]initWithBytes:byte length:9];
+//    [self sendCMD:data];
+//    [self sendCMD:data];
+    
+//    [[NSUserDefaults standardUserDefaults] setFloat:brightness/100.0 forKey:BRIGHTNESS_USER_DEFAULT];
+    
+    
+}
+#pragma mark -音乐主函数
+//播放进度条
+int m = 0;
+int lastVm = 0;//纪录上次的明暗度
+- (void)playProgress
+{
+    
+    
+    //通过音频播放时长的百分比,给progressview进行赋值;
+    if (player.duration == 0) {
+        return;
+    }
+    timeProgress.progress = player.currentTime/player.duration;
+//    timeLabel1.text = [NSString stringWithFormat:@"%02d:%02d",(int)_player.currentTime/60,(int)_player.currentTime%60];
+//    timeLabel2.text = [NSString stringWithFormat:@"-%02d:%02d",((int)_player.duration-(int)_player.currentTime)/60, ((int)_player.duration-(int)_player.currentTime)%60];
+    
+    [player updateMeters];//更新仪表读数
+    //读取每个声道的平均电平和峰值电平，代表每个声道的分贝数,范围在-100～0之间。
+    float averagePower = pow(10, (0.05 * [player averagePowerForChannel:0]));
+    Byte value = sqrtf(averagePower)*100;
+    int vm = value;
+    if ((vm - lastVm) > 5) {
+        vm += 15;
+    }
+    else if((vm-lastVm)<0)
+    {
+        vm -= 20;
+    }
+    
+    lastVm = value;
+    
+    //自定义颜色组
+//    if(_isDefind && _colorArray.count > 0){
+//        
+//        if (vm > 0 && m%3 == 0) {
+//            
+//            [self defindedModePlay];
+//            
+//        }
+//        
+//        [self sendDataBright:vm];
+//        
+//    } else{
+//        
+//        if (vm > 0 && m%3 == 0) {
+//            
+//            [self sendDataRGBWithRed:0 green:0 blue:0];
+//        }
+//        
+//        [self sendDataBright:vm];
+//    }
+//    
+    
+    m++;
+    
+}
+
 
 - (void)dealloc
 {
@@ -270,7 +372,7 @@
     MPMediaItem *song = songsCollection.items[indexPath.row];
     DLog(@"song:%@",song);
     
-    if (song == musicPlayer.nowPlayingItem) {
+    if (indexPath.row == currentPlayIndex) {
         cell.textLabel.textColor = [UIColor whiteColor];
         cell.detailTextLabel.textColor = [UIColor whiteColor];
     } else {
@@ -289,8 +391,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MPMediaItem *song = songsCollection.items[indexPath.row];
-    [musicPlayer setNowPlayingItem:song];
+//    MPMediaItem *song = songsCollection.items[indexPath.row];
+//    [musicPlayer setNowPlayingItem:song];
+    
+    [self playSongAtIndex:indexPath.row];
+    
     [self refreshArtwork];
     [songListView dismissMenu];
     
@@ -315,6 +420,14 @@
 {
     navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [UIColor whiteColor], NSForegroundColorAttributeName,nil]];
+}
+
+//播放完成时调用的方法  (代理里的方法),需要设置代理才可以调用
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    
+    [self playNextSong];
+    
 }
 
 /*
