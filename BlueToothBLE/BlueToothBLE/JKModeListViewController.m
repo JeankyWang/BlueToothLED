@@ -17,6 +17,7 @@
     
     JKDefineMenuView *bottomMenu;
     UIButton *currentAddBtn;
+    NSMutableArray *colorBtnArray;
     
 }
 @end
@@ -35,10 +36,9 @@
     // Do any additional setup after loading the view.
     self.title = @"自定义";
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close_nav"] style:UIBarButtonItemStyleBordered target:self action:@selector(dismissSelf)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction)];
     
-    
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close_nav"] style:UIBarButtonItemStyleBordered target:self action:@selector(dismissSelf)];
-    self.navigationItem.leftBarButtonItem = item;
     
     _colorsArray = [NSMutableArray arrayWithCapacity:0];
 
@@ -96,6 +96,13 @@
     [bottomMenu addSubview:colorPicker];
     
  
+}
+
+- (void)doneAction
+{
+    [self runWithColor];
+    
+    [self dismissSelf];
 }
 
 - (void)showBottomMenu
@@ -169,9 +176,9 @@
         }
     }
     
-    [self.navigationController popViewControllerAnimated:YES];
-    
-    
+    if ([_delegate respondsToSelector:@selector(selectdColorArray:)]) {
+        [_delegate selectdColorArray:_colorsArray];
+    }
 }
 
 @end

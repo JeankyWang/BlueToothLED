@@ -14,8 +14,9 @@
 #import "JKModeListViewController.h"
 #import "JKTimerViewController.h"
 #import "JKNavigationController.h"
+#import "JKSendDataTool.h"
 
-@interface JKControlViewController ()<JKTopLightViewDelegate,UIScrollViewDelegate>
+@interface JKControlViewController ()<JKTopLightViewDelegate,UIScrollViewDelegate,JKUserdefindColorDelegate>
 {
     JKDefineMenuView *topMenu;//弹出菜单
     JKDefineMenuView *bottomMenu;
@@ -288,7 +289,8 @@
 
 - (void)brightnessCondition:(UISlider *)slider
 {
-    [self sendDataBright:(Byte)(slider.value * 100)];
+//    [self sendDataBright:(Byte)(slider.value * 100)];
+    [[JKSendDataTool shareInstance] sendDataBright:(Byte)(slider.value * 100) devices:_deviceArray];
 }
 
 #pragma mark -选择内置颜色
@@ -336,7 +338,8 @@
 #pragma mark -单色调节
 - (void)brightnessClick:(UIButton *)button
 {
-    [self sendDataDMBright:100 - 100.0/12.0 * button.tag];
+//    [self sendDataDMBright:100 - 100.0/12.0 * button.tag];
+    [[JKSendDataTool shareInstance] sendDataDMBright:100 - 100.0/12.0 * button.tag devices:_deviceArray];
     [topLightView setLightColor:button.backgroundColor];
 }
 
@@ -368,11 +371,13 @@
 - (void)offOnBtnClick:(UIButton *)offOnButton
 {
     if (offOnButton.selected) {
-        [self openLight];
+//        [self openLight];
+        [[JKSendDataTool shareInstance] openLight:_deviceArray];
         [topLightView setLightColor:[UIColor whiteColor]];
 
     } else {
-        [self closeLight];
+//        [self closeLight];
+        [[JKSendDataTool shareInstance] closeLight:_deviceArray];
         [topLightView setLightColor:[UIColor lightGrayColor]];
     }
 }
@@ -385,7 +390,8 @@
 #pragma mark -色温调节
 - (void)ctChange:(UISlider *)slider
 {
-    [self sendDataCTWithHot:(Byte)(slider.value * 100) cold:(100-(Byte)(slider.value * 100))];
+//    [self sendDataCTWithHot:(Byte)(slider.value * 100) cold:(100-(Byte)(slider.value * 100))];
+    [[JKSendDataTool shareInstance] sendDataCTWithHot:(Byte)(slider.value * 100) cold:(100-(Byte)(slider.value * 100)) devices:_deviceArray];
     ctValue.text = [NSString stringWithFormat:@"%d",(int)(slider.value * 100)];
 }
 
@@ -414,84 +420,85 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
-- (void)closeLight
-{
-    Byte dataOFF[9] = {0x7e,0x04,0x04,0x00,0x00,0xff,0xff,0x0,0xef};
-    NSData *data = [[NSData alloc]initWithBytes:dataOFF length:9];
-    [self sendCMD:data];
-    
-}
-
-- (void)openLight
-{
-    Byte dataON[9]  = {0x7e,0x04,0x04,0x01,0x00,0xff,0xff,0x0,0xef};
-    NSData *data = [[NSData alloc]initWithBytes:dataON length:9];
-    [self sendCMD:data];
-}
-
-- (void)sendCMD:(NSData*)data
-{
-    for (CBPeripheral *per in _deviceArray)
-    {
-        [per writeValue:data forCharacteristic:_writeCharacter type:CBCharacteristicWriteWithoutResponse];
-    }
-}
-
-- (void)sendDataBright:(Byte)brightness
-{
-    
-    Byte byte[] = {0x7e,0x04,0x01,brightness==100?99:brightness,0xff,0xff,0xff,0x00,0xef};
-    NSData *data = [[NSData alloc]initWithBytes:byte length:9];
-    [self sendCMD:data];
-
-    
-    NSLog(@"-------RGB---bright:%d-",brightness);
-//    const CGFloat *color =  CGColorGetComponents(_picker.selectedColor.CGColor);
+//- (void)closeLight
+//{
+//    Byte dataOFF[9] = {0x7e,0x04,0x04,0x00,0x00,0xff,0xff,0x0,0xef};
+//    NSData *data = [[NSData alloc]initWithBytes:dataOFF length:9];
+//    [self sendCMD:data];
 //    
-//    if (color != nil)
+//}
+//
+//- (void)openLight
+//{
+//    Byte dataON[9]  = {0x7e,0x04,0x04,0x01,0x00,0xff,0xff,0x0,0xef};
+//    NSData *data = [[NSData alloc]initWithBytes:dataON length:9];
+//    [self sendCMD:data];
+//}
+//
+//- (void)sendCMD:(NSData*)data
+//{
+//    for (CBPeripheral *per in _deviceArray)
 //    {
-//        
-//        NSLog(@"rgb:%f %f %f",color[0]*255,color[1]*255,color[2]*255);
-//        
+//        [per writeValue:data forCharacteristic:_writeCharacter type:CBCharacteristicWriteWithoutResponse];
 //    }
-}
-
-- (void)sendDataRGBWithRed:(Byte)red green:(Byte)green blue:(Byte)blue
-{
-    
-    Byte byte[] = {0x7e,0x07,0x05,0x03,red,green,blue,0x0,0xef};
-    
-    NSData *data = [[NSData alloc]initWithBytes:byte length:sizeof(byte)];
-    [self sendCMD:data];
-    
-    NSLog(@"-------RGB---red:%d- green:%d- blue:%d-",red,green,blue);
-    
-}
-
-- (void)sendDataCTWithHot:(Byte)hot cold:(Byte)cold
-{
-    
-    Byte byte[] = {0x7e,0x06,0x05,0x02,hot,cold,0xff,0x08,0xef};
-    NSData *data = [[NSData alloc]initWithBytes:byte length:9];
-    
-    NSLog(@"-------CT---hot:%d-cold:%d-",hot,cold);
-    [self sendCMD:data];
-    
-    
-}
-
-//单色模式
-- (void)sendDataDMBright:(Byte)brightness
-{
-
-    Byte byte[] = {0x7e,0x05,0x05,0x01,brightness,0xff,0xff,0x08,0xef};
-    NSData *data = [[NSData alloc]initWithBytes:byte length:9];
-    [self sendCMD:data];
-    
-    NSLog(@"-------RGB---bright:%d-",brightness);
-}
-
-
+//}
+//
+//- (void)sendDataBright:(Byte)brightness
+//{
+//    
+//    Byte byte[] = {0x7e,0x04,0x01,brightness==100?99:brightness,0xff,0xff,0xff,0x00,0xef};
+//    NSData *data = [[NSData alloc]initWithBytes:byte length:9];
+//    [self sendCMD:data];
+//
+//    
+//    NSLog(@"-------RGB---bright:%d-",brightness);
+////    const CGFloat *color =  CGColorGetComponents(_picker.selectedColor.CGColor);
+////    
+////    if (color != nil)
+////    {
+////        
+////        NSLog(@"rgb:%f %f %f",color[0]*255,color[1]*255,color[2]*255);
+////        
+////    }
+//}
+//
+//- (void)sendDataRGBWithRed:(Byte)red green:(Byte)green blue:(Byte)blue
+//{
+//    
+//    Byte byte[] = {0x7e,0x07,0x05,0x03,red,green,blue,0x0,0xef};
+//    
+//    NSData *data = [[NSData alloc]initWithBytes:byte length:sizeof(byte)];
+//    [self sendCMD:data];
+//    
+//    NSLog(@"-------RGB---red:%d- green:%d- blue:%d-",red,green,blue);
+//    
+//}
+//
+//- (void)sendDataCTWithHot:(Byte)hot cold:(Byte)cold
+//{
+//    
+//    Byte byte[] = {0x7e,0x06,0x05,0x02,hot,cold,0xff,0x08,0xef};
+//    NSData *data = [[NSData alloc]initWithBytes:byte length:9];
+//    
+//    NSLog(@"-------CT---hot:%d-cold:%d-",hot,cold);
+//    [self sendCMD:data];
+//    
+//    
+//}
+//
+////单色模式
+//- (void)sendDataDMBright:(Byte)brightness
+//{
+//
+//    Byte byte[] = {0x7e,0x05,0x05,0x01,brightness,0xff,0xff,0x08,0xef};
+//    NSData *data = [[NSData alloc]initWithBytes:byte length:9];
+//    [self sendCMD:data];
+//    
+//    NSLog(@"-------RGB---bright:%d-",brightness);
+//}
+//
+//
+//
 
 - (void)sendColorToDevice:(UIColor *)color
 {
@@ -499,9 +506,16 @@
     
     if (color != nil)
     {
-        [self sendDataRGBWithRed:colorZone[0]*255 green:colorZone[1]*255 blue:colorZone[2]*255];
+//        [self sendDataRGBWithRed:colorZone[0]*255 green:colorZone[1]*255 blue:colorZone[2]*255];
+        [[JKSendDataTool shareInstance] sendDataRGBWithRed:colorZone[0]*255 green:colorZone[1]*255 blue:colorZone[2]*255 devices:_deviceArray];
     }
     
+
+}
+
+#pragma mark -选择自定颜色delegate
+- (void)selectdColorArray:(NSArray *)colors
+{
 
 }
 

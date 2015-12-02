@@ -9,12 +9,18 @@
 #import "JKTimerViewController.h"
 #import "JKDefineMenuView.h"
 #import "JKColorPicker.h"
+#import "NSDate+SeparateColumn.h"
 
-@interface JKTimerViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface JKTimerViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 {
     UITableView *myTableView;
     JKDefineMenuView *bottomMenu;
     //#cb83ff
+    UIAlertView *timeAlert;
+    UIDatePicker *datePicker;
+    NSInteger index;
+    NSDate *openDate;
+    NSDate *closeDate;
 }
 @end
 
@@ -57,7 +63,14 @@
     [colorPicker addTarget:self action:@selector(chooseColor:) forControlEvents:UIControlEventTouchUpInside];
     [bottomMenu addSubview:colorPicker];
     
-
+    timeAlert  = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    datePicker = [[UIDatePicker alloc] init];
+    datePicker.datePickerMode = UIDatePickerModeTime;
+    datePicker.date = [NSDate date];
+    
+    [timeAlert setValue:datePicker forKey:@"accessoryView"];
+    
+    
     
 }
 
@@ -88,6 +101,19 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        if (index == 0) {
+            openDate = datePicker.date;
+        } else {
+            closeDate = datePicker.date;
+        }
+        
+        [myTableView reloadData];
+    }
 }
 
 #pragma mark - Table view data source
@@ -127,6 +153,10 @@
 
     }
     
+    for (UIView *view in cell.contentView.subviews) {
+        [view removeFromSuperview];
+    }
+    
     UIView *lightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, FullScreen_width/3, 100)];
     lightView.backgroundColor = [UIColor colorWithHexString:@"33233d"];
     
@@ -149,11 +179,11 @@
     
     switch (indexPath.section) {
         case 0:
-            timeLabel.text = @"07:00";
+            timeLabel.text = [openDate stringWithFormat:@"hh:mm"];
             typeLabel.text = @"开灯";
             break;
         case 1:
-            timeLabel.text = @"22:00";
+            timeLabel.text = [closeDate stringWithFormat:@"hh:mm"];
             typeLabel.text = @"关灯";
             break;
         default:
@@ -170,6 +200,11 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    index = indexPath.section;
+    [timeAlert show];
+}
 
 /*
 // Override to support conditional editing of the table view.

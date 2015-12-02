@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol JKUserdefindColorDelegate <NSObject>
+
+- (void)selectdColorArray:(NSArray *)colors;
+
+@end
+
 @interface JKModeListViewController : UIViewController
 
+@property (nonatomic,assign) id<JKUserdefindColorDelegate> delegate;
 @property (nonatomic, strong) NSMutableArray *colorsArray;
 
 @end

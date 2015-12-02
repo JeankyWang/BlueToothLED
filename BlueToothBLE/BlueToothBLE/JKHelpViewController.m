@@ -19,6 +19,8 @@
     // Do any additional setup after loading the view.
     self.title = @"帮助";
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
+    self.webView.frame = self.view.bounds;
+    self.webView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)didReceiveMemoryWarning {

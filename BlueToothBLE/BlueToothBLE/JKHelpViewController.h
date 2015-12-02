@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface JKHelpViewController : UIViewController
-
+@property (nonatomic,weak) IBOutlet UIWebView *webView;
 @end
