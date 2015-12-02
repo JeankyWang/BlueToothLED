@@ -102,7 +102,8 @@
 {
     [self runWithColor];
     
-    [self dismissSelf];
+//    [self dismissSelf];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)showBottomMenu

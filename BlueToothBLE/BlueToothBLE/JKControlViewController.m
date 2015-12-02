@@ -93,6 +93,7 @@
     UISlider *rateSlider = [[UISlider alloc] initWithFrame:CGRectMake(CGRectGetMaxX(icon.frame)+10, CGRectGetMinY(icon.frame), FullScreen_width-100, 27)];
     [rateSlider setThumbImage:[UIImage imageNamed:@"slider_btn"] forState:UIControlStateNormal];
     rateSlider.minimumTrackTintColor = [UIColor whiteColor];
+    [rateSlider addTarget:self action:@selector(rateCondition:) forControlEvents:UIControlEventValueChanged];
     [bottomMenu addSubview:rateSlider];
     
     UIImageView *icon2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"color_brightness"]];
@@ -139,7 +140,7 @@
     [defineBtn addTarget:self action:@selector(showDefineColorView) forControlEvents:UIControlEventTouchUpInside];
     [_mainScrollView addSubview:defineBtn];
     
-    
+#pragma mark --自定义颜色按钮
     UIScrollView *defaultColorView = [[UIScrollView alloc] initWithFrame:CGRectMake(CGRectGetMinX(pickBackView.frame), CGRectGetMaxY(defineBtn.frame) + 20, CGRectGetWidth(pickBackView.frame), 44)];
     defaultColorView.backgroundColor = [UIColor whiteColor];
     defaultColorView.contentSize = CGSizeMake(32*26, 44);
@@ -153,7 +154,7 @@
             [btn addTarget:self action:@selector(selectDefaultColor:) forControlEvents:UIControlEventTouchUpInside];
         else
             [btn addTarget:self action:@selector(selectDefaultDynmicColor:) forControlEvents:UIControlEventTouchUpInside];
-        
+        btn.tag = i;
         [defaultColorView addSubview:btn];
     }
     
@@ -287,6 +288,13 @@
     
 }
 
+
+#pragma mark -速度亮度调节
+- (void)rateCondition:(UISlider *)slider
+{
+    [[JKSendDataTool shareInstance] sendDataSpeedWithValue:(Byte)(slider.value * 100) devices:_deviceArray];
+}
+
 - (void)brightnessCondition:(UISlider *)slider
 {
 //    [self sendDataBright:(Byte)(slider.value * 100)];
@@ -318,6 +326,9 @@
 {
     
     //发送代码
+    
+    Byte tag = (Byte)button.tag-1;
+    [[JKSendDataTool shareInstance] sendDataModelWithValue:tag devices:_deviceArray];
     
     [topLightView setLightColor:button.backgroundColor];
     UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
@@ -420,85 +431,6 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
-//- (void)closeLight
-//{
-//    Byte dataOFF[9] = {0x7e,0x04,0x04,0x00,0x00,0xff,0xff,0x0,0xef};
-//    NSData *data = [[NSData alloc]initWithBytes:dataOFF length:9];
-//    [self sendCMD:data];
-//    
-//}
-//
-//- (void)openLight
-//{
-//    Byte dataON[9]  = {0x7e,0x04,0x04,0x01,0x00,0xff,0xff,0x0,0xef};
-//    NSData *data = [[NSData alloc]initWithBytes:dataON length:9];
-//    [self sendCMD:data];
-//}
-//
-//- (void)sendCMD:(NSData*)data
-//{
-//    for (CBPeripheral *per in _deviceArray)
-//    {
-//        [per writeValue:data forCharacteristic:_writeCharacter type:CBCharacteristicWriteWithoutResponse];
-//    }
-//}
-//
-//- (void)sendDataBright:(Byte)brightness
-//{
-//    
-//    Byte byte[] = {0x7e,0x04,0x01,brightness==100?99:brightness,0xff,0xff,0xff,0x00,0xef};
-//    NSData *data = [[NSData alloc]initWithBytes:byte length:9];
-//    [self sendCMD:data];
-//
-//    
-//    NSLog(@"-------RGB---bright:%d-",brightness);
-////    const CGFloat *color =  CGColorGetComponents(_picker.selectedColor.CGColor);
-////    
-////    if (color != nil)
-////    {
-////        
-////        NSLog(@"rgb:%f %f %f",color[0]*255,color[1]*255,color[2]*255);
-////        
-////    }
-//}
-//
-//- (void)sendDataRGBWithRed:(Byte)red green:(Byte)green blue:(Byte)blue
-//{
-//    
-//    Byte byte[] = {0x7e,0x07,0x05,0x03,red,green,blue,0x0,0xef};
-//    
-//    NSData *data = [[NSData alloc]initWithBytes:byte length:sizeof(byte)];
-//    [self sendCMD:data];
-//    
-//    NSLog(@"-------RGB---red:%d- green:%d- blue:%d-",red,green,blue);
-//    
-//}
-//
-//- (void)sendDataCTWithHot:(Byte)hot cold:(Byte)cold
-//{
-//    
-//    Byte byte[] = {0x7e,0x06,0x05,0x02,hot,cold,0xff,0x08,0xef};
-//    NSData *data = [[NSData alloc]initWithBytes:byte length:9];
-//    
-//    NSLog(@"-------CT---hot:%d-cold:%d-",hot,cold);
-//    [self sendCMD:data];
-//    
-//    
-//}
-//
-////单色模式
-//- (void)sendDataDMBright:(Byte)brightness
-//{
-//
-//    Byte byte[] = {0x7e,0x05,0x05,0x01,brightness,0xff,0xff,0x08,0xef};
-//    NSData *data = [[NSData alloc]initWithBytes:byte length:9];
-//    [self sendCMD:data];
-//    
-//    NSLog(@"-------RGB---bright:%d-",brightness);
-//}
-//
-//
-//
 
 - (void)sendColorToDevice:(UIColor *)color
 {

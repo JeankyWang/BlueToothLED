@@ -12,8 +12,16 @@
 #import <AVFoundation/AVFoundation.h>
 #import "JKSaveSceneTool.h"
 #import "NSTimer+Addition.h"
+#import "JKModeListViewController.h"
+#import "JKSendDataTool.h"
 
-@interface JKMusicViewController ()<UITableViewDataSource,UITableViewDelegate,MPMediaPickerControllerDelegate,UINavigationControllerDelegate,AVAudioPlayerDelegate>
+typedef NS_OPTIONS(NSInteger, JKMusicStyle) {
+    JKMusicStyleNormal = 0,
+    JKMusicStyleSoft = 1,
+    JKMusicStyleStrong = 2
+};
+
+@interface JKMusicViewController ()<UITableViewDataSource,UITableViewDelegate,MPMediaPickerControllerDelegate,UINavigationControllerDelegate,AVAudioPlayerDelegate,JKUserdefindColorDelegate>
 {
     NSMutableArray *styleBtnArray;
     UIImageView *thumbImg;
@@ -31,6 +39,8 @@
     int currentPlayIndex;
     NSTimer *timer;
     NSTimer *musicTimer;
+    JKMusicStyle musicStyle;
+    NSArray *selectedColorsArray;
 }
 @end
 
@@ -40,7 +50,16 @@
 {
     [super viewWillDisappear:animated];
     [player pause];
+    [timer pauseTimer];
+    [musicTimer pauseTimer];
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [player play];
+    [timer resumeTimer];
+    [musicTimer resumeTimer];
 }
 
 - (void)viewDidLoad {
@@ -75,6 +94,7 @@
         if (i == 0) {
             btn.selected = YES;
         }
+        btn.tag = i;
         [btn addTarget:self action:@selector(chooseMusicStyle:) forControlEvents:UIControlEventTouchUpInside];
         [styleView addSubview:btn];
         [styleBtnArray addObject:btn];
@@ -117,7 +137,6 @@
     timeProgress = [[UIProgressView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(pastTimeLabel.frame)+5, CGRectGetMinY(pastTimeLabel.frame)+2, FullScreen_width-110, 20)];
     timeProgress.progressTintColor = [UIColor colorWithHexString:@"c059f0"];
     [self.view addSubview:timeProgress];
-    timeProgress.progress = .5;
     
     haveTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(timeProgress.frame)+5, CGRectGetMinY(pastTimeLabel.frame), 50, 10)];
     haveTimeLabel.textColor = [UIColor whiteColor];
@@ -129,18 +148,22 @@
     //
     UIButton *musicLibBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(timeProgress.frame), CGRectGetMaxY(timeProgress.frame)+30, 100, 30)];
     [musicLibBtn setImage:[UIImage imageNamed:@"music_db"] forState:UIControlStateNormal];
-    [musicLibBtn setTitle:@"本地音乐" forState:UIControlStateNormal];
+    [musicLibBtn setTitle:@" 本地音乐" forState:UIControlStateNormal];
     [musicLibBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     musicLibBtn.titleLabel.font = Font(14);
     [musicLibBtn addTarget:self action:@selector(showLocalSongs) forControlEvents:UIControlEventTouchUpInside];
+    musicLibBtn.backgroundColor = [UIColor colorWithWhite:1 alpha:.15];
+    musicLibBtn.layer.cornerRadius = 2;
     [self.view addSubview:musicLibBtn];
     
     UIButton *musicListBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(musicLibBtn.frame)+20, CGRectGetMinY(musicLibBtn.frame), 100, 30)];
     [musicListBtn setImage:[UIImage imageNamed:@"music_list"] forState:UIControlStateNormal];
-    [musicListBtn setTitle:@"播放列表" forState:UIControlStateNormal];
+    [musicListBtn setTitle:@" 播放列表" forState:UIControlStateNormal];
     [musicListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [musicListBtn addTarget:self action:@selector(showSongList) forControlEvents:UIControlEventTouchUpInside];
     musicListBtn.titleLabel.font = Font(14);
+    musicListBtn.backgroundColor = [UIColor colorWithWhite:1 alpha:.15];
+    musicListBtn.layer.cornerRadius = 2;
     [self.view addSubview:musicListBtn];
     
     [self refreshSongs];
@@ -166,10 +189,6 @@
     [songListView addSubview:songListTabelView];
     
     //播放器
-    
-
-    
-
 //    musicPlayer = [[MPMusicPlayerController alloc] init];
 //    [musicPlayer setQueueWithItemCollection:songsCollection];
 //    [musicPlayer play];
@@ -192,7 +211,7 @@
     }
     
     currentPlayIndex = abs((int)index) % songsCollection.items.count;
-    MPMediaItem *song = songsCollection.items[index];
+    MPMediaItem *song = songsCollection.items[currentPlayIndex];
     player = [[AVAudioPlayer alloc] initWithContentsOfURL:[song valueForProperty:MPMediaItemPropertyAssetURL] error:nil];
     player.delegate = self;
     [player prepareToPlay];
@@ -277,7 +296,7 @@
     for (UIButton *btn in styleBtnArray) {
         btn.selected = NO;
     }
-    
+    musicStyle = (JKMusicStyle)button.tag;
     button.selected = YES;
 }
 
@@ -288,29 +307,28 @@
 
 - (void)editMode
 {
-    
+    JKModeListViewController *vc = [[JKModeListViewController alloc] init];
+    vc.delegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)sendDataBright:(Byte)brightness
 {
-    
-//    if (_changeMode == JKChangeModeBaoShan) {
-//        brightness = brightness > 50? 100:0;
-//        
-//    }else if(_changeMode == JKChangeModeJump){
-//        NSLog(@"柔和");
-//        brightness = brightness < 50? 50:brightness;
-//    }
+    DLog(@"亮度：%d",brightness);
+    if (musicStyle == JKMusicStyleStrong) {
+        brightness = brightness > 50? 100:0;
+        
+    }else if(musicStyle == JKMusicStyleSoft){
+        NSLog(@"柔和");
+        brightness = brightness < 50? 50:brightness;
+    }
     
     Byte byte[] = {0x7e,0x04,0x01,brightness,0xff,0xff,0xff,0x00,0xef};
     NSData *data = [[NSData alloc]initWithBytes:byte length:9];
     [self sendCMD:data];
-//    [self sendCMD:data];
-    
-//    [[NSUserDefaults standardUserDefaults] setFloat:brightness/100.0 forKey:BRIGHTNESS_USER_DEFAULT];
-    
-    
 }
+
+
 #pragma mark -音乐主函数
 //播放进度条
 int m = 0;
@@ -343,28 +361,40 @@ int lastVm = 0;//纪录上次的明暗度
     lastVm = value;
     
     //自定义颜色组
-//    if(_isDefind && _colorArray.count > 0){
-//        
-//        if (vm > 0 && m%3 == 0) {
-//            
-//            [self defindedModePlay];
-//            
-//        }
-//        
-//        [self sendDataBright:vm];
-//        
-//    } else{
-//        
+    if(selectedColorsArray.count > 0){
+
+        if (vm > 0 && m%3 == 0) {
+            
+            [self defindedModePlay];
+            
+        }
+        
+        [self sendDataBright:vm];
+    } else{
         if (vm > 0 && m%3 == 0) {
             
             [self sendDataRGBWithRed:0 green:0 blue:0];
         }
         
         [self sendDataBright:vm];
-//    }
-//    
+    }
     
     m++;
+    
+}
+
+
+int cIndex = 0;
+- (void)defindedModePlay
+{
+    UIColor *color = [selectedColorsArray objectAtIndex:cIndex % selectedColorsArray.count];
+    cIndex ++;
+    const CGFloat *colors =  CGColorGetComponents(color.CGColor);
+    
+    Byte red = (Byte)(colors[0]*255);
+    Byte green = (Byte)(colors[1]*255);
+    Byte blue = (Byte)(colors[2]*255);
+    [[JKSendDataTool shareInstance] sendDataRGBWithRed:red green:green blue:blue devices:_deviceArray];
     
 }
 
@@ -372,7 +402,7 @@ int lastVm = 0;//纪录上次的明暗度
 - (void)sendDataRGBWithRed:(Byte)red green:(Byte)green blue:(Byte)blue
 {
     Byte color[] = {0x00,0xff,0xff,0x00,0xff,0x00};
-//    if (!_isDefind || _colorArray.count == 0) {
+    if (selectedColorsArray.count == 0) {
         red = color[arc4random()%6];
         green = color[arc4random()%6];
         blue = color[arc4random()%6];
@@ -382,19 +412,14 @@ int lastVm = 0;//纪录上次的明暗度
             green = 0xff;
         }
         
-        Byte byte[] = {0x7e,0x07,0x05,0x03,red,green,blue,0x0,0xef};
-        NSData *data = [[NSData alloc]initWithBytes:byte length:9];
-        NSLog(@"r:%d g:%d b:%d",red,green,blue);
-        [self sendCMD:data];
+        [[JKSendDataTool shareInstance] sendDataRGBWithRed:red green:green blue:blue devices:_deviceArray];
         
-//    }
-//    else
-//    {
-//        Byte byte[] = {0x7e,0x07,0x05,0x03,red,green,blue,0x0,0xef};
-//        NSData *data = [[NSData alloc]initWithBytes:byte length:9];
-//        [self sendCMD:data];
-//    }
-    
+    }
+    else
+    {
+        [[JKSendDataTool shareInstance] sendDataRGBWithRed:red green:green blue:blue devices:_deviceArray];
+    }
+
 }
 
 - (void)sendCMD:(NSData*)data
@@ -498,14 +523,9 @@ int lastVm = 0;//纪录上次的明暗度
     
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark -自选颜色
+- (void)selectdColorArray:(NSArray *)colors
+{
+    selectedColorsArray = colors;
 }
-*/
-
 @end

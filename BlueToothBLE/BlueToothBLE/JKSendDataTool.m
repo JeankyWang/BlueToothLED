@@ -71,7 +71,24 @@ static JKSendDataTool *singleton;
     [self sendCMD:data devices:deviceArray];
 }
 
+- (void)sendDataSpeedWithValue:(Byte)speed devices:(NSArray *)deviceArray
+{
+    NSLog(@"speed sending:%d",speed);
+    
+    Byte byte[9] = {0x7e,0x04,0x02,speed,0xff,0xff,0xff,0x0,0xef};
+    NSData *data = [[NSData alloc]initWithBytes:byte length:9];
+    [self sendCMD:data devices:deviceArray];
+}
 
+- (void)sendDataModelWithValue:(Byte)value devices:(NSArray *)deviceArray
+{
+    DLog(@"rbg mode %d",0x80+value);
+    Byte rgb[9] = {0x7e,0x05,0x03,0x80+value,0x03,0xff,0xff,0x00,0xef};
+    NSData *data = [[NSData alloc]initWithBytes:rgb length:9];
+    [self sendCMD:data devices:deviceArray];
+    
+    
+}
 
 - (void)sendCMD:(NSData*)data devices:(NSArray *)deviceArray
 {

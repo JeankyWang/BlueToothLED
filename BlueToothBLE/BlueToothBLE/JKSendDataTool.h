@@ -16,13 +16,7 @@
 - (void)sendDataRGBWithRed:(Byte)red green:(Byte)green blue:(Byte)blue devices:(NSArray *)deviceArray;
 - (void)sendDataCTWithHot:(Byte)hot cold:(Byte)cold devices:(NSArray *)deviceArray;
 - (void)sendDataDMBright:(Byte)brightness devices:(NSArray *)deviceArray;
-
-
-
-
-
-
-
-
+- (void)sendDataSpeedWithValue:(Byte)speed devices:(NSArray *)deviceArray;
+- (void)sendDataModelWithValue:(Byte)value devices:(NSArray *)deviceArray;//彩色内置模式
 
 @end

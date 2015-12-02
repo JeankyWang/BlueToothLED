@@ -133,6 +133,9 @@
 
 - (void)showNoBLEView
 {
+    
+    [self.cbCentralMgr stopScan];
+    
     noBLEView = [[UIView alloc] initWithFrame:self.view.bounds];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
     imageView.center = searchView.center;
