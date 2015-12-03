@@ -283,11 +283,11 @@
         case 0:
             if (switcher.isOn) {
                 //打开定时开 需要把具体时间也发送过去
-                [self sendTimer:YES high:hight low:low onOff:TIMER_ON mode:0 second:sec];
+                [self sendTimer:YES high:hight low:low onOff:TIMER_ON mode:21 second:sec];
                 DLog(@"开灯开");
             }else{
                 
-                [self sendTimer:NO high:0 low:0 onOff:TIMER_ON mode:0 second:0];
+                [self sendTimer:NO high:0 low:0 onOff:TIMER_ON mode:21 second:0];
                 DLog(@"开灯关");
 
             }
@@ -340,7 +340,7 @@
             _currentScene.openTime = date;
             
             //发送定时指令
-            [self sendTimer:_currentScene.isOpenSet high:hight low:low onOff:TIMER_ON mode:0 second:sec];
+            [self sendTimer:_currentScene.isOpenSet high:hight low:low onOff:TIMER_ON mode:21 second:sec];
            
         }
             break;
@@ -363,7 +363,7 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:JKSaveScenesNotification object:nil];
     [SVProgressHUD showSuccessWithStatus:@"设置完成"];
-    Byte data[] = {0x7e,timerOnOff,0x0d,high,low,onoff,mode,sec,0xef};
+    Byte data[] = {0xfe,timerOnOff,0x0d,high,low,onoff,mode,sec,0xef};
     DLog(@"send date %s",data);
     NSData *b_data = [NSData dataWithBytes:&data length:sizeof(data)];
     [[JKSendDataTool shareInstance] sendCMD:b_data devices:_deviceArray];

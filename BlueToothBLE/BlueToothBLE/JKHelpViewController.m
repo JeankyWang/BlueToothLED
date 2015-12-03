@@ -21,6 +21,13 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
     self.webView.frame = self.view.bounds;
     self.webView.backgroundColor = [UIColor clearColor];
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"Help" ofType:@"html"];
+    //以utf8的编码格式加载html内容
+    NSString *htmlString = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    //self.wbProblems.scalesPageToFit = YES;
+    //将文字内容显示到webview控件上
+    [self.webView loadHTMLString: htmlString baseURL: [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
 }
 
 - (void)didReceiveMemoryWarning {

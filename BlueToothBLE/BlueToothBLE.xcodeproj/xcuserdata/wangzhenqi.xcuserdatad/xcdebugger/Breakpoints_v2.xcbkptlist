@@ -52,13 +52,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BlueToothBLE/JKControlViewController.m"
-            timestampString = "470759368.646285"
+            timestampString = "470844715.56868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "433"
-            endingLineNumber = "433"
-            landmarkName = "@implementation JKControlViewController"
-            landmarkType = "3">
+            startingLineNumber = "432"
+            endingLineNumber = "432"
+            landmarkName = "-showDefineColorView"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BlueToothBLE/JKControlViewController.m"
-            timestampString = "470759368.646285"
+            timestampString = "470844715.56868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "342"
-            endingLineNumber = "342"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
             landmarkName = "-selectDefaultDynmicColor:"
             landmarkType = "5">
          </BreakpointContent>

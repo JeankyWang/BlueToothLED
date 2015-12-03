@@ -45,6 +45,7 @@
 		C6F5DBAA1C1079D1000758A5 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C6F5DBA41C1079D1000758A5 /* SVProgressHUD.bundle */; };
 		C6F5DBAB1C1079D1000758A5 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F5DBA61C1079D1000758A5 /* SVProgressHUD.m */; };
 		C6F5DBAC1C1079D1000758A5 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F5DBA81C1079D1000758A5 /* SVRadialGradientLayer.m */; };
+		C6F5DBAF1C108630000758A5 /* Help.html in Resources */ = {isa = PBXBuildFile; fileRef = C6F5DBB11C108630000758A5 /* Help.html */; };
 		C6FD4E201BF5D51000B1D6C5 /* JKNewScenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E1F1BF5D51000B1D6C5 /* JKNewScenceController.m */; };
 		C6FD4E241BF5DDEB00B1D6C5 /* JKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E231BF5DDEB00B1D6C5 /* JKNavigationController.m */; };
 		C6FD4E271BF5DF1200B1D6C5 /* JKControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E261BF5DF1200B1D6C5 /* JKControlViewController.m */; };
@@ -150,6 +151,9 @@
 		C6F5DBA61C1079D1000758A5 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		C6F5DBA71C1079D1000758A5 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
 		C6F5DBA81C1079D1000758A5 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		C6F5DBB01C108630000758A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Help.html; sourceTree = "<group>"; };
+		C6F5DBB21C108635000758A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/Help.html; sourceTree = "<group>"; };
+		C6F5DBB31C108637000758A5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "zh-Hans"; path = "zh-Hans.lproj/Help.html"; sourceTree = "<group>"; };
 		C6FD4E1E1BF5D51000B1D6C5 /* JKNewScenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNewScenceController.h; sourceTree = "<group>"; };
 		C6FD4E1F1BF5D51000B1D6C5 /* JKNewScenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNewScenceController.m; sourceTree = "<group>"; };
 		C6FD4E221BF5DDEB00B1D6C5 /* JKNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNavigationController.h; sourceTree = "<group>"; };
@@ -242,6 +246,7 @@
 				C6188EEE1BEB030D00E2F684 /* PrefixHeader.pch */,
 				C6188EEF1BEB071300E2F684 /* common.h */,
 				C6EF31031BEB6C0500AF2133 /* Localizable.strings */,
+				C6F5DBB11C108630000758A5 /* Help.html */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -540,6 +545,7 @@
 				1039D5871BE9B53600A56BE9 /* Assets.xcassets in Resources */,
 				1039D5851BE9B53600A56BE9 /* Main.storyboard in Resources */,
 				C6F5DBAA1C1079D1000758A5 /* SVProgressHUD.bundle in Resources */,
+				C6F5DBAF1C108630000758A5 /* Help.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,6 +659,16 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
+		C6F5DBB11C108630000758A5 /* Help.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C6F5DBB01C108630000758A5 /* Base */,
+				C6F5DBB21C108635000758A5 /* en */,
+				C6F5DBB31C108637000758A5 /* zh-Hans */,
+			);
+			name = Help.html;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -748,9 +764,9 @@
 				INFOPLIST_FILE = BlueToothBLE/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.beimu.BlueToothBLE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.beimu.xcolor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a22e843f-f49c-4096-8a3e-7e14d44878da";
 			};
 			name = Debug;
 		};
@@ -766,9 +782,9 @@
 				INFOPLIST_FILE = BlueToothBLE/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.beimu.BlueToothBLE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.beimu.xcolor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a22e843f-f49c-4096-8a3e-7e14d44878da";
 			};
 			name = Release;
 		};

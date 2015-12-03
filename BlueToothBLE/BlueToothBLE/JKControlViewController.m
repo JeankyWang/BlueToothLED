@@ -15,8 +15,9 @@
 #import "JKTimerViewController.h"
 #import "JKNavigationController.h"
 #import "JKSendDataTool.h"
+#import "SVProgressHUD.h"
 
-@interface JKControlViewController ()<JKTopLightViewDelegate,UIScrollViewDelegate,JKUserdefindColorDelegate>
+@interface JKControlViewController ()<JKTopLightViewDelegate,UIScrollViewDelegate,JKUserdefindColorDelegate,UIAlertViewDelegate>
 {
     JKDefineMenuView *topMenu;//弹出菜单
     JKDefineMenuView *bottomMenu;
@@ -419,11 +420,9 @@
 - (void)showTimerView
 {
     [topMenu dismissMenu];
-    JKTimerViewController *vc = [[JKTimerViewController alloc] init];
-    vc.currentScene = _currentScene;
-    vc.deviceArray = _deviceArray;
-    JKNavigationController *nav = [[JKNavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nav animated:YES completion:nil];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"定时提示" message:@"直接对设备定时将不会被保存，建议在场景中设置定时" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"忽略", nil];
+    [alert show];
 }
 
 - (void)showDefineColorView
@@ -445,6 +444,17 @@
     }
     
 
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        
+        JKTimerViewController *vc = [[JKTimerViewController alloc] init];
+        vc.currentScene = _currentScene;
+        vc.deviceArray = _deviceArray;
+        JKNavigationController *nav = [[JKNavigationController alloc] initWithRootViewController:vc];
+        [self presentViewController:nav animated:YES completion:nil];
+    }
 }
 
 #pragma mark -选择自定颜色delegate

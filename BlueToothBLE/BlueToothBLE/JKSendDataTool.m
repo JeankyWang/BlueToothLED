@@ -10,6 +10,9 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "JKBLEsManager.h"
 
+const static Byte start = 0xfe;
+const static Byte end = 0xef;
+
 @implementation JKSendDataTool
 
 static JKSendDataTool *singleton;
@@ -30,28 +33,28 @@ static JKSendDataTool *singleton;
 
 - (void)openLight:(NSArray *)deviceArray
 {
-    Byte dataON[9]  = {0x7e,0x04,0x04,0x01,0x00,0xff,0xff,0x0,0xef};
+    Byte dataON[9]  = {start,0x04,0x04,0x01,0x00,0xff,0xff,0x0,end};
     NSData *data = [[NSData alloc]initWithBytes:dataON length:9];
     [self sendCMD:data devices:deviceArray];
 }
 
 - (void)closeLight:(NSArray *)deviceArray
 {
-    Byte dataOFF[9] = {0x7e,0x04,0x04,0x00,0x00,0xff,0xff,0x0,0xef};
+    Byte dataOFF[9] = {start,0x04,0x04,0x00,0x00,0xff,0xff,0x0,end};
     NSData *data = [[NSData alloc]initWithBytes:dataOFF length:9];
     [self sendCMD:data devices:deviceArray];
 }
 
 - (void)sendDataBright:(Byte)brightness devices:(NSArray *)deviceArray
 {
-    Byte byte[] = {0x7e,0x04,0x01,brightness==100?99:brightness,0xff,0xff,0xff,0x00,0xef};
+    Byte byte[] = {start,0x04,0x01,brightness==100?99:brightness,0xff,0xff,0xff,0x00,end};
     NSData *data = [[NSData alloc]initWithBytes:byte length:9];
     [self sendCMD:data devices:deviceArray];
 }
 
 - (void)sendDataRGBWithRed:(Byte)red green:(Byte)green blue:(Byte)blue devices:(NSArray *)deviceArray
 {
-    Byte byte[] = {0x7e,0x07,0x05,0x03,red,green,blue,0x0,0xef};
+    Byte byte[] = {start,0x07,0x05,0x03,red,green,blue,0x0,end};
     
     NSData *data = [[NSData alloc]initWithBytes:byte length:sizeof(byte)];
     [self sendCMD:data devices:deviceArray];
@@ -59,14 +62,14 @@ static JKSendDataTool *singleton;
 
 - (void)sendDataCTWithHot:(Byte)hot cold:(Byte)cold devices:(NSArray *)deviceArray
 {
-    Byte byte[] = {0x7e,0x06,0x05,0x02,hot,cold,0xff,0x08,0xef};
+    Byte byte[] = {start,0x06,0x05,0x02,hot,cold,0xff,0x08,end};
     NSData *data = [[NSData alloc]initWithBytes:byte length:9];
     [self sendCMD:data devices:deviceArray];
 }
 
 - (void)sendDataDMBright:(Byte)brightness devices:(NSArray *)deviceArray
 {
-    Byte byte[] = {0x7e,0x05,0x05,0x01,brightness,0xff,0xff,0x08,0xef};
+    Byte byte[] = {start,0x05,0x05,0x01,brightness,0xff,0xff,0x08,end};
     NSData *data = [[NSData alloc]initWithBytes:byte length:9];
     [self sendCMD:data devices:deviceArray];
 }
@@ -75,7 +78,7 @@ static JKSendDataTool *singleton;
 {
     NSLog(@"speed sending:%d",speed);
     
-    Byte byte[9] = {0x7e,0x04,0x02,speed,0xff,0xff,0xff,0x0,0xef};
+    Byte byte[9] = {start,0x04,0x02,speed,0xff,0xff,0xff,0x0,end};
     NSData *data = [[NSData alloc]initWithBytes:byte length:9];
     [self sendCMD:data devices:deviceArray];
 }
@@ -83,7 +86,7 @@ static JKSendDataTool *singleton;
 - (void)sendDataModelWithValue:(Byte)value devices:(NSArray *)deviceArray
 {
     DLog(@"rbg mode %d",0x80+value);
-    Byte rgb[9] = {0x7e,0x05,0x03,0x80+value,0x03,0xff,0xff,0x00,0xef};
+    Byte rgb[9] = {start,0x05,0x03,0x80+value,0x03,0xff,0xff,0x00,end};
     NSData *data = [[NSData alloc]initWithBytes:rgb length:9];
     [self sendCMD:data devices:deviceArray];
     
