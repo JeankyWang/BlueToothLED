@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JKSceneModel.h"
 
 @interface JKTimerViewController : UIViewController
-
+@property (nonatomic,strong) JKSceneModel *currentScene;
+@property (nonatomic,strong) NSArray *deviceArray;
 @end

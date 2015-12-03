@@ -420,6 +420,8 @@
 {
     [topMenu dismissMenu];
     JKTimerViewController *vc = [[JKTimerViewController alloc] init];
+    vc.currentScene = _currentScene;
+    vc.deviceArray = _deviceArray;
     JKNavigationController *nav = [[JKNavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nav animated:YES completion:nil];
 }

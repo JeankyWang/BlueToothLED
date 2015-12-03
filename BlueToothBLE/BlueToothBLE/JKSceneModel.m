@@ -26,6 +26,10 @@
         self.name = [aDecoder decodeObjectForKey:@"name"];
         self.imgName = [aDecoder decodeObjectForKey:@"imgName"];
         self.devices = [aDecoder decodeObjectForKey:@"devices"];
+        self.openTime = [aDecoder decodeObjectForKey:@"openTime"];
+        self.closeTime = [aDecoder decodeObjectForKey:@"closeTime"];
+        self.isOpenSet = [aDecoder decodeBoolForKey:@"isOpenSet"];
+        self.isCloseSet = [aDecoder decodeBoolForKey:@"isCloseSet"];
     }
     
     return self;
@@ -36,5 +40,9 @@
     [aCoder encodeObject:self.name forKey:@"name"];
     [aCoder encodeObject:self.imgName forKey:@"imgName"];
     [aCoder encodeObject:self.devices forKey:@"devices"];
+    [aCoder encodeObject:self.openTime forKey:@"openTime"];
+    [aCoder encodeObject:self.closeTime forKey:@"closeTime"];
+    [aCoder encodeBool:self.isOpenSet forKey:@"isOpenSet"];
+    [aCoder encodeBool:self.isCloseSet forKey:@"isCloseSet"];
 }
 @end

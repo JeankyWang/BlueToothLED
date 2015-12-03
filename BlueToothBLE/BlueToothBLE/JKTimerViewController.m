@@ -10,6 +10,11 @@
 #import "JKDefineMenuView.h"
 #import "JKColorPicker.h"
 #import "NSDate+SeparateColumn.h"
+#import "JKSendDataTool.h"
+
+
+#define TIMER_ON 1
+#define TIMER_OFF 0
 
 @interface JKTimerViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 {
@@ -21,6 +26,8 @@
     NSInteger index;
     NSDate *openDate;
     NSDate *closeDate;
+    
+    NSMutableDictionary *timerDict;
 }
 @end
 
@@ -54,14 +61,14 @@
     
     
     //底部弹出色盘
-    bottomMenu = [[JKDefineMenuView alloc] initWithFrame:CGRectMake(0, FullScreen_height - 270, FullScreen_width, 270) inView:self.view];
-    bottomMenu.style = JKDefineMenuViewBottom;
-    bottomMenu.backgroundColor = [UIColor colorWithWhite:0 alpha:.1];
-    
-    JKColorPicker *colorPicker = [[JKColorPicker alloc] initWithFrame:CGRectMake(0, 0, 182, 182)];
-    colorPicker.center = CGPointMake(CGRectGetWidth(bottomMenu.frame)/2, CGRectGetHeight(bottomMenu.frame)/2-20);
-    [colorPicker addTarget:self action:@selector(chooseColor:) forControlEvents:UIControlEventTouchUpInside];
-    [bottomMenu addSubview:colorPicker];
+//    bottomMenu = [[JKDefineMenuView alloc] initWithFrame:CGRectMake(0, FullScreen_height - 270, FullScreen_width, 270) inView:self.view];
+//    bottomMenu.style = JKDefineMenuViewBottom;
+//    bottomMenu.backgroundColor = [UIColor colorWithWhite:0 alpha:.1];
+//    
+//    JKColorPicker *colorPicker = [[JKColorPicker alloc] initWithFrame:CGRectMake(0, 0, 182, 182)];
+//    colorPicker.center = CGPointMake(CGRectGetWidth(bottomMenu.frame)/2, CGRectGetHeight(bottomMenu.frame)/2-20);
+//    [colorPicker addTarget:self action:@selector(chooseColor:) forControlEvents:UIControlEventTouchUpInside];
+//    [bottomMenu addSubview:colorPicker];
     
     timeAlert  = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     datePicker = [[UIDatePicker alloc] init];
@@ -161,8 +168,8 @@
     lightView.backgroundColor = [UIColor colorWithHexString:@"33233d"];
     
     UIButton *lightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    [lightBtn setImage:@"" forState:UIControlStateNormal];
     lightBtn.tag = indexPath.section;
-    [lightBtn addTarget:self action:@selector(showBottomMenu:) forControlEvents:UIControlEventTouchUpInside];
     [lightView addSubview:lightBtn];
     [cell.contentView addSubview:lightView];
     
@@ -194,6 +201,7 @@
     UISwitch *switcher = [[UISwitch alloc] initWithFrame:CGRectMake(FullScreen_width - 60, 35, 60, 30)];
     switcher.onTintColor = [UIColor colorWithHexString:@"5d4965"];
     switcher.tag = indexPath.section;
+    [switcher addTarget:self action:@selector(openOrCloseTimer:) forControlEvents:UIControlEventValueChanged];
     [cell.contentView addSubview:switcher];
     
     
@@ -206,48 +214,130 @@
     [timeAlert show];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (int)getNextDay:(int)interval
+{
+    interval += 24*60*60;
+    
+    if (interval < 0) {
+       return [self getNextDay:interval];
+    } else {
+        return interval;
+    }
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)openOrCloseTimer:(UISwitch *)switcher
+{
+    
+    NSDate *date = nil;
+    if (switcher.tag == 0) {
+        _currentScene.isOpenSet = switcher.isOn;
+        date = openDate;
+    } else {
+        _currentScene.isCloseSet = switcher.isOn;
+        date = closeDate;
+    }
+    
+    
+    // 打开定时关 需要把具体时间也发送过去
+    //interval 得到秒数
+    
+    
+    int interval = (date.timeIntervalSince1970 - (int)date.timeIntervalSince1970 % 60 - [NSDate date].timeIntervalSince1970);
+    if(interval <= 0) interval = [self getNextDay:interval];
+    
+    
+    int min = interval/60;
+    int sec = interval%60;
+    
+    
+    
+    Byte hight = min >> 8;
+    Byte low = min;
+    NSLog(@"hight:%d low:%d",hight,low);
+    
+    switch (switcher.tag)
+    {
+        case 0:
+            if (switcher.isOn) {
+                //打开定时开 需要把具体时间也发送过去
+                [self sendTimer:YES high:hight low:low onOff:TIMER_ON mode:0 second:sec];
+                
+            }else{
+                
+                [self sendTimer:NO high:0 low:0 onOff:TIMER_ON mode:0 second:0];
+            }
+            
+            break;
+        case 1:
+            if (switcher.isOn) {
+                [self sendTimer:YES high:hight low:low onOff:TIMER_OFF mode:1 second:sec];
+            }
+            else
+            {
+                [self sendTimer:NO high:0 low:0 onOff:TIMER_OFF mode:0 second:0];
+            }
+            break;
+            
+        default:
+            break;
+    }
+
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+
+#pragma  mark - time picker delegate
+- (void) selectedHour:(NSDate *)date
+{
+
+    
+    if (!timerDict) {
+        timerDict = [NSMutableDictionary new];
+    }
+    
+    NSDate *now = [NSDate date];
+    int interval = (date.timeIntervalSince1970 - (int)date.timeIntervalSince1970 % 60 - now.timeIntervalSince1970);
+    
+    if(interval <= 0) interval += 24*60*60;
+    int min = interval / 60;
+    int sec = interval % 60;
+    Byte hight = min >> 8;
+    Byte low = min;
+    
+    switch (index)
+    {
+        case 0:
+        {
+            openDate = date;
+            _currentScene.openTime = date;
+            
+            //发送定时指令
+            [self sendTimer:_currentScene.isOpenSet high:hight low:low onOff:TIMER_ON mode:0 second:sec];
+           
+        }
+            break;
+        case 1:
+            
+            closeDate = date;
+            _currentScene.closeTime = date;
+            [self sendTimer:YES high:hight low:low onOff:TIMER_OFF mode:0 second:sec];
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+- (void)sendTimer:(Byte)timerOnOff high:(Byte)high low:(Byte)low onOff:(Byte)onoff mode:(Byte)mode second:(Byte)sec
+{
+    Byte data[] = {0x7e,timerOnOff,0x0d,high,low,onoff,mode,sec,0xef};
+    NSData *b_data = [NSData dataWithBytes:&data length:sizeof(data)];
+    [[JKSendDataTool shareInstance] sendCMD:b_data devices:_deviceArray];
 }
-*/
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+
 
 @end

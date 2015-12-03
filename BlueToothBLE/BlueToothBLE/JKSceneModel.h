@@ -12,4 +12,8 @@
 @property (nonatomic,copy) NSString *name;
 @property (nonatomic,copy) NSString *imgName;
 @property (nonatomic,strong) NSMutableArray *devices;
+@property (nonatomic,strong) NSDate *openTime;
+@property (nonatomic,strong) NSDate *closeTime;
+@property (nonatomic,assign) BOOL isOpenSet;
+@property (nonatomic,assign) BOOL isCloseSet;
 @end

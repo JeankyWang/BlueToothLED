@@ -257,6 +257,7 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     JKControlViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"JKControlViewController"];
     vc.deviceArray = [self getPerArrayFromScene:currentScene];
     vc.writeCharacter = [JKBLEsManager sharedInstance].writeCharacter;
+    vc.currentScene = currentScene;
     [self.navigationController pushViewController:vc animated:YES];
     
 }

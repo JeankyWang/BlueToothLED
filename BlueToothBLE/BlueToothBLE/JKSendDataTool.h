@@ -18,5 +18,5 @@
 - (void)sendDataDMBright:(Byte)brightness devices:(NSArray *)deviceArray;
 - (void)sendDataSpeedWithValue:(Byte)speed devices:(NSArray *)deviceArray;
 - (void)sendDataModelWithValue:(Byte)value devices:(NSArray *)deviceArray;//彩色内置模式
-
+- (void)sendCMD:(NSData*)data devices:(NSArray *)deviceArray;
 @end
