@@ -363,7 +363,7 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:JKSaveScenesNotification object:nil];
     [SVProgressHUD showSuccessWithStatus:@"设置完成"];
-    Byte data[] = {0xfe,timerOnOff,0x0d,high,low,onoff,mode,sec,0xef};
+    Byte data[] = {0x7e,timerOnOff,0x0d,high,low,onoff,mode,sec,0xef};
     DLog(@"send date %s",data);
     NSData *b_data = [NSData dataWithBytes:&data length:sizeof(data)];
     [[JKSendDataTool shareInstance] sendCMD:b_data devices:_deviceArray];
