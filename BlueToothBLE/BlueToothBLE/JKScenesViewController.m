@@ -60,7 +60,7 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     chooseSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"控制",@"添加设备", nil];
     
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveScene) name:JKSaveScenesNotification object:nil];
     
 
     [self setupData];

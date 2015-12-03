@@ -14,4 +14,7 @@
 #define Font(v) [UIFont systemFontOfSize:(v)]
 #define FontBold(v) [UIFont boldSystemFontOfSize:(v)]
 #define BLE_Theme_Color [UIColor colorWithHexString:@"917b9f"]
+#define JKSaveScenesNotification @"JKSaveScenesNotification"
+
+
 #endif

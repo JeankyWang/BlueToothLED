@@ -11,6 +11,7 @@
 #import "JKColorPicker.h"
 #import "NSDate+SeparateColumn.h"
 #import "JKSendDataTool.h"
+#import "SVProgressHUD.h"
 
 
 #define TIMER_ON 1
@@ -24,8 +25,8 @@
     UIAlertView *timeAlert;
     UIDatePicker *datePicker;
     NSInteger index;
-    NSDate *openDate;
-    NSDate *closeDate;
+//    NSDate *openDate;
+//    NSDate *closeDate;
     
     NSMutableDictionary *timerDict;
 }
@@ -113,12 +114,12 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
-        if (index == 0) {
-            openDate = datePicker.date;
-        } else {
-            closeDate = datePicker.date;
-        }
-        
+//        if (index == 0) {
+//            openDate = datePicker.date;
+//        } else {
+//            closeDate = datePicker.date;
+//        }
+        [self selectedHour:datePicker.date];
         [myTableView reloadData];
     }
 }
@@ -167,11 +168,13 @@
     UIView *lightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, FullScreen_width/3, 100)];
     lightView.backgroundColor = [UIColor colorWithHexString:@"33233d"];
     
-    UIButton *lightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    [lightBtn setImage:@"" forState:UIControlStateNormal];
-    lightBtn.tag = indexPath.section;
-    [lightView addSubview:lightBtn];
+    UIImageView *lightImg = [[UIImageView alloc] initWithFrame:CGRectMake(FullScreen_width/6-25, 25, 50, 50)];
+    lightImg.image = [UIImage imageNamed:@"timer_light"];
+    lightImg.backgroundColor = [UIColor whiteColor];
+    [lightView addSubview:lightImg];
+    
     [cell.contentView addSubview:lightView];
+
     
     UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(lightView.frame), 0, FullScreen_width/2, 60)];
     timeLabel.font = [UIFont fontWithName:@"STHeitiSC-Light" size:50];
@@ -186,11 +189,22 @@
     
     switch (indexPath.section) {
         case 0:
-            timeLabel.text = [openDate stringWithFormat:@"hh:mm"];
+            if (_currentScene.openTime) {
+                timeLabel.text = [_currentScene.openTime stringWithFormat:@"hh:mm"];
+            } else {
+                timeLabel.text = @"--:--";
+            }
+            
             typeLabel.text = @"开灯";
             break;
         case 1:
-            timeLabel.text = [closeDate stringWithFormat:@"hh:mm"];
+            
+            if (_currentScene.closeTime) {
+                timeLabel.text = [_currentScene.closeTime stringWithFormat:@"hh:mm"];
+            } else {
+                timeLabel.text = @"--:--";
+            }
+
             typeLabel.text = @"关灯";
             break;
         default:
@@ -200,6 +214,11 @@
     
     UISwitch *switcher = [[UISwitch alloc] initWithFrame:CGRectMake(FullScreen_width - 60, 35, 60, 30)];
     switcher.onTintColor = [UIColor colorWithHexString:@"5d4965"];
+    if (indexPath.row == 0) {
+        [switcher setOn:_currentScene.isOpenSet];
+    } else {
+        [switcher setOn:_currentScene.isCloseSet];
+    }
     switcher.tag = indexPath.section;
     [switcher addTarget:self action:@selector(openOrCloseTimer:) forControlEvents:UIControlEventValueChanged];
     [cell.contentView addSubview:switcher];
@@ -231,12 +250,16 @@
     NSDate *date = nil;
     if (switcher.tag == 0) {
         _currentScene.isOpenSet = switcher.isOn;
-        date = openDate;
+        date = _currentScene.openTime;
     } else {
         _currentScene.isCloseSet = switcher.isOn;
-        date = closeDate;
+        date = _currentScene.closeTime;
     }
     
+    if (!date) {
+        [SVProgressHUD showInfoWithStatus:@"请先选择时间"];
+        return;
+    }
     
     // 打开定时关 需要把具体时间也发送过去
     //interval 得到秒数
@@ -261,20 +284,26 @@
             if (switcher.isOn) {
                 //打开定时开 需要把具体时间也发送过去
                 [self sendTimer:YES high:hight low:low onOff:TIMER_ON mode:0 second:sec];
-                
+                DLog(@"开灯开");
             }else{
                 
                 [self sendTimer:NO high:0 low:0 onOff:TIMER_ON mode:0 second:0];
+                DLog(@"开灯关");
+
             }
             
             break;
         case 1:
             if (switcher.isOn) {
                 [self sendTimer:YES high:hight low:low onOff:TIMER_OFF mode:1 second:sec];
+                DLog(@"关灯开");
+
             }
             else
             {
                 [self sendTimer:NO high:0 low:0 onOff:TIMER_OFF mode:0 second:0];
+                DLog(@"关灯关");
+
             }
             break;
             
@@ -307,7 +336,7 @@
     {
         case 0:
         {
-            openDate = date;
+//            openDate = date;
             _currentScene.openTime = date;
             
             //发送定时指令
@@ -317,7 +346,7 @@
             break;
         case 1:
             
-            closeDate = date;
+//            closeDate = date;
             _currentScene.closeTime = date;
             [self sendTimer:YES high:hight low:low onOff:TIMER_OFF mode:0 second:sec];
             
@@ -332,7 +361,10 @@
 
 - (void)sendTimer:(Byte)timerOnOff high:(Byte)high low:(Byte)low onOff:(Byte)onoff mode:(Byte)mode second:(Byte)sec
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:JKSaveScenesNotification object:nil];
+    [SVProgressHUD showSuccessWithStatus:@"设置完成"];
     Byte data[] = {0x7e,timerOnOff,0x0d,high,low,onoff,mode,sec,0xef};
+    DLog(@"send date %s",data);
     NSData *b_data = [NSData dataWithBytes:&data length:sizeof(data)];
     [[JKSendDataTool shareInstance] sendCMD:b_data devices:_deviceArray];
 }

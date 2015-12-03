@@ -14,6 +14,7 @@
 #import "NSTimer+Addition.h"
 #import "JKModeListViewController.h"
 #import "JKSendDataTool.h"
+#import "SVProgressHUD.h"
 
 typedef NS_OPTIONS(NSInteger, JKMusicStyle) {
     JKMusicStyleNormal = 0,
@@ -203,10 +204,11 @@ typedef NS_OPTIONS(NSInteger, JKMusicStyle) {
     [songListView dismissMenu];
 }
 
+#pragma mark -加载歌曲
 -(void)playSongAtIndex:(NSInteger)index
 {
     if (songsCollection.items == 0) {
-        
+        [SVProgressHUD showInfoWithStatus:@"请先选择本地歌曲"];
         return;
     }
     
@@ -240,8 +242,14 @@ typedef NS_OPTIONS(NSInteger, JKMusicStyle) {
     thumbImg.transform = CGAffineTransformMakeRotation(angle/180);
 }
 
+#pragma mark -显示播放列表
 - (void)showSongList
 {
+    if (songsCollection.items == 0) {
+        [SVProgressHUD showInfoWithStatus:@"请先选择本地歌曲"];
+        return;
+    }
+    
     [songListView showMenu];
     [songListTabelView reloadData];
 }

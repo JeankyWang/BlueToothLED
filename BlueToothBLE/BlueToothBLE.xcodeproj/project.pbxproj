@@ -41,6 +41,10 @@
 		C6EF31081BEB7EE200AF2133 /* JKScenesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6EF31071BEB7EE200AF2133 /* JKScenesTableViewController.m */; };
 		C6F014B31C04A4BE0051A56F /* JKBLEsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F014B21C04A4BE0051A56F /* JKBLEsManager.m */; };
 		C6F014B61C04BAD50051A56F /* JKBLEsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F014B51C04BAD50051A56F /* JKBLEsTableViewController.m */; };
+		C6F5DBA91C1079D1000758A5 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F5DBA21C1079D1000758A5 /* SVIndefiniteAnimatedView.m */; };
+		C6F5DBAA1C1079D1000758A5 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C6F5DBA41C1079D1000758A5 /* SVProgressHUD.bundle */; };
+		C6F5DBAB1C1079D1000758A5 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F5DBA61C1079D1000758A5 /* SVProgressHUD.m */; };
+		C6F5DBAC1C1079D1000758A5 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F5DBA81C1079D1000758A5 /* SVRadialGradientLayer.m */; };
 		C6FD4E201BF5D51000B1D6C5 /* JKNewScenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E1F1BF5D51000B1D6C5 /* JKNewScenceController.m */; };
 		C6FD4E241BF5DDEB00B1D6C5 /* JKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E231BF5DDEB00B1D6C5 /* JKNavigationController.m */; };
 		C6FD4E271BF5DF1200B1D6C5 /* JKControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6FD4E261BF5DF1200B1D6C5 /* JKControlViewController.m */; };
@@ -138,6 +142,14 @@
 		C6F014B21C04A4BE0051A56F /* JKBLEsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKBLEsManager.m; sourceTree = "<group>"; };
 		C6F014B41C04BAD50051A56F /* JKBLEsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKBLEsTableViewController.h; sourceTree = "<group>"; };
 		C6F014B51C04BAD50051A56F /* JKBLEsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKBLEsTableViewController.m; sourceTree = "<group>"; };
+		C6F5DBA11C1079D1000758A5 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		C6F5DBA21C1079D1000758A5 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		C6F5DBA31C1079D1000758A5 /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
+		C6F5DBA41C1079D1000758A5 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		C6F5DBA51C1079D1000758A5 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		C6F5DBA61C1079D1000758A5 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		C6F5DBA71C1079D1000758A5 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		C6F5DBA81C1079D1000758A5 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		C6FD4E1E1BF5D51000B1D6C5 /* JKNewScenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNewScenceController.h; sourceTree = "<group>"; };
 		C6FD4E1F1BF5D51000B1D6C5 /* JKNewScenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNewScenceController.m; sourceTree = "<group>"; };
 		C6FD4E221BF5DDEB00B1D6C5 /* JKNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNavigationController.h; sourceTree = "<group>"; };
@@ -298,6 +310,7 @@
 		C6188EF21BEB095000E2F684 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				C6F5DB941C10798E000758A5 /* SVProgressHUD */,
 				103505781BFC45FB00065C7D /* FXBlurView */,
 				C6FD4E211BF5DDBD00B1D6C5 /* MyUIKit */,
 				C6188EFA1BEB0B1500E2F684 /* BLE */,
@@ -385,6 +398,21 @@
 				C6EF30FD1BEB569600AF2133 /* JKSceneViewCell.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		C6F5DB941C10798E000758A5 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				C6F5DBA11C1079D1000758A5 /* SVIndefiniteAnimatedView.h */,
+				C6F5DBA21C1079D1000758A5 /* SVIndefiniteAnimatedView.m */,
+				C6F5DBA31C1079D1000758A5 /* SVProgressHUD-Prefix.pch */,
+				C6F5DBA41C1079D1000758A5 /* SVProgressHUD.bundle */,
+				C6F5DBA51C1079D1000758A5 /* SVProgressHUD.h */,
+				C6F5DBA61C1079D1000758A5 /* SVProgressHUD.m */,
+				C6F5DBA71C1079D1000758A5 /* SVRadialGradientLayer.h */,
+				C6F5DBA81C1079D1000758A5 /* SVRadialGradientLayer.m */,
+			);
+			name = SVProgressHUD;
 			sourceTree = "<group>";
 		};
 		C6FD4E211BF5DDBD00B1D6C5 /* MyUIKit */ = {
@@ -511,6 +539,7 @@
 				C6EF31011BEB6C0500AF2133 /* Localizable.strings in Resources */,
 				1039D5871BE9B53600A56BE9 /* Assets.xcassets in Resources */,
 				1039D5851BE9B53600A56BE9 /* Main.storyboard in Resources */,
+				C6F5DBAA1C1079D1000758A5 /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,12 +581,15 @@
 				C6FD4E241BF5DDEB00B1D6C5 /* JKNavigationController.m in Sources */,
 				C6F014B61C04BAD50051A56F /* JKBLEsTableViewController.m in Sources */,
 				C6F014B31C04A4BE0051A56F /* JKBLEsManager.m in Sources */,
+				C6F5DBAB1C1079D1000758A5 /* SVProgressHUD.m in Sources */,
 				C6188F031BEB0B5800E2F684 /* JKBLEServicAndCharacter.m in Sources */,
+				C6F5DBAC1C1079D1000758A5 /* SVRadialGradientLayer.m in Sources */,
 				C68A77B01BF8BB09001BBA04 /* JKTopLightView.m in Sources */,
 				C64F8E301BFCC5E10067339C /* JKModeListViewController.m in Sources */,
 				10B08ABA1BF9741400A30654 /* JKTabBarController.m in Sources */,
 				10A8275E1C0C4F0A005C9BAD /* NSTimer+Addition.m in Sources */,
 				C6188EF91BEB09CC00E2F684 /* UIImage+ColorAtPixel.m in Sources */,
+				C6F5DBA91C1079D1000758A5 /* SVIndefiniteAnimatedView.m in Sources */,
 				C6188EF81BEB09CC00E2F684 /* UIColor-Expanded.m in Sources */,
 				1039D5821BE9B53600A56BE9 /* ViewController.m in Sources */,
 				1039D57F1BE9B53600A56BE9 /* AppDelegate.m in Sources */,
