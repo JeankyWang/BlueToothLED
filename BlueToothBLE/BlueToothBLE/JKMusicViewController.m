@@ -157,7 +157,7 @@ typedef NS_OPTIONS(NSInteger, JKMusicStyle) {
     musicLibBtn.layer.cornerRadius = 2;
     [self.view addSubview:musicLibBtn];
     
-    UIButton *musicListBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(musicLibBtn.frame)+20, CGRectGetMinY(musicLibBtn.frame), 100, 30)];
+    UIButton *musicListBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(timeProgress.frame)-100, CGRectGetMinY(musicLibBtn.frame), 100, 30)];
     [musicListBtn setImage:[UIImage imageNamed:@"music_list"] forState:UIControlStateNormal];
     [musicListBtn setTitle:@" 播放列表" forState:UIControlStateNormal];
     [musicListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
