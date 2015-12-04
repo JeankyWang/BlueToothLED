@@ -7,8 +7,9 @@
 //
 
 #import "JKHelpViewController.h"
+#import "SVProgressHUD.h"
 
-@interface JKHelpViewController ()
+@interface JKHelpViewController ()<UIWebViewDelegate>
 
 @end
 
@@ -20,13 +21,14 @@
     self.title = @"帮助";
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
     self.webView.frame = self.view.bounds;
-    self.webView.backgroundColor = [UIColor clearColor];
+    self.webView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg"]];
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"Help" ofType:@"html"];
     //以utf8的编码格式加载html内容
     NSString *htmlString = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
     //self.wbProblems.scalesPageToFit = YES;
     //将文字内容显示到webview控件上
+    self.webView.delegate = self;
     [self.webView loadHTMLString: htmlString baseURL: [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
 }
 
@@ -35,6 +37,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [SVProgressHUD showWithStatus:nil];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [SVProgressHUD dismiss];
+}
 /*
 #pragma mark - Navigation
 
