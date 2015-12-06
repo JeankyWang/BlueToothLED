@@ -137,9 +137,9 @@
     [self.cbCentralMgr stopScan];
     
     noBLEView = [[UIView alloc] initWithFrame:self.view.bounds];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_devices"]];
     imageView.center = searchView.center;
-    [searchView addSubview:imageView];
+    [noBLEView addSubview:imageView];
     
     UILabel *noBLELabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame)+10, FullScreen_width, 20)];
     noBLELabel.textAlignment = NSTextAlignmentCenter;
@@ -302,9 +302,11 @@
         cell.textLabel.textColor = BLE_Theme_Color;
         cell.detailTextLabel.textColor = BLE_Theme_Color;
         cell.detailTextLabel.text = @"已连接";
+        cell.imageView.image = [UIImage imageNamed:@"device_connected"];
     } else {
         cell.textLabel.textColor = [UIColor grayColor];
         cell.detailTextLabel.text = @"未连接";
+        cell.imageView.image = [UIImage imageNamed:@"device_unconnected"];
     }
     
     NSString *rename = [[NSUserDefaults standardUserDefaults] objectForKey:peripheral.name];
