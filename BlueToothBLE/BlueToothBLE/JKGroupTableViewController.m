@@ -77,7 +77,7 @@
     self.tableview.dataSource = self;
     self.tableview.backgroundColor = [UIColor clearColor];
     self.tableview.tableFooterView = [UIView new];
-    self.tableview.separatorColor = [UIColor clearColor];
+    self.tableview.separatorColor = [UIColor colorWithHexString:@"3c3048"];
     [self.view addSubview:self.tableview];
     
     _actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择操作方式" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"修改名称" otherButtonTitles:@"控制", nil];

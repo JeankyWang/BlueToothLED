@@ -125,7 +125,7 @@
     colorPicker = [[JKColorPicker alloc] initWithFrame:CGRectMake((FullScreen_width - 80)/2-91, (FullScreen_width - 80)/2-91, 182, 182)];
     colorPicker.layer.cornerRadius = 91;
     [colorPicker addTarget:self action:@selector(pickColor:) forControlEvents:UIControlEventAllEvents];
-    colorPicker.backgroundColor = [UIColor whiteColor];
+//    colorPicker.backgroundColor = [UIColor whiteColor];
     [pickBackView addSubview:colorPicker];
     
     [_mainScrollView addSubview:pickBackView];

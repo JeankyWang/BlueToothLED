@@ -38,6 +38,7 @@
     self.title = @"添加场景";
     self.tableView.allowsMultipleSelection = YES;
     self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_bg"]];
+    self.tableView.separatorColor = [UIColor colorWithHexString:@"3c3048"];
     [self setupData];
 }
 
