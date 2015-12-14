@@ -76,7 +76,7 @@ static JKSendDataTool *singleton;
 
 - (void)sendDataSpeedWithValue:(Byte)speed devices:(NSArray *)deviceArray
 {
-    NSLog(@"speed sending:%d",speed);
+    DLog(@"speed sending:%d",speed);
     
     Byte byte[9] = {start,0x04,0x02,speed,0xff,0xff,0xff,0x0,end};
     NSData *data = [[NSData alloc]initWithBytes:byte length:9];
@@ -91,6 +91,13 @@ static JKSendDataTool *singleton;
     [self sendCMD:data devices:deviceArray];
     
     
+}
+
+- (void)sendDataLightType:(JKLightChangeMode)mode speed:(NSInteger)speed colorCount:(NSInteger)count devices:(NSArray *)deviceArray
+{
+    Byte rgb[9] = {start,0x07,0x0e,mode,speed,count,0xff,0xff,end};
+    NSData *data = [[NSData alloc]initWithBytes:rgb length:9];
+    [self sendCMD:data devices:deviceArray];
 }
 
 - (void)sendCMD:(NSData*)data devices:(NSArray *)deviceArray
