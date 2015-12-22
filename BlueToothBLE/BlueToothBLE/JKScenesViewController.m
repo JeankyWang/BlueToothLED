@@ -91,9 +91,9 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
 - (void)deleteScene:(UIButton *)button
 {
     [sceneArray removeObjectAtIndex:button.tag];
-    [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:button.tag inSection:0]]];
+//    [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:button.tag inSection:0]]];
     [self saveScene];
-//    [self.collectionView reloadData];
+    [self.collectionView reloadData];
 }
 
 - (void)onOffLight:(UIButton *)button
