@@ -216,7 +216,7 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     DLog(@"index : %d",(int)buttonIndex);
     if (buttonIndex == 0) {
         [self enterControlView];
-    } else if(buttonIndex == 1) {
+    } else if(buttonIndex == 1) {//添加蓝牙设备
         JKBLEsTableViewController *vc = [[JKBLEsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
         vc.scene = currentScene;
         [self.navigationController pushViewController:vc animated:YES];

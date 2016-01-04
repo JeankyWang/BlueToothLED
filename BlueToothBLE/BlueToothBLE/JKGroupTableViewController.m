@@ -306,6 +306,7 @@
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.detailTextLabel.textColor = [UIColor whiteColor];
     CBPeripheral *peripheral = _peripheralArray[indexPath.row];
+
     if (peripheral.state == CBPeripheralStateConnected)
     {
         cell.textLabel.textColor = BLE_Theme_Color;
@@ -558,7 +559,6 @@
         {
             
             DLog(@"可写特征值 =%@",chara);
-            
             
 //            JKBLEServicAndCharacter *bAndc = [[JKBLEServicAndCharacter alloc]init];
             
