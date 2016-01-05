@@ -427,6 +427,7 @@
 - (void)showDefineColorView
 {
     JKModeListViewController *vc = [[JKModeListViewController alloc] init];
+    vc.devices = _deviceArray;
     JKNavigationController *nav = [[JKNavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nav animated:YES completion:nil];
 }

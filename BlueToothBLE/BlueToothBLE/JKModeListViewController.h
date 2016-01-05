@@ -18,5 +18,6 @@
 
 @property (nonatomic,assign) id<JKUserdefindColorDelegate> delegate;
 @property (nonatomic, strong) NSMutableArray *colorsArray;
+@property (nonatomic,strong) NSArray *devices;
 
 @end

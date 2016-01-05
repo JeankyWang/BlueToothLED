@@ -25,7 +25,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "361"
             endingLineNumber = "361"
-            landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
+            landmarkName = "-tableView:canEditRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,8 +41,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "396"
             endingLineNumber = "396"
-            landmarkName = "@implementation JKGroupTableViewController"
-            landmarkType = "3">
+            landmarkName = "-actionSheet:clickedButtonAtIndex:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -84,7 +84,7 @@
                   moduleName = "BlueToothBLE"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wangzhenqi/Desktop/BlueToothLED/BlueToothBLE/BlueToothBLE/JKControlViewController.m"
-                  timestampString = "473695733.925079"
+                  timestampString = "473695861.251197"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "343"
@@ -99,7 +99,7 @@
                   moduleName = "BlueToothBLE"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wangzhenqi/Desktop/BlueToothLED/BlueToothBLE/BlueToothBLE/JKControlViewController.m"
-                  timestampString = "473695733.925322"
+                  timestampString = "473695861.251547"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "343"
@@ -114,7 +114,7 @@
                   moduleName = "BlueToothBLE"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wangzhenqi/Desktop/BlueToothLED/BlueToothBLE/BlueToothBLE/JKControlViewController.m"
-                  timestampString = "473695733.925551"
+                  timestampString = "473695861.251767"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -129,7 +129,7 @@
                   moduleName = "BlueToothBLE"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wangzhenqi/Desktop/BlueToothLED/BlueToothBLE/BlueToothBLE/JKControlViewController.m"
-                  timestampString = "473695733.925785"
+                  timestampString = "473695861.252022"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -144,7 +144,7 @@
                   moduleName = "BlueToothBLE"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wangzhenqi/Desktop/BlueToothLED/BlueToothBLE/BlueToothBLE/JKControlViewController.m"
-                  timestampString = "473695733.925986"
+                  timestampString = "473695861.25232"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "343"

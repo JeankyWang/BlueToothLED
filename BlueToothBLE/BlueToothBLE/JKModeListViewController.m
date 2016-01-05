@@ -9,6 +9,7 @@
 #import "JKModeListViewController.h"
 #import "JKDefineMenuView.h"
 #import "JKColorPicker.h"
+#import "JKSendDataTool.h"
 
 @interface JKModeListViewController ()
 {
@@ -40,7 +41,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction)];
     
     
-    _colorsArray = [NSMutableArray arrayWithCapacity:0];
+    _colorsArray = [NSMutableArray array];
 
 
     [self initView];
@@ -102,8 +103,7 @@
 {
     [self runWithColor];
     
-//    [self dismissSelf];
-    [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 - (void)showBottomMenu
@@ -177,8 +177,33 @@
         }
     }
     
+    
     if ([_delegate respondsToSelector:@selector(selectdColorArray:)]) {
+        
         [_delegate selectdColorArray:_colorsArray];
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } else {
+        
+        [[JKSendDataTool shareInstance] sendDataLightType:JKLightChangeModeFlash speed:20 colorCount:_colorsArray.count devices:_devices];
+        
+        __block NSMutableArray *tmpArray = _colorsArray;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            Byte colors[48];
+            for (int i = 0; i < tmpArray.count; i++) {
+                UIColor *color = tmpArray[i];
+                const CGFloat *colorZone =  CGColorGetComponents(color.CGColor);
+                colors[i*3] = (Byte)(colorZone[0]*255);
+                colors[i*3+1] = (Byte)(colorZone[1]*255);
+                colors[i*3+2] = (Byte)(colorZone[2]*255);
+            }
+            
+            NSData *data = [[NSData alloc] initWithBytes:&colors length:_colorsArray.count * 3];
+            [[JKSendDataTool shareInstance] sendCMD:data devices:_devices];
+        });
+        
+        [self dismissSelf];
+
     }
 }
 

@@ -49,6 +49,8 @@
     
     NSInteger clickIndex;
     UIAlertView *renameAlert;
+    
+    NSTimer *rotationTimer;
 }
 @end
 
@@ -62,7 +64,7 @@
 
     [self setupData];
     [self setupUI];
-    [self startAnimation];
+    
 }
 
 - (void)setupUI
@@ -126,6 +128,7 @@
     
     [self.view addSubview:searchView];
     
+    rotationTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(startRotation) userInfo:nil repeats:YES];
     
     searchingTime = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(hideSearchView) userInfo:nil repeats:NO];
 
@@ -153,11 +156,13 @@
 
 - (void)hideNoBLEView
 {
+    
     [noBLEView removeFromSuperview];
 }
 
 - (void)hideSearchView
 {
+    [rotationTimer invalidate];
     [searchView removeFromSuperview];
     if (_peripheralArray.count == 0) {
         [self showNoBLEView];
@@ -183,12 +188,12 @@
 }
 
 
-- (void)startAnimation
+- (void)startRotation
 {
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.005];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDidStopSelector:@selector(startAnimation)];
+//    [UIView beginAnimations:nil context:nil];
+//    [UIView setAnimationDuration:0.005];
+//    [UIView setAnimationDelegate:self];
+//    [UIView setAnimationDidStopSelector:@selector(startAnimation)];
     angle += 3;
     
     if (angle == 360) {
@@ -197,7 +202,7 @@
     
     rotationView.transform = CGAffineTransformMakeRotation(angle * (M_PI / 180.0f));
     
-    [UIView commitAnimations];
+//    [UIView commitAnimations];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -207,8 +212,12 @@
 
 - (IBAction)refreshBle:(id)sender
 {
-    [self hideNoBLEView];
+    if (rotationTimer.isValid) {
+        return;
+    }
+    
     [self setupSearchingView];
+    [self hideNoBLEView];
     
     for (CBPeripheral *per in _peripheralArray) {
         [_cbCentralMgr cancelPeripheralConnection:per];
@@ -297,6 +306,7 @@
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.detailTextLabel.textColor = [UIColor whiteColor];
     CBPeripheral *peripheral = _peripheralArray[indexPath.row];
+
     if (peripheral.state == CBPeripheralStateConnected)
     {
         cell.textLabel.textColor = BLE_Theme_Color;
@@ -552,7 +562,6 @@
         {
             
             DLog(@"可写特征值 =%@",chara);
-            
             
 //            JKBLEServicAndCharacter *bAndc = [[JKBLEServicAndCharacter alloc]init];
             
