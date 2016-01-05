@@ -207,7 +207,7 @@
 
 - (IBAction)refreshBle:(id)sender
 {
-    
+    [self hideNoBLEView];
     [self setupSearchingView];
     
     for (CBPeripheral *per in _peripheralArray) {
@@ -309,15 +309,18 @@
         cell.imageView.image = [UIImage imageNamed:@"device_unconnected"];
     }
     
-    NSString *rename = [[NSUserDefaults standardUserDefaults] objectForKey:peripheral.name];
-    
-    if (!rename){
-        cell.textLabel.text = peripheral.name;
-    } else {
-        cell.textLabel.text = rename;
+    NSString *p_name = peripheral.name;
+    if (p_name) {
+        
+        NSString *rename = [[NSUserDefaults standardUserDefaults] objectForKey:p_name];
+        
+        if (!rename){
+            cell.textLabel.text = peripheral.name;
+        } else {
+            cell.textLabel.text = rename;
+        }
     }
-
-
+    
     
     return cell;
 }

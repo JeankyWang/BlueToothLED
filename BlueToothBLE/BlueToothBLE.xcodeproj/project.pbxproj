@@ -766,7 +766,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.beimu.xcolor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c147b524-6c13-46cc-96ea-02984a639b5a";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -784,7 +784,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.beimu.xcolor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c147b524-6c13-46cc-96ea-02984a639b5a";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

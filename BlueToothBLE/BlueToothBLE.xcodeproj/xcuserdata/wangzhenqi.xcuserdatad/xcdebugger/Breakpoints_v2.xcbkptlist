@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BlueToothBLE/JKGroupTableViewController.m"
-            timestampString = "471099052.407459"
+            timestampString = "473695552.59743"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "358"
-            endingLineNumber = "358"
+            startingLineNumber = "361"
+            endingLineNumber = "361"
             landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BlueToothBLE/JKGroupTableViewController.m"
-            timestampString = "471099052.407459"
+            timestampString = "473695552.59743"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "393"
-            endingLineNumber = "393"
+            startingLineNumber = "396"
+            endingLineNumber = "396"
             landmarkName = "@implementation JKGroupTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -75,6 +75,83 @@
             endingLineNumber = "343"
             landmarkName = "-selectDefaultDynmicColor:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[JKControlViewController selectDefaultDynmicColor:]"
+                  moduleName = "BlueToothBLE"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wangzhenqi/Desktop/BlueToothLED/BlueToothBLE/BlueToothBLE/JKControlViewController.m"
+                  timestampString = "473695733.925079"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "343"
+                  endingLineNumber = "343"
+                  offsetFromSymbolStart = "1036">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__52-[JKControlViewController selectDefaultDynmicColor:]_block_invoke"
+                  moduleName = "BlueToothBLE"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wangzhenqi/Desktop/BlueToothLED/BlueToothBLE/BlueToothBLE/JKControlViewController.m"
+                  timestampString = "473695733.925322"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "343"
+                  endingLineNumber = "343"
+                  offsetFromSymbolStart = "260">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_226"
+                  moduleName = "BlueToothBLE"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wangzhenqi/Desktop/BlueToothLED/BlueToothBLE/BlueToothBLE/JKControlViewController.m"
+                  timestampString = "473695733.925551"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_227"
+                  moduleName = "BlueToothBLE"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wangzhenqi/Desktop/BlueToothLED/BlueToothBLE/BlueToothBLE/JKControlViewController.m"
+                  timestampString = "473695733.925785"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__52-[JKControlViewController selectDefaultDynmicColor:]_block_invoke229"
+                  moduleName = "BlueToothBLE"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wangzhenqi/Desktop/BlueToothLED/BlueToothBLE/BlueToothBLE/JKControlViewController.m"
+                  timestampString = "473695733.925986"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "343"
+                  endingLineNumber = "343"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
