@@ -424,10 +424,11 @@
     switch (central.state) {
             
         case CBCentralManagerStatePoweredOn:
-            
-            
-            [self.cbCentralMgr scanForPeripheralsWithServices: nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES }];
-            
+        {
+            NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber  numberWithBool:YES], CBCentralManagerScanOptionAllowDuplicatesKey, nil];
+
+            [self.cbCentralMgr scanForPeripheralsWithServices: nil options:options];
+        }
             break;
             
         default:
@@ -474,7 +475,7 @@
     peripheral.delegate = self;
     
     DLog(@"搜索服务");
-    [peripheral discoverServices:@[[CBUUID UUIDWithString:@"FFE5"],[CBUUID UUIDWithString:WRITE_SERVICE_UUID_OTHER]]];
+    [peripheral discoverServices:@[[CBUUID UUIDWithString:WRITE_SERVICE_UUID]]];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
@@ -535,8 +536,7 @@
             DLog(@"Service found with UUID: %@\n", p.UUID);
             
             //判断选择相应通道的服务uuid，如果是该通道就去发现该特征值
-            if ([p.UUID isEqual:[CBUUID UUIDWithString:WRITE_SERVICE_UUID]]
-                || [p.UUID isEqual:[CBUUID UUIDWithString:WRITE_SERVICE_UUID_OTHER]])
+            if ([p.UUID isEqual:[CBUUID UUIDWithString:WRITE_SERVICE_UUID]])
             {
                 [peripheral discoverCharacteristics:nil forService:p];
             }
@@ -566,8 +566,7 @@
 //            JKBLEServicAndCharacter *bAndc = [[JKBLEServicAndCharacter alloc]init];
             
             //活得可用通道
-            if ([chara.UUID isEqual:[CBUUID UUIDWithString:WRITE_CHARA_UUID]]
-                || [chara.UUID isEqual:[CBUUID UUIDWithString:WRITE_CHARA_UUID_OTHER]]) {
+            if ([chara.UUID isEqual:[CBUUID UUIDWithString:WRITE_CHARA_UUID]]) {
                 writeCharacter = chara;
                 [JKBLEsManager sharedInstance].writeCharacter = chara;
 //
