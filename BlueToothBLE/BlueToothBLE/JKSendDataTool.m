@@ -10,7 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "JKBLEsManager.h"
 
-const static Byte start = 0x7e;// fe 7e
+const static Byte start = 0xfe;// fe 7e
 const static Byte end = 0xef;
 
 @implementation JKSendDataTool
