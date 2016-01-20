@@ -104,7 +104,7 @@ typedef NS_OPTIONS(NSInteger, JKMusicStyle) {
     
     //专辑画面
     thumbImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"music_strong"]];
-    thumbImg.frame = CGRectMake(FullScreen_width/2-100, CGRectGetMaxY(styleView.frame)+33*PhoneScale, 200, 200);
+    thumbImg.frame = CGRectMake(FullScreen_width/2-100, FullScreen_height/2-100, 200, 200);
     thumbImg.layer.cornerRadius = 100;
     thumbImg.layer.masksToBounds = YES;
     [self.view addSubview:thumbImg];
@@ -128,7 +128,7 @@ typedef NS_OPTIONS(NSInteger, JKMusicStyle) {
     [nextBtn addTarget:self action:@selector(playNextSong) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:nextBtn];
     
-    pastTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(playBtn.frame)+18, 50, 10)];
+    pastTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(playBtn.frame)+18*PhoneScale, 50, 10)];
     pastTimeLabel.textColor = [UIColor whiteColor];
     pastTimeLabel.font = Font(10);
     pastTimeLabel.text = @"00:00";

@@ -50,7 +50,7 @@
 
 - (void)initView
 {
-    UILabel *info = [[UILabel alloc]initWithFrame:CGRectMake(0, 70, FullScreen_width, 20)];
+    UILabel *info = [[UILabel alloc]initWithFrame:CGRectMake(0, 100*PhoneScale, FullScreen_width, 20)];
     info.backgroundColor = [UIColor clearColor];
     info.text = @"添加自定义颜色组合";
     info.textAlignment = NSTextAlignmentCenter;
@@ -60,7 +60,7 @@
     
     int length = 260;
     
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(FullScreen_width/2-length/2, CGRectGetMaxY(info.frame)+20, length, length)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(FullScreen_width/2-length/2, FullScreen_height/2-length/2, length, length)];
 
 
     view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
