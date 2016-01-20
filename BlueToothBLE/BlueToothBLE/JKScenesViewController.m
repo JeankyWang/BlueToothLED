@@ -17,6 +17,8 @@
 #import "JKBLEsTableViewController.h"
 #import "JKControlViewController.h"
 
+
+
 @interface JKScenesViewController ()<UICollectionViewDelegateFlowLayout,JKScenesSelectDelegate,UIActionSheetDelegate>
 {
     NSMutableArray *sceneArray;
@@ -81,7 +83,7 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
 {
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake(FullScreen_width/2-2, 190);
+    layout.itemSize = CGSizeMake((FullScreen_width/2-2)*PhoneScale , 190*PhoneScale);
     layout.minimumInteritemSpacing = 2;
     layout.minimumLineSpacing = 5;
     self.collectionView.collectionViewLayout = layout;
@@ -243,9 +245,12 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     [self.collectionView reloadData];
 }
 
+#pragma -mark 切换编辑标题
 - (IBAction)editScene:(UIBarButtonItem *)sender {
     
     isEditing = !isEditing;
+    if(isEditing) sender.title = @"取消";
+    else sender.title = @"编辑";
     [self.collectionView reloadData];
 }
 

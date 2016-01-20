@@ -15,6 +15,6 @@
 #define FontBold(v) [UIFont boldSystemFontOfSize:(v)]
 #define BLE_Theme_Color [UIColor colorWithHexString:@"917b9f"]
 #define JKSaveScenesNotification @"JKSaveScenesNotification"
-
+#define PhoneScale FullScreen_height/568
 
 #endif

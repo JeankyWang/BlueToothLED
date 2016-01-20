@@ -102,16 +102,16 @@ typedef NS_OPTIONS(NSInteger, JKMusicStyle) {
     }
 
     
-    
+    //专辑画面
     thumbImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"music_strong"]];
-    thumbImg.frame = CGRectMake(FullScreen_width/2-100, CGRectGetMaxY(styleView.frame)+33, 200, 200);
+    thumbImg.frame = CGRectMake(FullScreen_width/2-100, CGRectGetMaxY(styleView.frame)+33*PhoneScale, 200, 200);
     thumbImg.layer.cornerRadius = 100;
     thumbImg.layer.masksToBounds = YES;
     [self.view addSubview:thumbImg];
     
     //控制按钮
     
-    UIButton *preBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(thumbImg.frame)+30, CGRectGetMaxY(thumbImg.frame) + 10, 30, 30)];
+    UIButton *preBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(thumbImg.frame)+30*PhoneScale, CGRectGetMaxY(thumbImg.frame) + 10, 30, 30)];
     [preBtn setImage:[UIImage imageNamed:@"music_pre"] forState:UIControlStateNormal];
     [preBtn addTarget:self action:@selector(playPreSong) forControlEvents:UIControlEventTouchUpInside];
     
@@ -147,7 +147,7 @@ typedef NS_OPTIONS(NSInteger, JKMusicStyle) {
     [self.view addSubview:haveTimeLabel];
     
     //
-    UIButton *musicLibBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(timeProgress.frame), CGRectGetMaxY(timeProgress.frame)+30, 100, 30)];
+    UIButton *musicLibBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(timeProgress.frame), CGRectGetMaxY(timeProgress.frame)+30*PhoneScale, 100, 30)];
     [musicLibBtn setImage:[UIImage imageNamed:@"music_db"] forState:UIControlStateNormal];
     [musicLibBtn setTitle:@" 本地音乐" forState:UIControlStateNormal];
     [musicLibBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
