@@ -83,7 +83,7 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
 {
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake((FullScreen_width/2-2)*PhoneScale , 190*PhoneScale);
+    layout.itemSize = CGSizeMake((FullScreen_width/2)-2 , 190*PhoneScale);
     layout.minimumInteritemSpacing = 2;
     layout.minimumLineSpacing = 5;
     self.collectionView.collectionViewLayout = layout;
@@ -176,6 +176,7 @@ static NSString * const reuseIdentifier = @"scene_cell_id";
     cell.delBtn.hidden = !isEditing;
     cell.delBtn.tag = indexPath.item;
     cell.lightBtn.tag = indexPath.item;
+    cell.backgroundColor = [UIColor grayColor];
     [cell.delBtn addTarget:self action:@selector(deleteScene:) forControlEvents:UIControlEventTouchUpInside];
     [cell.lightBtn addTarget:self action:@selector(onOffLight:) forControlEvents:UIControlEventTouchUpInside];
     
