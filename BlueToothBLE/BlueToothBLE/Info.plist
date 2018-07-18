@@ -24,6 +24,14 @@
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>是否允许程序访问您的摄像头</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>是否允许照片保存到系统相册</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>是否允许访问系统相册</string>
+	<key>UILaunchStoryboardName</key>
+	<string>Launch Screen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
