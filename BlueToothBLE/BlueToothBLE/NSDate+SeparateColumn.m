@@ -2,8 +2,8 @@
 //  NSDate+SeparateColumn.m
 //  jkjk
 //
-//  Created by luxingtong on 14-9-26.
-//  Copyright (c) 2014年 Chengdu Luxingtong Electtronic Co. Ltd. All rights reserved.
+//  Created by jkjk on 14-9-26.
+//  Copyright (c) 2014年 Chengdu jkjk Electtronic Co. Ltd. All rights reserved.
 //
 
 #import "NSDate+SeparateColumn.h"
