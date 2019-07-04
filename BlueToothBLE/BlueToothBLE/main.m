@@ -2,7 +2,7 @@
 //  main.m
 //  BlueToothBLE
 //
-//  Created by klicen on 15/11/4.
+//  Created by jkjk on 15/11/4.
 //  Copyright © 2015年 beimu. All rights reserved.
 //
 

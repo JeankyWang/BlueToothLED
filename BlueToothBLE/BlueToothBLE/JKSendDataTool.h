@@ -2,7 +2,7 @@
 //  JKSendDataTool.h
 //  BlueToothBLE
 //
-//  Created by klicen on 15/12/2.
+//  Created by jkjk on 15/12/2.
 //  Copyright © 2015年 beimu. All rights reserved.
 //
 

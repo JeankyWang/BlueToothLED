@@ -2,7 +2,7 @@
 //  JKColorPicker.h
 //  BlueToothBLE
 //
-//  Created by klicen on 15/11/17.
+//  Created by jkjk on 15/11/17.
 //  Copyright © 2015年 beimu. All rights reserved.
 //
 

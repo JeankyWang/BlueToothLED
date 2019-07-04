@@ -2,7 +2,7 @@
 //  JKTabBarController.m
 //  BlueToothBLE
 //
-//  Created by klicen on 15/11/16.
+//  Created by jkjk on 15/11/16.
 //  Copyright © 2015年 beimu. All rights reserved.
 //
 

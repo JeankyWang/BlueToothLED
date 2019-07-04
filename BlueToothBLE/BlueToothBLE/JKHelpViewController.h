@@ -2,7 +2,7 @@
 //  JKHelpViewController.h
 //  BlueToothBLE
 //
-//  Created by klicen on 15/12/1.
+//  Created by jkjk on 15/12/1.
 //  Copyright © 2015年 beimu. All rights reserved.
 //
 
